@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 public class conexion {
     Connection con;
     public Connection Conectar(){
+        //hola
         String url="jdbc:mysql://localhost:3306/clinica_veterinaria";
         String user="root";
         String pass="";
