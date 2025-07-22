@@ -314,6 +314,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             }catch(SQLException e){
                 System.out.println("Error al eliminar datos"+e);
                 System.out.println("Error al eliminar datos"+e);
+                
 
             }
         }
