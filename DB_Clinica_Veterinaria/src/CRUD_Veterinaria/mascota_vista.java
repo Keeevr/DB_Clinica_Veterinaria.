@@ -10,7 +10,6 @@ public class mascota_vista extends javax.swing.JFrame {
     Metodos me = new Metodos();
     public mascota_vista() {
         initComponents();
-        //setLocationRelativeTo(this);
         mostrardatos();
         configurarPermisosPorRol();
     }

@@ -25,6 +25,8 @@ public class Menu_vista extends javax.swing.JFrame {
         btn_salir = new javax.swing.JButton();
         btn_empleados = new javax.swing.JButton();
         btn_cargo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,6 +45,7 @@ public class Menu_vista extends javax.swing.JFrame {
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_mascotas.setText("Mascotas");
         btn_mascotas.addActionListener(new java.awt.event.ActionListener() {
@@ -50,6 +53,7 @@ public class Menu_vista extends javax.swing.JFrame {
                 btn_mascotasActionPerformed(evt);
             }
         });
+        jPanel1.add(btn_mascotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 140, -1));
 
         btn_factura.setText("Factura");
         btn_factura.addActionListener(new java.awt.event.ActionListener() {
@@ -57,6 +61,7 @@ public class Menu_vista extends javax.swing.JFrame {
                 btn_facturaActionPerformed(evt);
             }
         });
+        jPanel1.add(btn_factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 140, -1));
 
         btn_clientes.setText("Clientes");
         btn_clientes.addActionListener(new java.awt.event.ActionListener() {
@@ -64,6 +69,7 @@ public class Menu_vista extends javax.swing.JFrame {
                 btn_clientesActionPerformed(evt);
             }
         });
+        jPanel1.add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 140, -1));
 
         btn_salir.setText("Salir");
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
@@ -71,6 +77,7 @@ public class Menu_vista extends javax.swing.JFrame {
                 btn_salirActionPerformed(evt);
             }
         });
+        jPanel1.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 140, -1));
 
         btn_empleados.setText("Empleados");
         btn_empleados.addActionListener(new java.awt.event.ActionListener() {
@@ -78,6 +85,7 @@ public class Menu_vista extends javax.swing.JFrame {
                 btn_empleadosActionPerformed(evt);
             }
         });
+        jPanel1.add(btn_empleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 140, -1));
 
         btn_cargo.setText("Cargo");
         btn_cargo.addActionListener(new java.awt.event.ActionListener() {
@@ -85,45 +93,18 @@ public class Menu_vista extends javax.swing.JFrame {
                 btn_cargoActionPerformed(evt);
             }
         });
+        jPanel1.add(btn_cargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 140, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_cargo)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btn_salir)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btn_factura)
-                                    .addComponent(btn_mascotas))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(btn_clientes))))
-                        .addComponent(btn_empleados)))
-                .addContainerGap(62, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(btn_mascotas)
-                .addGap(18, 18, 18)
-                .addComponent(btn_factura)
-                .addGap(18, 18, 18)
-                .addComponent(btn_clientes)
-                .addGap(140, 140, 140)
-                .addComponent(btn_empleados)
-                .addGap(57, 57, 57)
-                .addComponent(btn_cargo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
-                .addComponent(btn_salir)
-                .addGap(31, 31, 31))
-        );
+        jButton1.setText("Medicamentos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 140, -1));
+
+        jButton2.setText("jButton2");
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 140, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,17 +112,16 @@ public class Menu_vista extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(panel_contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(panel_contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
                     .addComponent(panel_contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
@@ -210,6 +190,14 @@ public class Menu_vista extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_cargoActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Medicamentos_vista mv = new Medicamentos_vista(); // NO hagas mv.setVisible(true);
+        JPanel panelMedicamentos = mv.getPanelMedicamentos(); // obtenemos jPanel2
+        
+        mostrarPanel(panelMedicamentos); // lo insertamos en el contenedor
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -252,6 +240,8 @@ public class Menu_vista extends javax.swing.JFrame {
     private javax.swing.JButton btn_factura;
     private javax.swing.JButton btn_mascotas;
     private javax.swing.JButton btn_salir;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel panel_contenedor;
     // End of variables declaration//GEN-END:variables

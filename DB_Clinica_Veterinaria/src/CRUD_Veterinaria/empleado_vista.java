@@ -15,7 +15,6 @@ public class empleado_vista extends javax.swing.JFrame {
 
     public empleado_vista() {
         initComponents();
-        setLocationRelativeTo(null);
         mostrardatos();//carga la tabla por primera vez
         configurarSegunRol(Sesion.rolActual);
     }

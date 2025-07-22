@@ -31,7 +31,6 @@ public class factura_Vista extends javax.swing.JFrame {
         initComponents();
         deshabilitarPanel(jPanelM);
         deshabilitarPanel(jPanelP);
-        setLocationRelativeTo(null);
         mostrarNumeroFactura();
         mostrarFecha();
         agregarFiltroDinamicoRecepcionistas();
