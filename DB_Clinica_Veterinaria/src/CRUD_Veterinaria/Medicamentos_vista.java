@@ -13,6 +13,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
     
     public Medicamentos_vista() {
         initComponents();
+        mostrardatos();
     }
 
     
@@ -29,13 +30,13 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         btnregistrar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
         btnactualizar = new javax.swing.JButton();
-        txtidentidad_medicamentos = new javax.swing.JTextField();
+        txt_id_medicamentos = new javax.swing.JTextField();
         jdcfecha_caducacion = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtabledatos = new javax.swing.JTable();
-        txtbuscar_medicamento = new javax.swing.JTextField();
-        btnbuscar_medicamento = new javax.swing.JButton();
+        jtable_datos = new javax.swing.JTable();
+        txt_buscar_medicamento = new javax.swing.JTextField();
+        btn_buscar_medicamento = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
 
@@ -103,14 +104,14 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         });
         jPanel1.add(btnactualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 480, 140, 50));
 
-        txtidentidad_medicamentos.setEditable(false);
-        txtidentidad_medicamentos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID MEDICAMENTO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
-        txtidentidad_medicamentos.addActionListener(new java.awt.event.ActionListener() {
+        txt_id_medicamentos.setEditable(false);
+        txt_id_medicamentos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID MEDICAMENTO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        txt_id_medicamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtidentidad_medicamentosActionPerformed(evt);
+                txt_id_medicamentosActionPerformed(evt);
             }
         });
-        jPanel1.add(txtidentidad_medicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 140, 65));
+        jPanel1.add(txt_id_medicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 140, 65));
 
         jdcfecha_caducacion.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA DE CADUCACION"));
         jPanel1.add(jdcfecha_caducacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 470, 70));
@@ -118,7 +119,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(237, 232, 208));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
-        jtabledatos.setModel(new javax.swing.table.DefaultTableModel(
+        jtable_datos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -135,25 +136,25 @@ public class Medicamentos_vista extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
             }
         ));
-        jtabledatos.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtable_datos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtabledatosMouseClicked(evt);
+                jtable_datosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jtabledatos);
+        jScrollPane1.setViewportView(jtable_datos);
 
-        txtbuscar_medicamento.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresa Nombre o ID"));
-        txtbuscar_medicamento.addActionListener(new java.awt.event.ActionListener() {
+        txt_buscar_medicamento.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresa Nombre o ID"));
+        txt_buscar_medicamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtbuscar_medicamentoActionPerformed(evt);
+                txt_buscar_medicamentoActionPerformed(evt);
             }
         });
 
-        btnbuscar_medicamento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnbuscar_medicamento.setText("Buscar");
-        btnbuscar_medicamento.addActionListener(new java.awt.event.ActionListener() {
+        btn_buscar_medicamento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_buscar_medicamento.setText("Buscar");
+        btn_buscar_medicamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnbuscar_medicamentoActionPerformed(evt);
+                btn_buscar_medicamentoActionPerformed(evt);
             }
         });
 
@@ -173,9 +174,9 @@ public class Medicamentos_vista extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtbuscar_medicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_buscar_medicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnbuscar_medicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_buscar_medicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
                         .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
@@ -186,8 +187,8 @@ public class Medicamentos_vista extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnbuscar_medicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtbuscar_medicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_buscar_medicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_buscar_medicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -285,7 +286,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             ps.executeUpdate();
             JOptionPane.showMessageDialog(this, "Medicamento registrado correctamente.");
             
-            me.limpiarCampos(txtidentidad_medicamentos, txtnombre_medicamento, txtprecio_unitario, txtcantidad);
+            me.limpiarCampos(txt_id_medicamentos, txtnombre_medicamento, txtprecio_unitario, txtcantidad);
             me.limpiarDateChooser(jdcfecha_caducacion);
             
         } catch (SQLException e) {
@@ -326,7 +327,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
 
         if (txtcantidad.getText().trim().isEmpty() ||
-            txtidentidad_medicamentos.getText().trim().isEmpty() ||
+            txt_id_medicamentos.getText().trim().isEmpty() ||
             //txtnombre_cliente.getText().trim().isEmpty() ||
             txtprecio_unitario.getText().trim().isEmpty() ||
             //combosexo.getSelectedItem().toString().equals("Seleccionar") ||
@@ -343,7 +344,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             // 1. Buscar el ID del empleado por identidad
             String query1 = "SELECT id_cliente FROM cliente WHERE identidad = ?";
             PreparedStatement ps1 = cn.prepareStatement(query1);
-            ps1.setString(1, txtidentidad_medicamentos.getText());
+            ps1.setString(1, txt_id_medicamentos.getText());
 
             ResultSet rs = ps1.executeQuery();
 
@@ -382,11 +383,11 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnactualizarActionPerformed
 
-    private void txtidentidad_medicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidentidad_medicamentosActionPerformed
+    private void txt_id_medicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_id_medicamentosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtidentidad_medicamentosActionPerformed
+    }//GEN-LAST:event_txt_id_medicamentosActionPerformed
 
-    private void jtabledatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtabledatosMouseClicked
+    private void jtable_datosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtable_datosMouseClicked
 
         // Activar/desactivar botones
         btnregistrar.setEnabled(false);
@@ -396,7 +397,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             btneliminar.setEnabled(false);
         }
 
-        int fila = this.jtabledatos.getSelectedRow();
+        int fila = this.jtable_datos.getSelectedRow();
 
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "Selecciona una fila.");
@@ -406,7 +407,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         // Obtener valores de la fila
         String[] datos = new String[8];
         for (int i = 0; i < datos.length; i++) {
-            datos[i] = this.jtabledatos.getValueAt(fila, i).toString();
+            datos[i] = this.jtable_datos.getValueAt(fila, i).toString();
         }
 
         // Asignar a los campos
@@ -436,9 +437,9 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                this.txtidentidad_medicamentos.setText(rs.getString("identidad"));
+                this.txt_id_medicamentos.setText(rs.getString("identidad"));
             } else {
-                this.txtidentidad_medicamentos.setText("");
+                this.txt_id_medicamentos.setText("");
                 JOptionPane.showMessageDialog(this, "Identidad del cliente no encontrada.");
             }
 
@@ -446,69 +447,82 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al buscar identidad del cliente.");
         }
-    }//GEN-LAST:event_jtabledatosMouseClicked
+    }//GEN-LAST:event_jtable_datosMouseClicked
 
-    private void txtbuscar_medicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtbuscar_medicamentoActionPerformed
+    private void txt_buscar_medicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_buscar_medicamentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtbuscar_medicamentoActionPerformed
+    }//GEN-LAST:event_txt_buscar_medicamentoActionPerformed
 
-    private void btnbuscar_medicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscar_medicamentoActionPerformed
+    private void btn_buscar_medicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscar_medicamentoActionPerformed
 
-        String busqueda = txtbuscar_medicamento.getText().trim();
-       // me.limpiarCampos(txtidentidad_medicamentos, txtid_mascota, txtnombre_medicamento, txtid_mascota, txtdescripcion, txtcantidad, txtprecio_unitario);
+        String busqueda = txt_buscar_medicamento.getText().trim();
+        me.limpiarCampos(txtcantidad, txt_id_medicamentos, txtnombre_medicamento, txtprecio_unitario);
         me.limpiarDateChooser(jdcfecha_caducacion);
-       // me.limpiarComboBox(combosexo);
-        //btnregistrar.setEnabled(true);
+        btnregistrar.setEnabled(true);
 
         if (busqueda.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingresa un nombre o ID de mascota para buscar.");
-         //   mostrardatos();
+            JOptionPane.showMessageDialog(this, "Ingresa un nombre o ID de Medicamento para buscar.");
+            mostrardatos();
             return;
         }
 
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID Cliente");
-        modelo.addColumn("Dueño");
-        modelo.addColumn("ID");
-        modelo.addColumn("Mascota");
-        modelo.addColumn("Especie");
-        modelo.addColumn("Raza");
-        modelo.addColumn("Fecha Nacimiento");
-        modelo.addColumn("Sexo");
-
-        String query = "SELECT m.id_mascota, m.nombre, m.especie, m.raza, m.fecha_nacimiento, m.sexo, c.id_cliente, c.nombre " +
-        "FROM mascota m INNER JOIN cliente c ON c.id_cliente = m.id_cliente " +
-        "WHERE c.nombre LIKE ? OR CAST(m.id_mascota AS CHAR) LIKE ?";
+        modelo.addColumn("ID Medicamento");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Fecha Caducidad");
+        modelo.addColumn("Precio Uni");
+        modelo.addColumn("Cantidad");
 
         try {
-            PreparedStatement ps = cn.prepareStatement(query);
-            ps.setString(1, "%" + busqueda + "%");
-            ps.setString(2, "%" + busqueda + "%");
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Object[] fila = new Object[8];
-                fila[0] = rs.getInt("id_cliente");      // ID Cliente
-                fila[1] = rs.getString("c.nombre");     // Dueño de la Mascota
-                fila[2] = rs.getInt("id_mascota");      // ID Mascota
-                fila[3] = rs.getString("m.nombre");     // Nombre de Mascota
-                fila[4] = rs.getString("especie");      // Especie
-                fila[5] = rs.getString("raza");         // Raza
-                fila[6] = rs.getString("fecha_nacimiento") != null ? rs.getString("fecha_nacimiento") : "No especificada"; // Fecha Nacimiento
-                fila[7] = rs.getString("sexo");         // Sexo
-                modelo.addRow(fila);
+            if (busqueda.matches("\\d+")) {
+                // Buscar por ID exacto
+                String query = "SELECT m.id_medicamento, m.nombre, m.fecha_caducacion, m.precio_unitario, m.cantidad "
+                             + "FROM medicamentos m WHERE m.id_medicamento = ?";
+                try (PreparedStatement ps = cn.prepareStatement(query)) {
+                    ps.setInt(1, Integer.parseInt(busqueda));
+                    try (ResultSet rs = ps.executeQuery()) {
+                        while (rs.next()) {
+                            Object[] fila = new Object[5];
+                            fila[0] = rs.getInt("id_medicamento");
+                            fila[1] = rs.getString("nombre");
+                            fila[2] = rs.getString("fecha_caducacion") != null ? rs.getString("fecha_caducacion") : "No especificada";
+                            fila[3] = rs.getString("precio_unitario");
+                            fila[4] = rs.getString("cantidad");
+                            modelo.addRow(fila);
+                        }
+                    }
+                }
+            } else {
+                // Buscar por nombre parcial
+                String query = "SELECT m.id_medicamento, m.nombre, m.fecha_caducacion, m.precio_unitario, m.cantidad "
+                             + "FROM medicamentos m WHERE m.nombre LIKE ?";
+                try (PreparedStatement ps = cn.prepareStatement(query)) {
+                    ps.setString(1, "%" + busqueda + "%");
+                    try (ResultSet rs = ps.executeQuery()) {
+                        while (rs.next()) {
+                            Object[] fila = new Object[5];
+                            fila[0] = rs.getInt("id_medicamento");
+                            fila[1] = rs.getString("nombre");
+                            fila[2] = rs.getString("fecha_caducacion") != null ? rs.getString("fecha_caducacion") : "No especificada";
+                            fila[3] = rs.getString("precio_unitario");
+                            fila[4] = rs.getString("cantidad");
+                            modelo.addRow(fila);
+                        }
+                    }
+                }
             }
+            jtable_datos.setModel(modelo);
+            me.ajustarAnchoColumnas(jtable_datos, 150);
 
-            jtabledatos.setModel(modelo);
-            me.ajustarAnchoColumnas(jtabledatos, 150);
             if (modelo.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "No se encontraron mascotas con ese nombre o ID.");
-             //   mostrardatos();
+                JOptionPane.showMessageDialog(this, "No se encontraron Medicamentos con ese Nombre o ID.");
+                mostrardatos();
             }
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al buscar: " + e.getMessage());
         }
-    }//GEN-LAST:event_btnbuscar_medicamentoActionPerformed
+    }//GEN-LAST:event_btn_buscar_medicamentoActionPerformed
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
         new Menu_vista().setVisible(true);
@@ -551,8 +565,8 @@ public class Medicamentos_vista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_buscar_medicamento;
     private javax.swing.JButton btnactualizar;
-    private javax.swing.JButton btnbuscar_medicamento;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnregistrar;
     private javax.swing.JButton btnsalir;
@@ -563,14 +577,45 @@ public class Medicamentos_vista extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private com.toedter.calendar.JDateChooser jdcfecha_caducacion;
-    private javax.swing.JTable jtabledatos;
-    private javax.swing.JTextField txtbuscar_medicamento;
+    private javax.swing.JTable jtable_datos;
+    private javax.swing.JTextField txt_buscar_medicamento;
+    private javax.swing.JTextField txt_id_medicamentos;
     private javax.swing.JTextField txtcantidad;
-    private javax.swing.JTextField txtidentidad_medicamentos;
     private javax.swing.JTextField txtnombre_medicamento;
     private javax.swing.JTextField txtprecio_unitario;
     // End of variables declaration//GEN-END:variables
 
+        private void mostrardatos() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID Medicamento");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Fecha Caducidad");
+        modelo.addColumn("Precio Uni");
+        modelo.addColumn("Cantidad");
+        
+        jtable_datos.setModel(modelo);
+
+        String query = "SELECT m.id_medicamento, m.nombre, m.fecha_caducacion, m.precio_unitario, m.cantidad FROM medicamentos m";
+
+        try (Connection cn=con.Conectar();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(query)) {
+            while (rs.next()) {
+                String[] data = new String[5];
+                data[0] = rs.getString(1); 
+                data[1] = rs.getString(2);
+                data[2] = rs.getString(3); 
+                data[3] = rs.getString(4); 
+                data[4] = rs.getString(5); 
+                modelo.addRow(data);
+            }
+            me.ajustarAnchoColumnas(jtable_datos, 150);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos: " + e.getMessage());
+        }
+    }
+    
+    
     public JPanel getPanelMedicamentos(){
         return jPanel2;
     }   
