@@ -22,10 +22,8 @@ public class Medicamentos_vista extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        btnbuscar_idmedicamento = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         txtnombre_medicamento = new javax.swing.JTextField();
-        txtdescripcion = new javax.swing.JTextField();
         txtprecio_unitario = new javax.swing.JTextField();
         txtcantidad = new javax.swing.JTextField();
         btnregistrar = new javax.swing.JButton();
@@ -51,33 +49,16 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnbuscar_idmedicamento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnbuscar_idmedicamento.setText("Buscar");
-        btnbuscar_idmedicamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnbuscar_idmedicamentoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnbuscar_idmedicamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 130, 150));
-
         jSeparator1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 470, 10));
 
-        txtnombre_medicamento.setBorder(javax.swing.BorderFactory.createTitledBorder(null, " Nombre del Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        txtnombre_medicamento.setBorder(javax.swing.BorderFactory.createTitledBorder(null, " Nombre del Medicamento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         txtnombre_medicamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtnombre_medicamentoActionPerformed(evt);
             }
         });
-        jPanel1.add(txtnombre_medicamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 339, 65));
-
-        txtdescripcion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Descripcion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
-        txtdescripcion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtdescripcionActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtdescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 470, 60));
+        jPanel1.add(txtnombre_medicamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 470, 65));
 
         txtprecio_unitario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Precio Unitario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         txtprecio_unitario.addActionListener(new java.awt.event.ActionListener() {
@@ -85,15 +66,15 @@ public class Medicamentos_vista extends javax.swing.JFrame {
                 txtprecio_unitarioActionPerformed(evt);
             }
         });
-        jPanel1.add(txtprecio_unitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 470, 60));
+        jPanel1.add(txtprecio_unitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 470, 60));
 
-        txtcantidad.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Especie", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        txtcantidad.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cantidad", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         txtcantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtcantidadActionPerformed(evt);
             }
         });
-        jPanel1.add(txtcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 470, 60));
+        jPanel1.add(txtcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 470, 60));
 
         btnregistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnregistrar.setText("REGISTRAR");
@@ -122,16 +103,17 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         });
         jPanel1.add(btnactualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 480, 140, 50));
 
-        txtidentidad_medicamentos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Identidad", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        txtidentidad_medicamentos.setEditable(false);
+        txtidentidad_medicamentos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID MEDICAMENTO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         txtidentidad_medicamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtidentidad_medicamentosActionPerformed(evt);
             }
         });
-        jPanel1.add(txtidentidad_medicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 339, 65));
+        jPanel1.add(txtidentidad_medicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 140, 65));
 
         jdcfecha_caducacion.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA DE CADUCACION"));
-        jPanel1.add(jdcfecha_caducacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 470, 70));
+        jPanel1.add(jdcfecha_caducacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 470, 70));
 
         jPanel3.setBackground(new java.awt.Color(237, 232, 208));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
@@ -256,38 +238,9 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnbuscar_idmedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscar_idmedicamentoActionPerformed
-        String idmedicamento = txtidentidad_medicamentos.getText();
-        try {
-            Connection cn = con.Conectar();
-
-            PreparedStatement ps = cn.prepareStatement("SELECT nombre FROM medicamentos WHERE id_medicamento = ?");
-            ps.setString(1, idmedicamento);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                txtnombre_medicamento.setText(rs.getString("nombre"));
-                me.limpiarCampos(txtcantidad, txtdescripcion, txtprecio_unitario);
-                me.limpiarDateChooser(jdcfecha_caducacion);
-            } else {
-                int resp = JOptionPane.showConfirmDialog(this, "Medicamento no encontrado. ¿Deseas registrarlo?", "Aviso", JOptionPane.YES_NO_OPTION);
-                if (resp == JOptionPane.YES_OPTION) {
-                    new clientes_vista().setVisible(true);
-                    this.dispose();
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Ocurrió un problema al buscar el medicamento:\n" + e.getMessage());
-        }
-    }//GEN-LAST:event_btnbuscar_idmedicamentoActionPerformed
-
     private void txtnombre_medicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombre_medicamentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnombre_medicamentoActionPerformed
-
-    private void txtdescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdescripcionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtdescripcionActionPerformed
 
     private void txtprecio_unitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprecio_unitarioActionPerformed
         // TODO add your handling code here:
@@ -303,57 +256,40 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         java.util.Date fechaUtil = jdcfecha_caducacion.getDate();
         java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
 
-        if (txtcantidad.getText().trim().isEmpty() ||
-            txtidentidad_medicamentos.getText().trim().isEmpty() ||
-            //txtnombre_cliente.getText().trim().isEmpty() ||
+        if (//txtidentidad_medicamentos.getText().trim().isEmpty() ||
+            txtnombre_medicamento.getText().trim().isEmpty() ||
             txtprecio_unitario.getText().trim().isEmpty() ||
-            txtdescripcion.getText().trim().isEmpty() ||
-            //combosexo.getSelectedItem().toString().equals("Seleccionar") ||
+            txtcantidad.getText().trim().isEmpty() ||
             fechaUtil == null)
         {
 
             JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos requeridos.");
             return;
         }
-
+        
         try {
-            Connection cn = con.Conectar();
+            Double.parseDouble(txtprecio_unitario.getText().trim());
+            Integer.parseInt(txtcantidad.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "ID, precio unitario y cantidad deben ser numéricos.");
+            return;
+        }
 
-            String query1 = ("SELECT id_cliente FROM cliente WHERE identidad = ?");
-            PreparedStatement ps1 = cn.prepareStatement(query1);
-            ps1.setString(1, txtidentidad_medicamentos.getText());
-
-            ResultSet rs = ps1.executeQuery();
-
-            if (rs.next()) {
-                int idCliente = rs.getInt("id_cliente");
-
-                // 2. Insertar el cargo con el id_empleado obtenido
-                String query2 = "INSERT INTO mascota (nombre, especie, raza, fecha_nacimiento, sexo, id_cliente) VALUES (?, ?, ?, ?, ?, ?)";
-                PreparedStatement ps2 = cn.prepareStatement(query2);
-                ps2.setString(1, txtdescripcion.getText());
-                ps2.setString(2, txtcantidad.getText());
-                ps2.setString(3, txtprecio_unitario.getText());
-                ps2.setDate(4, fechaSQL);
-               // ps2.setString(5, combosexo.getSelectedItem().toString());
-                ps2.setInt(6, idCliente);
-                ps2.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Cargo registrado correctamente.");
-//                me.limpiarCampos(txtidentidad_medicamentos, txtid_mascota, txtnombre_medicamento, txtid_mascota, txtdescripcion, txtcantidad, txtprecio_unitario);
-                me.limpiarDateChooser(jdcfecha_caducacion);
-               // me.limpiarComboBox(combosexo);
-               // mostrardatos();
-
-            } else {
-                int resp = JOptionPane.showConfirmDialog(this, "No se encontró un empleado con esa identidad. ¿Deseas registrarlo?", "Aviso", JOptionPane.YES_NO_OPTION);
-                if (resp == JOptionPane.YES_OPTION) {
-                    new empleado_vista().setVisible(true);
-                    this.dispose();
-                }
-            }
+            String query = "INSERT INTO medicamentos ( nombre, fecha_caducacion, precio_unitario, cantidad) VALUES (?, ?, ?, ?)";
+        try (Connection cn = con.Conectar();
+             PreparedStatement ps = cn.prepareStatement(query)) {
+            ps.setString(1, txtnombre_medicamento.getText().trim());
+            ps.setDate(2, fechaSQL);
+            ps.setDouble(3, Double.parseDouble(txtprecio_unitario.getText().trim()));
+            ps.setInt(4, Integer.parseInt(txtcantidad.getText().trim()));
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Medicamento registrado correctamente.");
+            
+            me.limpiarCampos(txtidentidad_medicamentos, txtnombre_medicamento, txtprecio_unitario, txtcantidad);
+            me.limpiarDateChooser(jdcfecha_caducacion);
+            
         } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al registrar mascota: ");
+            JOptionPane.showMessageDialog(this, "Error al registrar medicamento: " + e.getMessage());
         }
     }//GEN-LAST:event_btnregistrarActionPerformed
 
@@ -392,7 +328,6 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             txtidentidad_medicamentos.getText().trim().isEmpty() ||
             //txtnombre_cliente.getText().trim().isEmpty() ||
             txtprecio_unitario.getText().trim().isEmpty() ||
-            txtdescripcion.getText().trim().isEmpty() ||
             //combosexo.getSelectedItem().toString().equals("Seleccionar") ||
             fechaUtil == null)
         {
@@ -418,7 +353,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
                 String query2 = "UPDATE mascota SET nombre = ?, especie = ?, raza = ?, fecha_nacimiento = ?, sexo = ?, id_cliente = ? WHERE id_mascota = ?";
                 PreparedStatement ps2 = cn.prepareStatement(query2);
                 // Asignar los valores del formulario
-                ps2.setString(1, txtdescripcion.getText());
+                
                 ps2.setString(2, txtcantidad.getText());
                 ps2.setString(3, txtprecio_unitario.getText());
                 ps2.setDate(4, fechaSQL);
@@ -474,10 +409,10 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         }
 
         // Asignar a los campos
-        this.txtidentidad_medicamentos.setText(datos[0]);
+        //this.txtidentidad_medicamentos.setText(datos[0]);
         this.txtnombre_medicamento.setText(datos[1]);
        // this.txtid_mascota.setText(datos[2]);
-        this.txtdescripcion.setText(datos[3]);
+        
         this.txtcantidad.setText(datos[4]);
         this.txtprecio_unitario.setText(datos[5]);
        // this.combosexo.setSelectedItem(datos[7]);
@@ -616,7 +551,6 @@ public class Medicamentos_vista extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnactualizar;
-    private javax.swing.JButton btnbuscar_idmedicamento;
     private javax.swing.JButton btnbuscar_medicamento;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnregistrar;
@@ -631,7 +565,6 @@ public class Medicamentos_vista extends javax.swing.JFrame {
     private javax.swing.JTable jtabledatos;
     private javax.swing.JTextField txtbuscar_medicamento;
     private javax.swing.JTextField txtcantidad;
-    private javax.swing.JTextField txtdescripcion;
     private javax.swing.JTextField txtidentidad_medicamentos;
     private javax.swing.JTextField txtnombre_medicamento;
     private javax.swing.JTextField txtprecio_unitario;
