@@ -289,6 +289,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             
             me.limpiarCampos(txt_id_medicamentos, txtnombre_medicamento, txtprecio_unitario, txtcantidad);
             me.limpiarDateChooser(jdcfecha_caducacion);
+            mostrardatos();
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al registrar medicamento: " + e.getMessage());
@@ -296,25 +297,25 @@ public class Medicamentos_vista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnregistrarActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-        if(JOptionPane.showConfirmDialog(null, "¿ESTAS SEGURO DE ELIMINAR LA MASCOTA?","SALIR", JOptionPane.YES_NO_CANCEL_OPTION)==0){
+        if(JOptionPane.showConfirmDialog(null, "¿ESTAS SEGURO DE ELIMINAR EL MEDICAMENTO?","SALIR", JOptionPane.YES_NO_CANCEL_OPTION)==0){
             try{
-                PreparedStatement ps=cn.prepareStatement("delete from mascota where id_mascota=?");
-               // ps.setString(1, txtid_mascota.getText());
+                PreparedStatement ps=cn.prepareStatement("delete from medicamentos where id_medicamento=?");
+                  ps.setString(1, txt_id_medicamentos.getText());
                 //ps devuelve 0 cuando se ejecuta correctamente y por eso se actualiza la tabla
                 int indice = ps.executeUpdate();
                 if(indice>0){
-               //     mostrardatos();
+                mostrardatos();
                 }else{//no elimino nada por ende
                     JOptionPane.showMessageDialog(null,"No ha seleccionado la fila");
                 }
-              //  me.limpiarCampos(txtidentidad_medicamentos, txtid_mascota, txtnombre_medicamento, txtid_mascota, txtdescripcion, txtcantidad, txtprecio_unitario);
+                me.limpiarCampos(txt_id_medicamentos, txtnombre_medicamento, txtcantidad, txtprecio_unitario);
                 me.limpiarDateChooser(jdcfecha_caducacion);
-               // me.limpiarComboBox(combosexo);
+               ;
                 btnregistrar.setEnabled(true);
 
             }catch(SQLException e){
                 System.out.println("Error al eliminar datos"+e);
-                System.out.println("Error al eliminar datos"+e);
+                
                 
 
             }
@@ -328,11 +329,10 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         java.util.Date fechaUtil = jdcfecha_caducacion.getDate();
         java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
 
-        if (txtcantidad.getText().trim().isEmpty() ||
-            txt_id_medicamentos.getText().trim().isEmpty() ||
-            //txtnombre_cliente.getText().trim().isEmpty() ||
+        if (txt_id_medicamentos.getText().trim().isEmpty() ||
+            txtnombre_medicamento.getText().trim().isEmpty() ||
+            txtcantidad.getText().trim().isEmpty() ||
             txtprecio_unitario.getText().trim().isEmpty() ||
-            //combosexo.getSelectedItem().toString().equals("Seleccionar") ||
             fechaUtil == null)
         {
 
@@ -340,48 +340,34 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             return;
         }
 
-        try {
+            try {
             Connection cn = con.Conectar();
 
-            // 1. Buscar el ID del empleado por identidad
-            String query1 = "SELECT id_cliente FROM cliente WHERE identidad = ?";
-            PreparedStatement ps1 = cn.prepareStatement(query1);
-            ps1.setString(1, txt_id_medicamentos.getText());
+            // Preparar consulta de actualización
+            String query = "UPDATE medicamentos SET nombre = ?, fecha_caducacion = ?, precio_unitario = ?, cantidad = ? WHERE id_medicamento = ?";
+            PreparedStatement ps = cn.prepareStatement(query);
 
-            ResultSet rs = ps1.executeQuery();
+            ps.setString(1, txtnombre_medicamento.getText().trim());
+            ps.setDate(2, fechaSQL);
+            ps.setString(3, txtprecio_unitario.getText().trim());
+            ps.setString(4, txtcantidad.getText().trim());
+            ps.setString(5, txt_id_medicamentos.getText().trim());
 
-            if (rs.next()) {
-                int idCliente = rs.getInt("id_cliente");
+            int filasAfectadas = ps.executeUpdate();
 
-                // 2. Hacer el UPDATE de mascota
-                String query2 = "UPDATE mascota SET nombre = ?, especie = ?, raza = ?, fecha_nacimiento = ?, sexo = ?, id_cliente = ? WHERE id_mascota = ?";
-                PreparedStatement ps2 = cn.prepareStatement(query2);
-                // Asignar los valores del formulario
-                
-                ps2.setString(2, txtcantidad.getText());
-                ps2.setString(3, txtprecio_unitario.getText());
-                ps2.setDate(4, fechaSQL);
-               // ps2.setString(5, combosexo.getSelectedItem().toString());
-                ps2.setInt(6, idCliente);
-               // ps2.setString(7, txtid_mascota.getText());
-
-                int filasAfectadas = ps2.executeUpdate();
-
-                if (filasAfectadas > 0) {
-                    JOptionPane.showMessageDialog(this, "Mascota actualizado correctamente.");
-//                    me.limpiarCampos(txtidentidad_medicamentos, txtnombre_medicamento, txtdescripcion, txtcantidad, txtprecio_unitario, txtid_mascota);
-                    me.limpiarDateChooser(jdcfecha_caducacion);
-                   // me.limpiarComboBox(combosexo);
-                   // mostrardatos();
-                } else {
-                    JOptionPane.showMessageDialog(this, "No se pudo actualizar la Mascota.");
-                }
+            if (filasAfectadas > 0) {
+                JOptionPane.showMessageDialog(this, "Medicamento actualizado correctamente.");
+                // Limpiar campos si deseas
+                me.limpiarCampos(txt_id_medicamentos, txtnombre_medicamento, txtprecio_unitario, txtcantidad);
+                me.limpiarDateChooser(jdcfecha_caducacion);
+                mostrardatos(); //← si tienes método para refrescar tabla
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró el cliente con la identidad ingresada.");
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar el medicamento. Verifica el ID.");
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al actualizar el mascota.");
+            JOptionPane.showMessageDialog(this, "Error al actualizar el medicamento.");
         }
     }//GEN-LAST:event_btnactualizarActionPerformed
 
