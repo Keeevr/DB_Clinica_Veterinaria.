@@ -14,6 +14,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
     public Medicamentos_vista() {
         initComponents();
         mostrardatos();
+        configurarSegunRol(Sesion.rolActual);  
     }
 
     
@@ -406,24 +407,22 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         }
 
         // Obtener valores de la fila
-        String[] datos = new String[8];
+        String[] datos = new String[5];
         for (int i = 0; i < datos.length; i++) {
             datos[i] = this.jtable_datos.getValueAt(fila, i).toString();
         }
 
         // Asignar a los campos
-        //this.txtidentidad_medicamentos.setText(datos[0]);
+        this.txt_id_medicamentos.setText(datos[0]);
         this.txtnombre_medicamento.setText(datos[1]);
-       // this.txtid_mascota.setText(datos[2]);
-        
+        this.txtprecio_unitario.setText(datos[3]);
         this.txtcantidad.setText(datos[4]);
-        this.txtprecio_unitario.setText(datos[5]);
-       // this.combosexo.setSelectedItem(datos[7]);
-
+        
+       
         // Convertir fecha si está presente
-        if (!datos[6].equals("No especificada")) {
+        if (!datos[2].equals("No especificada")) {
             try {
-                this.jdcfecha_caducacion.setDate(new java.text.SimpleDateFormat("yyyy-MM-dd").parse(datos[6]));
+                this.jdcfecha_caducacion.setDate(new java.text.SimpleDateFormat("yyyy-MM-dd").parse(datos[2]));
             }catch (ParseException e){
                 this.jdcfecha_caducacion.setDate(null);
                 JOptionPane.showMessageDialog(this, "Error al cargar la fecha.");
@@ -431,23 +430,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         } else {
             this.jdcfecha_caducacion.setDate(null);
         }
-        try (
-            PreparedStatement ps = cn.prepareStatement("SELECT identidad FROM cliente WHERE id_cliente = ?")) {
-
-            ps.setString(1, datos[0]); // ← ID del cliente
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                this.txt_id_medicamentos.setText(rs.getString("identidad"));
-            } else {
-                this.txt_id_medicamentos.setText("");
-                JOptionPane.showMessageDialog(this, "Identidad del cliente no encontrada.");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al buscar identidad del cliente.");
-        }
+        
     }//GEN-LAST:event_jtable_datosMouseClicked
 
     private void txt_buscar_medicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_buscar_medicamentoActionPerformed
@@ -591,7 +574,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         modelo.addColumn("ID Medicamento");
         modelo.addColumn("Nombre");
         modelo.addColumn("Fecha Caducidad");
-        modelo.addColumn("Precio Uni");
+        modelo.addColumn("Precio Unitario");
         modelo.addColumn("Cantidad");
         
         jtable_datos.setModel(modelo);
@@ -616,7 +599,13 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         }
     }
     
-    
+    private void configurarSegunRol(String rol) {
+        if ((rol.equalsIgnoreCase("Veterinario"))||(rol.equalsIgnoreCase("Recepcionista"))) {
+            btneliminar.setEnabled(false);
+            // desactiva los botones que desees
+        }
+    }
+        
     public JPanel getPanelMedicamentos(){
         return jPanel2;
     }   

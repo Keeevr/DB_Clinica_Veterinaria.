@@ -451,7 +451,7 @@ public class cargo_vista extends javax.swing.JFrame {
 
     private void jtable_cargoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtable_cargoMouseClicked
         // TODO add your handling code here:
-        //Hola kevin
+        
         
         btn_registrar.setEnabled(false);
 

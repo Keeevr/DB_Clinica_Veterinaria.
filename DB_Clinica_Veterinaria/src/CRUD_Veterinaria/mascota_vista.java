@@ -11,7 +11,7 @@ public class mascota_vista extends javax.swing.JFrame {
     public mascota_vista() {
         initComponents();
         mostrardatos();
-        configurarPermisosPorRol();
+        configurarSegunRol(Sesion.rolActual);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -504,10 +504,6 @@ public class mascota_vista extends javax.swing.JFrame {
         btnregistrar.setEnabled(false);
         btnactualizar.setEnabled(true);
         
-        if(Sesion.rolActual.equals("Recepcionista") || (Sesion.rolActual.equals("Veterinario"))){
-            btneliminar.setEnabled(false);
-        }
-        
         int fila = this.jtabledatos.getSelectedRow();
     
         if (fila == -1) {
@@ -750,11 +746,14 @@ public class mascota_vista extends javax.swing.JFrame {
         }
     }
 
-    private void configurarPermisosPorRol() {
-        if (Sesion.rolActual.equalsIgnoreCase("Recepcionista")||(Sesion.rolActual.equalsIgnoreCase("Veterinario"))) {
-            btneliminar.setEnabled(false); // ejemplo   
+    private void configurarSegunRol(String rol) {
+        if ((rol.equalsIgnoreCase("Veterinario"))||(rol.equalsIgnoreCase("Recepcionista"))) {
+            btneliminar.setEnabled(false);
+            // desactiva los botones que desees
         }
     }
+    
+    
     
     public JPanel getPanelMascotas() {
         return jPanel2;
