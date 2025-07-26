@@ -185,7 +185,7 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
             String idFactura = jTable_Factura.getValueAt(fila, 0).toString();
             int idFacturaInt = Integer.parseInt(idFactura);
             // Mostrar detalles de medicamentos
-            mostrardato(idFacturaInt);
+            mostrardatos(idFacturaInt);
             // Mostrar detalles de consultas
             mostrardatosConsulta(idFacturaInt);
         } else {
@@ -274,7 +274,7 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
         }
     }
 
-    private void mostrardato(int id) {
+    private void mostrardatos(int id) {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID Medicamento");
         modelo.addColumn("Subtotal");
