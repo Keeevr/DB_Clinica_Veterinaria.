@@ -28,6 +28,9 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
     public Formulario_Hist_Vista() {
         initComponents();
         mostrardatos();
+        mostrardatos(WIDTH);
+        mostrardatosConsulta(WIDTH);
+        agregarListenerFecha();
     }
 
     /**
@@ -48,8 +51,10 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
         jTable_Medi = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable_cons = new javax.swing.JTable();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jdcfiltro_fecha = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
+        btnlistar = new javax.swing.JButton();
+        btnlistar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,9 +108,25 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable_cons);
 
-        jDateChooser1.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleciona una Fecha"));
+        jdcfiltro_fecha.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleciona una Fecha"));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Regreso Boton.png"))); // NOI18N
+
+        btnlistar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnlistar.setText("IMPRIMIR");
+        btnlistar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlistarActionPerformed(evt);
+            }
+        });
+
+        btnlistar1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnlistar1.setText("LISTAR DATOS");
+        btnlistar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlistar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,30 +135,43 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jdcfiltro_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnlistar1)
+                                .addGap(35, 35, 35)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(btnlistar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(226, 226, 226)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addContainerGap(34, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jdcfiltro_fecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnlistar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnlistar1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -193,6 +227,17 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTable_FacturaMouseClicked
 
+    private void btnlistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistarActionPerformed
+        mostrardatos(WIDTH);
+        mostrardatosConsulta(WIDTH);
+        mostrardatos();
+        me.limpiarDateChooser(jdcfiltro_fecha);
+    }//GEN-LAST:event_btnlistarActionPerformed
+
+    private void btnlistar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnlistar1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -229,8 +274,9 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnlistar;
+    private javax.swing.JButton btnlistar1;
     private javax.swing.JButton jButton1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JMonthChooser jMonthChooser1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -240,6 +286,7 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
     private javax.swing.JTable jTable_Factura;
     private javax.swing.JTable jTable_Medi;
     private javax.swing.JTable jTable_cons;
+    private com.toedter.calendar.JDateChooser jdcfiltro_fecha;
     // End of variables declaration//GEN-END:variables
 
     private void mostrardatos() {
@@ -251,7 +298,6 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
         modelo.addColumn("Total");
         modelo.addColumn("Id Cliente");
         modelo.addColumn("Id Empleado");
-        System.out.println("aaa");
 
         jTable_Factura.setModel(modelo);
 
@@ -343,5 +389,53 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
 
     public JPanel getPanelHistorial_Factura() {
         return jPanel2;
+    }
+
+    private void agregarListenerFecha() {
+        jdcfiltro_fecha.getDateEditor().addPropertyChangeListener(evt -> {
+            if ("date".equals(evt.getPropertyName())) {
+                filtrarPorFecha();
+            }
+        });
+    }
+
+    private void filtrarPorFecha() {
+        java.util.Date fechaSeleccionada = jdcfiltro_fecha.getDate();
+        if (fechaSeleccionada == null) {
+            mostrardatos(); // Si no hay fecha, muestra todo
+            return;
+        }
+        mostrardatos(WIDTH);
+        mostrardatosConsulta(WIDTH);
+        java.sql.Date fechaSQL = new java.sql.Date(fechaSeleccionada.getTime());
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID Factura");
+        modelo.addColumn("Fecha Emision");
+        modelo.addColumn("SubTotal");
+        modelo.addColumn("Impuesto");
+        modelo.addColumn("Total");
+        modelo.addColumn("Id Cliente");
+        modelo.addColumn("Id Empleado");
+        jTable_Factura.setModel(modelo);
+
+        String query = "SELECT f.id_factura, f.fecha_emision, f.subtotal, f.impuesto, f.total, f.id_cliente, f.id_empleado "
+                + "FROM factura f WHERE DATE(f.fecha_emision) = ?";
+
+        try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement(query)) {
+            ps.setDate(1, fechaSQL);
+            try ( ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String[] data = new String[7];
+                    for (int i = 0; i < 7; i++) {
+                        data[i] = rs.getString(i + 1);
+                    }
+                    modelo.addRow(data);
+                }
+                me.ajustarAnchoColumnas(jTable_Factura, 150);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al filtrar por fecha: " + e.getMessage());
+        }
     }
 }
