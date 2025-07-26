@@ -254,43 +254,37 @@ public class Medicamentos_vista extends javax.swing.JFrame {
 
     private void btnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarActionPerformed
 
-        // Obtener la fecha del JDateChooser
-        java.util.Date fechaUtil = jdcfecha_caducacion.getDate();
-        java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
-
-        if (//txtidentidad_medicamentos.getText().trim().isEmpty() ||
-            txtnombre_medicamento.getText().trim().isEmpty() ||
+            java.util.Date fechaUtil = jdcfecha_caducacion.getDate();
+        if (fechaUtil == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona una fecha de caducidad.");
+            return;
+        }
+        if (txtnombre_medicamento.getText().trim().isEmpty() ||
             txtprecio_unitario.getText().trim().isEmpty() ||
-            txtcantidad.getText().trim().isEmpty() ||
-            fechaUtil == null)
-        {
-
+            txtcantidad.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos requeridos.");
             return;
         }
-        
         try {
-            Double.parseDouble(txtprecio_unitario.getText().trim());
-            Integer.parseInt(txtcantidad.getText().trim());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "ID, precio unitario y cantidad deben ser numéricos.");
-            return;
-        }
+            double precio = Double.parseDouble(txtprecio_unitario.getText().trim());
+            int cantidad = Integer.parseInt(txtcantidad.getText().trim());
+            java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
 
-            String query = "INSERT INTO medicamentos ( nombre, fecha_caducacion, precio_unitario, cantidad) VALUES (?, ?, ?, ?)";
-        try (Connection cn = con.Conectar();
-             PreparedStatement ps = cn.prepareStatement(query)) {
-            ps.setString(1, txtnombre_medicamento.getText().trim());
-            ps.setDate(2, fechaSQL);
-            ps.setDouble(3, Double.parseDouble(txtprecio_unitario.getText().trim()));
-            ps.setInt(4, Integer.parseInt(txtcantidad.getText().trim()));
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Medicamento registrado correctamente.");
-            
-            me.limpiarCampos(txt_id_medicamentos, txtnombre_medicamento, txtprecio_unitario, txtcantidad);
-            me.limpiarDateChooser(jdcfecha_caducacion);
-            mostrardatos();
-            
+            String query = "INSERT INTO medicamentos (nombre, fecha_caducacion, precio_unitario, cantidad) VALUES (?, ?, ?, ?)";
+            try (Connection cn = con.Conectar();
+                 PreparedStatement ps = cn.prepareStatement(query)) {
+                ps.setString(1, txtnombre_medicamento.getText().trim());
+                ps.setDate(2, fechaSQL);
+                ps.setDouble(3, precio);
+                ps.setInt(4, cantidad);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Medicamento registrado correctamente.");
+                me.limpiarCampos(txt_id_medicamentos, txtnombre_medicamento, txtprecio_unitario, txtcantidad);
+                me.limpiarDateChooser(jdcfecha_caducacion);
+                mostrardatos();
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Precio unitario y cantidad deben ser numéricos.");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al registrar medicamento: " + e.getMessage());
         }
