@@ -5,19 +5,18 @@ import java.text.ParseException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Medicamentos_vista extends javax.swing.JFrame {
+
     conexion con = new conexion();
     Connection cn = con.Conectar();
     Metodos me = new Metodos();
-    
+
     public Medicamentos_vista() {
         initComponents();
         mostrardatos();
-        configurarSegunRol(Sesion.rolActual);  
+        configurarSegunRol(Sesion.rolActual);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -254,63 +253,65 @@ public class Medicamentos_vista extends javax.swing.JFrame {
 
     private void btnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarActionPerformed
 
-            java.util.Date fechaUtil = jdcfecha_caducacion.getDate();
-        if (fechaUtil == null) {
-            JOptionPane.showMessageDialog(null, "Por favor, selecciona una fecha de caducidad.");
-            return;
-        }
-        if (txtnombre_medicamento.getText().trim().isEmpty() ||
-            txtprecio_unitario.getText().trim().isEmpty() ||
-            txtcantidad.getText().trim().isEmpty()) {
+        // Obtener la fecha del JDateChooser
+        java.util.Date fechaUtil = jdcfecha_caducacion.getDate();
+        java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
+
+        if (//txtidentidad_medicamentos.getText().trim().isEmpty() ||
+                txtnombre_medicamento.getText().trim().isEmpty()
+                || txtprecio_unitario.getText().trim().isEmpty()
+                || txtcantidad.getText().trim().isEmpty()
+                || fechaUtil == null) {
+
             JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos requeridos.");
             return;
         }
-        try {
-            double precio = Double.parseDouble(txtprecio_unitario.getText().trim());
-            int cantidad = Integer.parseInt(txtcantidad.getText().trim());
-            java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
 
-            String query = "INSERT INTO medicamentos (nombre, fecha_caducacion, precio_unitario, cantidad) VALUES (?, ?, ?, ?)";
-            try (Connection cn = con.Conectar();
-                 PreparedStatement ps = cn.prepareStatement(query)) {
-                ps.setString(1, txtnombre_medicamento.getText().trim());
-                ps.setDate(2, fechaSQL);
-                ps.setDouble(3, precio);
-                ps.setInt(4, cantidad);
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Medicamento registrado correctamente.");
-                me.limpiarCampos(txt_id_medicamentos, txtnombre_medicamento, txtprecio_unitario, txtcantidad);
-                me.limpiarDateChooser(jdcfecha_caducacion);
-                mostrardatos();
-            }
+        try {
+            Double.parseDouble(txtprecio_unitario.getText().trim());
+            Integer.parseInt(txtcantidad.getText().trim());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Precio unitario y cantidad deben ser numéricos.");
+            JOptionPane.showMessageDialog(null, "ID, precio unitario y cantidad deben ser numéricos.");
+            return;
+        }
+
+        String query = "INSERT INTO medicamentos ( nombre, fecha_caducacion, precio_unitario, cantidad) VALUES (?, ?, ?, ?)";
+        try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement(query)) {
+            ps.setString(1, txtnombre_medicamento.getText().trim());
+            ps.setDate(2, fechaSQL);
+            ps.setDouble(3, Double.parseDouble(txtprecio_unitario.getText().trim()));
+            ps.setInt(4, Integer.parseInt(txtcantidad.getText().trim()));
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Medicamento registrado correctamente.");
+
+            me.limpiarCampos(txt_id_medicamentos, txtnombre_medicamento, txtprecio_unitario, txtcantidad);
+            me.limpiarDateChooser(jdcfecha_caducacion);
+            mostrardatos();
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al registrar medicamento: " + e.getMessage());
         }
     }//GEN-LAST:event_btnregistrarActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-        if(JOptionPane.showConfirmDialog(null, "¿ESTAS SEGURO DE ELIMINAR EL MEDICAMENTO?","SALIR", JOptionPane.YES_NO_CANCEL_OPTION)==0){
-            try{
-                PreparedStatement ps=cn.prepareStatement("delete from medicamentos where id_medicamento=?");
-                  ps.setString(1, txt_id_medicamentos.getText());
+        if (JOptionPane.showConfirmDialog(null, "¿ESTAS SEGURO DE ELIMINAR EL MEDICAMENTO?", "SALIR", JOptionPane.YES_NO_CANCEL_OPTION) == 0) {
+            try {
+                PreparedStatement ps = cn.prepareStatement("delete from medicamentos where id_medicamento=?");
+                ps.setString(1, txt_id_medicamentos.getText());
                 //ps devuelve 0 cuando se ejecuta correctamente y por eso se actualiza la tabla
                 int indice = ps.executeUpdate();
-                if(indice>0){
-                mostrardatos();
-                }else{//no elimino nada por ende
-                    JOptionPane.showMessageDialog(null,"No ha seleccionado la fila");
+                if (indice > 0) {
+                    mostrardatos();
+                } else {//no elimino nada por ende
+                    JOptionPane.showMessageDialog(null, "No ha seleccionado la fila");
                 }
                 me.limpiarCampos(txt_id_medicamentos, txtnombre_medicamento, txtcantidad, txtprecio_unitario);
                 me.limpiarDateChooser(jdcfecha_caducacion);
-               ;
+                ;
                 btnregistrar.setEnabled(true);
 
-            }catch(SQLException e){
-                System.out.println("Error al eliminar datos"+e);
-                
-                
+            } catch (SQLException e) {
+                System.out.println("Error al eliminar datos" + e);
 
             }
         }
@@ -323,18 +324,17 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         java.util.Date fechaUtil = jdcfecha_caducacion.getDate();
         java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
 
-        if (txt_id_medicamentos.getText().trim().isEmpty() ||
-            txtnombre_medicamento.getText().trim().isEmpty() ||
-            txtcantidad.getText().trim().isEmpty() ||
-            txtprecio_unitario.getText().trim().isEmpty() ||
-            fechaUtil == null)
-        {
+        if (txt_id_medicamentos.getText().trim().isEmpty()
+                || txtnombre_medicamento.getText().trim().isEmpty()
+                || txtcantidad.getText().trim().isEmpty()
+                || txtprecio_unitario.getText().trim().isEmpty()
+                || fechaUtil == null) {
 
             JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos requeridos.");
             return;
         }
 
-            try {
+        try {
             Connection cn = con.Conectar();
 
             // Preparar consulta de actualización
@@ -375,7 +375,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         btnregistrar.setEnabled(false);
         btnactualizar.setEnabled(true);
 
-        if(Sesion.rolActual.equals("Recepcionista") || (Sesion.rolActual.equals("Veterinario"))){
+        if (Sesion.rolActual.equals("Recepcionista") || (Sesion.rolActual.equals("Veterinario"))) {
             btneliminar.setEnabled(false);
         }
 
@@ -397,20 +397,19 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         this.txtnombre_medicamento.setText(datos[1]);
         this.txtprecio_unitario.setText(datos[3]);
         this.txtcantidad.setText(datos[4]);
-        
-       
+
         // Convertir fecha si está presente
         if (!datos[2].equals("No especificada")) {
             try {
                 this.jdcfecha_caducacion.setDate(new java.text.SimpleDateFormat("yyyy-MM-dd").parse(datos[2]));
-            }catch (ParseException e){
+            } catch (ParseException e) {
                 this.jdcfecha_caducacion.setDate(null);
                 JOptionPane.showMessageDialog(this, "Error al cargar la fecha.");
             }
         } else {
             this.jdcfecha_caducacion.setDate(null);
         }
-        
+
     }//GEN-LAST:event_jtable_datosMouseClicked
 
     private void txt_buscar_medicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_buscar_medicamentoActionPerformed
@@ -441,10 +440,10 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             if (busqueda.matches("\\d+")) {
                 // Buscar por ID exacto
                 String query = "SELECT m.id_medicamento, m.nombre, m.fecha_caducacion, m.precio_unitario, m.cantidad "
-                             + "FROM medicamentos m WHERE m.id_medicamento = ?";
-                try (PreparedStatement ps = cn.prepareStatement(query)) {
+                        + "FROM medicamentos m WHERE m.id_medicamento = ?";
+                try ( PreparedStatement ps = cn.prepareStatement(query)) {
                     ps.setInt(1, Integer.parseInt(busqueda));
-                    try (ResultSet rs = ps.executeQuery()) {
+                    try ( ResultSet rs = ps.executeQuery()) {
                         while (rs.next()) {
                             Object[] fila = new Object[5];
                             fila[0] = rs.getInt("id_medicamento");
@@ -459,10 +458,10 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             } else {
                 // Buscar por nombre parcial
                 String query = "SELECT m.id_medicamento, m.nombre, m.fecha_caducacion, m.precio_unitario, m.cantidad "
-                             + "FROM medicamentos m WHERE m.nombre LIKE ?";
-                try (PreparedStatement ps = cn.prepareStatement(query)) {
+                        + "FROM medicamentos m WHERE m.nombre LIKE ?";
+                try ( PreparedStatement ps = cn.prepareStatement(query)) {
                     ps.setString(1, "%" + busqueda + "%");
-                    try (ResultSet rs = ps.executeQuery()) {
+                    try ( ResultSet rs = ps.executeQuery()) {
                         while (rs.next()) {
                             Object[] fila = new Object[5];
                             fila[0] = rs.getInt("id_medicamento");
@@ -549,28 +548,26 @@ public class Medicamentos_vista extends javax.swing.JFrame {
     private javax.swing.JTextField txtprecio_unitario;
     // End of variables declaration//GEN-END:variables
 
-        private void mostrardatos() {
+    private void mostrardatos() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID Medicamento");
         modelo.addColumn("Nombre");
         modelo.addColumn("Fecha Caducidad");
         modelo.addColumn("Precio Unitario");
         modelo.addColumn("Cantidad");
-        
+
         jtable_datos.setModel(modelo);
 
         String query = "SELECT m.id_medicamento, m.nombre, m.fecha_caducacion, m.precio_unitario, m.cantidad FROM medicamentos m";
 
-        try (Connection cn=con.Conectar();
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(query)) {
+        try ( Connection cn = con.Conectar();  Statement st = cn.createStatement();  ResultSet rs = st.executeQuery(query)) {
             while (rs.next()) {
                 String[] data = new String[5];
-                data[0] = rs.getString(1); 
+                data[0] = rs.getString(1);
                 data[1] = rs.getString(2);
-                data[2] = rs.getString(3); 
-                data[3] = rs.getString(4); 
-                data[4] = rs.getString(5); 
+                data[2] = rs.getString(3);
+                data[3] = rs.getString(4);
+                data[4] = rs.getString(5);
                 modelo.addRow(data);
             }
             me.ajustarAnchoColumnas(jtable_datos, 150);
@@ -578,15 +575,15 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al mostrar datos: " + e.getMessage());
         }
     }
-    
+
     private void configurarSegunRol(String rol) {
-        if ((rol.equalsIgnoreCase("Veterinario"))||(rol.equalsIgnoreCase("Recepcionista"))) {
+        if ((rol.equalsIgnoreCase("Veterinario")) || (rol.equalsIgnoreCase("Recepcionista"))) {
             btneliminar.setEnabled(false);
             // desactiva los botones que desees
         }
     }
-        
-    public JPanel getPanelMedicamentos(){
+
+    public JPanel getPanelMedicamentos() {
         return jPanel2;
-    }   
+    }
 }
