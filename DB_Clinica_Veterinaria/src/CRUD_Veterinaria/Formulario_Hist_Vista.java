@@ -251,6 +251,7 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
         modelo.addColumn("Total");
         modelo.addColumn("Id Cliente");
         modelo.addColumn("Id Empleado");
+        System.out.println("aaa");
 
         jTable_Factura.setModel(modelo);
 
