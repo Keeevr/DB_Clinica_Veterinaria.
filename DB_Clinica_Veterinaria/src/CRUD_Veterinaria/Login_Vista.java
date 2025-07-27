@@ -42,7 +42,7 @@ public class Login_Vista extends javax.swing.JFrame {
         txtpassword = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btn_iniciar_sesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,10 +80,10 @@ public class Login_Vista extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Login icono.png"))); // NOI18N
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Iniciar Sesion icono.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_iniciar_sesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Iniciar Sesion icono.png"))); // NOI18N
+        btn_iniciar_sesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_iniciar_sesionActionPerformed(evt);
             }
         });
 
@@ -104,7 +104,7 @@ public class Login_Vista extends javax.swing.JFrame {
                 .addContainerGap(84, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btn_iniciar_sesion)
                 .addGap(191, 191, 191))
         );
         jPanel2Layout.setVerticalGroup(
@@ -117,7 +117,7 @@ public class Login_Vista extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btn_iniciar_sesion)
                 .addGap(33, 33, 33))
         );
 
@@ -160,13 +160,15 @@ public class Login_Vista extends javax.swing.JFrame {
 
     private void txtpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpasswordActionPerformed
         // TODO add your handling code here:
+        btn_iniciar_sesion.doClick(); // Al presionar Enter en password, inicia sesión
     }//GEN-LAST:event_txtpasswordActionPerformed
 
     private void txtidentidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidentidadActionPerformed
         // TODO add your handling code here:
+        txtpassword.requestFocus(); // Al presionar Enter en identidad, pasa a password
     }//GEN-LAST:event_txtidentidadActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_iniciar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_iniciar_sesionActionPerformed
         Connection cn = con.Conectar();
 
         String usuario = txtidentidad.getText();
@@ -207,8 +209,7 @@ public class Login_Vista extends javax.swing.JFrame {
                 "Campos vacíos", 
                 JOptionPane.WARNING_MESSAGE);
         }
-
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_iniciar_sesionActionPerformed
 
    
     public static void main(String args[]) {
@@ -221,7 +222,7 @@ public class Login_Vista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_iniciar_sesion;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

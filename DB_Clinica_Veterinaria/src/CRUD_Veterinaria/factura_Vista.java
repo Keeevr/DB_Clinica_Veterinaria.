@@ -145,6 +145,11 @@ public class factura_Vista extends javax.swing.JFrame {
 
         txt_fecha_dia.setEditable(false);
         txt_fecha_dia.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
+        txt_fecha_dia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_fecha_diaActionPerformed(evt);
+            }
+        });
         jPanel1.add(txt_fecha_dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 50, 105, 60));
 
         jPanelM.setBackground(new java.awt.Color(237, 232, 208));
@@ -691,6 +696,10 @@ public class factura_Vista extends javax.swing.JFrame {
         // (Opcional) Actualizar subtotal general productos en txt_precio_producto
         actualizarSubtotalProductos();
     }//GEN-LAST:event_btn_agregar_productoActionPerformed
+
+    private void txt_fecha_diaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_fecha_diaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_fecha_diaActionPerformed
 
     /**
      * @param args the command line arguments

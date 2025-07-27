@@ -27,6 +27,7 @@ public class Menu_vista extends javax.swing.JFrame {
         btn_cargo = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         panel_contenedor = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -100,6 +101,14 @@ public class Menu_vista extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 140, -1));
+
+        jButton3.setText("Historial de Consultas");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 140, -1));
 
         panel_contenedor.setBackground(new java.awt.Color(255, 51, 255));
         panel_contenedor.setPreferredSize(new java.awt.Dimension(1246, 597));
@@ -220,6 +229,14 @@ public class Menu_vista extends javax.swing.JFrame {
         mostrarPanel(panelFactura_histo); // lo insertamos en el contenedor
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Historial_Consulta_Vista mv = new Historial_Consulta_Vista(); // NO hagas mv.setVisible(true);
+        JPanel panelHistorialConsulta = mv.getPanelHistorial(); // obtenemos jPanel2
+        
+        mostrarPanel(panelHistorialConsulta); // lo insertamos en el contenedor
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -264,6 +281,7 @@ public class Menu_vista extends javax.swing.JFrame {
     private javax.swing.JButton btn_salir;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;

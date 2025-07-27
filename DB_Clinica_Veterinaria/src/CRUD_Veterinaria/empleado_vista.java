@@ -10,7 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 public class empleado_vista extends javax.swing.JFrame {
-    conexion con=new conexion();
+
+    conexion con = new conexion();
     Metodos me = new Metodos();
 
     public empleado_vista() {
@@ -297,7 +298,7 @@ public class empleado_vista extends javax.swing.JFrame {
         p.setDireccion(txt_direccion.getText());
         p.setCorreo(txt_correo.getText());
 
-        if (dao.insertar(p,"empleado")) {
+        if (dao.insertar(p, "empleado")) {
             JOptionPane.showMessageDialog(null, "Empleado registrado con éxito.");
             mostrardatos();
             me.limpiarCampos(txt_id_empleado, txt_nombre_empleado, txt_identidad, txt_telefono, txt_direccion, txt_correo, txt_buscar);
@@ -322,7 +323,7 @@ public class empleado_vista extends javax.swing.JFrame {
         p.setDireccion(txt_direccion.getText());
         p.setCorreo(txt_correo.getText());
 
-        if (dao.actualizar(p,"empleado")) {
+        if (dao.actualizar(p, "empleado")) {
             JOptionPane.showMessageDialog(null, "Empleado actualizado correctamente.");
             mostrardatos();
             me.limpiarCampos(txt_id_empleado, txt_nombre_empleado, txt_identidad, txt_telefono, txt_direccion, txt_correo, txt_buscar);
@@ -376,7 +377,7 @@ public class empleado_vista extends javax.swing.JFrame {
         btn_registrar.setEnabled(false);
 
         // Se obtiene el número (índice) de la fila seleccionada
-        int fila=this.jtable_datos.getSelectedRow();
+        int fila = this.jtable_datos.getSelectedRow();
 
         //Se crea un arreglo
         String[] datos = new String[6];
@@ -446,9 +447,9 @@ public class empleado_vista extends javax.swing.JFrame {
     private javax.swing.JTextField txt_nombre_empleado;
     private javax.swing.JTextField txt_telefono;
     // End of variables declaration//GEN-END:variables
-    
-        private void mostrardatos() {
-        DefaultTableModel modelo=new DefaultTableModel();
+
+    private void mostrardatos() {
+        DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("id");
         modelo.addColumn("Nombre y Apellido");
         modelo.addColumn("Identidad");
@@ -456,14 +457,14 @@ public class empleado_vista extends javax.swing.JFrame {
         modelo.addColumn("Direccion");
         modelo.addColumn("Correo");
         jtable_datos.setModel(modelo);
-        String query="select * from empleado";
-        
-        Connection cn=con.Conectar();
-        
-        try{
+        String query = "select * from empleado";
+
+        Connection cn = con.Conectar();
+
+        try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(query);
-            while(rs.next()){
+            while (rs.next()) {
                 String[] fila = new String[6];
                 fila[0] = rs.getString(1);
                 fila[1] = rs.getString(2);
@@ -477,20 +478,21 @@ public class empleado_vista extends javax.swing.JFrame {
             me.ajustarAnchoColumnas(jtable_datos, 150);
             rs.close();
             st.close();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al mostrar datos: ");
         }
     }
+
     private void configurarSegunRol(String rol) {
-        if ((rol.equalsIgnoreCase("Veterinario"))||(rol.equalsIgnoreCase("Recepcionista"))) {
+        if ((rol.equalsIgnoreCase("Veterinario")) || (rol.equalsIgnoreCase("Recepcionista"))) {
             btn_eliminar.setEnabled(false);
             // desactiva los botones que desees
         }
     }
-    
+
     public JPanel getPanelEmpleado() {
         return jPanel1;
     }
-    
+
 }
