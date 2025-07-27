@@ -5,6 +5,7 @@
 package CRUD_Veterinaria;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,19 +44,19 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        txt_nom_emplea = new javax.swing.JTextField();
+        txt_nombre_cliente = new javax.swing.JTextField();
         btn_registrar = new javax.swing.JButton();
         btn_actualizar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        txt_ident_emplea = new javax.swing.JTextField();
-        txt_nom_emplea1 = new javax.swing.JTextField();
-        txt_ident_emplea1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        btnbuscar_cliente = new javax.swing.JButton();
+        txt_ident_cliente = new javax.swing.JTextField();
+        txt_nom_empleado = new javax.swing.JTextField();
+        txt_ident_empleado = new javax.swing.JTextField();
+        btnbuscar_empleado = new javax.swing.JButton();
+        txt_diagnostico = new javax.swing.JTextField();
+        txt_precio = new javax.swing.JTextField();
+        txt_id_consulta = new javax.swing.JTextField();
+        combo_mascota = new javax.swing.JComboBox<>();
         txt_fecha = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
@@ -73,20 +74,20 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(237, 232, 208));
 
-        txt_nom_emplea.setEditable(false);
-        txt_nom_emplea.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        txt_nom_emplea.setMinimumSize(new java.awt.Dimension(65, 65));
-        txt_nom_emplea.addFocusListener(new java.awt.event.FocusAdapter() {
+        txt_nombre_cliente.setEditable(false);
+        txt_nombre_cliente.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        txt_nombre_cliente.setMinimumSize(new java.awt.Dimension(65, 65));
+        txt_nombre_cliente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_nom_empleaFocusGained(evt);
+                txt_nombre_clienteFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_nom_empleaFocusLost(evt);
+                txt_nombre_clienteFocusLost(evt);
             }
         });
-        txt_nom_emplea.addActionListener(new java.awt.event.ActionListener() {
+        txt_nombre_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_nom_empleaActionPerformed(evt);
+                txt_nombre_clienteActionPerformed(evt);
             }
         });
 
@@ -111,48 +112,53 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnbuscar_cliente.setText("Buscar");
+        btnbuscar_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnbuscar_clienteActionPerformed(evt);
             }
         });
 
-        txt_ident_emplea.setBorder(javax.swing.BorderFactory.createTitledBorder("Identidad del Cliente"));
+        txt_ident_cliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Identidad del Cliente"));
 
-        txt_nom_emplea1.setEditable(false);
-        txt_nom_emplea1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        txt_nom_emplea1.addFocusListener(new java.awt.event.FocusAdapter() {
+        txt_nom_empleado.setEditable(false);
+        txt_nom_empleado.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        txt_nom_empleado.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_nom_emplea1FocusGained(evt);
+                txt_nom_empleadoFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_nom_emplea1FocusLost(evt);
+                txt_nom_empleadoFocusLost(evt);
             }
         });
-        txt_nom_emplea1.addActionListener(new java.awt.event.ActionListener() {
+        txt_nom_empleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_nom_emplea1ActionPerformed(evt);
+                txt_nom_empleadoActionPerformed(evt);
             }
         });
 
-        txt_ident_emplea1.setBorder(javax.swing.BorderFactory.createTitledBorder("Identidad del Empleado"));
+        txt_ident_empleado.setBorder(javax.swing.BorderFactory.createTitledBorder("Identidad del Empleado"));
 
-        jButton3.setText("Buscar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnbuscar_empleado.setText("Buscar");
+        btnbuscar_empleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnbuscar_empleadoActionPerformed(evt);
             }
         });
 
-        jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder("Diagnostico"));
+        txt_diagnostico.setBorder(javax.swing.BorderFactory.createTitledBorder("Diagnostico"));
 
-        jTextField2.setBorder(javax.swing.BorderFactory.createTitledBorder("Precio"));
+        txt_precio.setBorder(javax.swing.BorderFactory.createTitledBorder("Precio"));
 
-        jTextField3.setEditable(false);
-        jTextField3.setBorder(javax.swing.BorderFactory.createTitledBorder("Id Consulta"));
+        txt_id_consulta.setEditable(false);
+        txt_id_consulta.setBorder(javax.swing.BorderFactory.createTitledBorder("Id Consulta"));
+        txt_id_consulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_id_consultaActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combo_mascota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Mascota" }));
 
         txt_fecha.setEditable(false);
         txt_fecha.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
@@ -175,24 +181,24 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txt_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txt_nom_emplea, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_nombre_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(combo_mascota, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_diagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txt_nom_emplea1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_nom_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txt_id_consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txt_ident_emplea, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_ident_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnbuscar_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txt_ident_emplea1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_ident_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnbuscar_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -201,26 +207,26 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_ident_emplea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_ident_cliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnbuscar_cliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_nom_emplea, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_nombre_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combo_mascota, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_ident_emplea1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_ident_empleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnbuscar_empleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_nom_emplea1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt_nom_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_id_consulta))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_diagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -324,7 +330,7 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -347,20 +353,91 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_nom_empleaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nom_empleaFocusGained
+    private void txt_nombre_clienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nombre_clienteFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nom_empleaFocusGained
+    }//GEN-LAST:event_txt_nombre_clienteFocusGained
 
-    private void txt_nom_empleaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nom_empleaFocusLost
+    private void txt_nombre_clienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nombre_clienteFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nom_empleaFocusLost
+    }//GEN-LAST:event_txt_nombre_clienteFocusLost
 
-    private void txt_nom_empleaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nom_empleaActionPerformed
+    private void txt_nombre_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nombre_clienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nom_empleaActionPerformed
+    }//GEN-LAST:event_txt_nombre_clienteActionPerformed
 
     private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:                                            
+        // Obtener fecha (de JTextField)
+        String fechaStr = txt_fecha.getText().trim();
+
+        // Validación de campos vacíos
+        if (txt_diagnostico.getText().trim().isEmpty()
+                || txt_precio.getText().trim().isEmpty()
+                || fechaStr.isEmpty()
+                || combo_mascota.getSelectedItem() == null
+                || combo_mascota.getSelectedItem().toString().equals("Seleccionar Mascota")
+                || txt_nom_empleado.getText().trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos requeridos.");
+            return;
+        }
+
+        // Validar que el precio es numérico
+        try {
+            Double.parseDouble(txt_precio.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El precio debe ser numérico.");
+            return;
+        }
+
+        // Convertir fecha a java.sql.Date (si la tienes como texto yyyy-MM-dd)
+        java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
+
+        try ( Connection cn = con.Conectar()) {
+            // Obtener el id_mascota y el id_empleado por nombre
+            int id_mascota = -1;
+            try ( PreparedStatement psMascota = cn.prepareStatement("SELECT id_mascota FROM mascota WHERE nombre = ?")) {
+                psMascota.setString(1, combo_mascota.getSelectedItem().toString());
+                ResultSet rsMascota = psMascota.executeQuery();
+                if (rsMascota.next()) {
+                    id_mascota = rsMascota.getInt("id_mascota");
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró la mascota seleccionada.");
+                    return;
+                }
+            }
+
+            int id_empleado = -1;
+            try ( PreparedStatement psEmpleado = cn.prepareStatement("SELECT id_empleado FROM empleado WHERE nombre = ?")) {
+                psEmpleado.setString(1, txt_nom_empleado.getText().trim());
+                ResultSet rsEmpleado = psEmpleado.executeQuery();
+                if (rsEmpleado.next()) {
+                    id_empleado = rsEmpleado.getInt("id_empleado");
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró el empleado seleccionado.");
+                    return;
+                }
+            }
+
+            // Insertar en la base de datos SIN variables intermedias, como tu ejemplo
+            String query = "INSERT INTO historial_consulta (fecha_historial_consulta, diagnostico, precio_consulta, id_mascota, id_empleado) VALUES (?, ?, ?, ?, ?)";
+            try ( PreparedStatement ps = cn.prepareStatement(query)) {
+                ps.setDate(1, fechaSQL);
+                ps.setString(2, txt_diagnostico.getText().trim());
+                ps.setDouble(3, Double.parseDouble(txt_precio.getText().trim()));
+                ps.setInt(4, id_mascota);
+                ps.setInt(5, id_empleado);
+                ps.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "Consulta registrada correctamente.");
+                me.limpiarCampos(txt_precio, txt_diagnostico, txt_ident_empleado, txt_nom_empleado);
+                combo_mascota.setSelectedIndex(0);
+                mostrardatos();
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al registrar consulta: " + e.getMessage());
+        }
 
     }//GEN-LAST:event_btn_registrarActionPerformed
 
@@ -383,6 +460,86 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
     private void jtable_datosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtable_datosMouseClicked
         // TODO add your handling code here:
 
+        btn_registrar.setEnabled(false);
+        btn_actualizar.setEnabled(true);
+
+        int fila = this.jtable_datos.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona una fila.");
+            return;
+        }
+
+        // Obtener valores de la fila
+        String[] datos = new String[6];
+        for (int i = 0; i < datos.length; i++) {
+            datos[i] = this.jtable_datos.getValueAt(fila, i).toString();
+        }
+
+        // Asignar a los campos visibles
+        this.txt_id_consulta.setText(datos[0]);
+        this.txt_fecha.setText(datos[1]);
+        this.txt_diagnostico.setText(datos[2]);
+        this.txt_precio.setText(datos[3]);
+        this.txt_nom_empleado.setText(datos[5]);
+
+        // Buscar identidad y nombre del cliente, y mascotas asociadas
+        try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement(
+                "SELECT c.identidad, c.nombre, c.id_cliente "
+                + "FROM cliente c "
+                + "JOIN mascota m ON c.id_cliente = m.id_cliente "
+                + "WHERE m.nombre = ? LIMIT 1")) {
+            ps.setString(1, datos[4]); // nombre de la mascota
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                this.txt_ident_cliente.setText(rs.getString("identidad"));
+                this.txt_nombre_cliente.setText(rs.getString("nombre"));
+                int id_cliente = rs.getInt("id_cliente");
+
+                // Llenar combo_mascota con todas las mascotas de este cliente
+                me.vaciarComboBox(combo_mascota);
+                combo_mascota.addItem("Seleccionar Mascota");
+                try ( PreparedStatement psMascotas = cn.prepareStatement(
+                        "SELECT nombre FROM mascota WHERE id_cliente = ?")) {
+                    psMascotas.setInt(1, id_cliente);
+                    ResultSet rsMascotas = psMascotas.executeQuery();
+                    while (rsMascotas.next()) {
+                        combo_mascota.addItem(rsMascotas.getString("nombre"));
+                    }
+                    rsMascotas.close();
+                    psMascotas.close();
+                }
+                // Seleccionar la mascota de la fila
+                combo_mascota.setSelectedItem(datos[4]);
+            } else {
+                this.txt_ident_cliente.setText("");
+                this.txt_nombre_cliente.setText("");
+                me.limpiarComboBox(combo_mascota);
+                JOptionPane.showMessageDialog(this, "Cliente asociado a la mascota no encontrado.");
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al buscar cliente y mascotas.");
+        }
+
+        // Buscar identidad del empleado
+        try ( Connection cn = con.Conectar();  PreparedStatement psEmp = cn.prepareStatement(
+                "SELECT identidad FROM empleado WHERE nombre = ? LIMIT 1")) {
+            psEmp.setString(1, datos[5]);
+            ResultSet rsEmp = psEmp.executeQuery();
+            if (rsEmp.next()) {
+                this.txt_ident_empleado.setText(rsEmp.getString("identidad"));
+            } else {
+                this.txt_ident_empleado.setText("");
+                JOptionPane.showMessageDialog(this, "Identidad del empleado no encontrada.");
+            }
+            rsEmp.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al buscar identidad del empleado.");
+        }
+
     }//GEN-LAST:event_jtable_datosMouseClicked
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
@@ -390,27 +547,103 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_buscarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnbuscar_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscar_clienteActionPerformed
+        // TODO add your handling code here:}
+
+        btn_registrar.setEnabled(true);
+
+        String identidad = txt_ident_cliente.getText();
+        try {
+            Connection cn = con.Conectar();
+
+            PreparedStatement ps = cn.prepareStatement("SELECT id_cliente, nombre FROM cliente WHERE identidad = ?");
+            ps.setString(1, identidad);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id_cliente = rs.getInt("id_cliente");
+                txt_nombre_cliente.setText(rs.getString("nombre"));
+
+                // Limpiar campos y ComboBox
+                me.limpiarCampos(txt_precio, txt_diagnostico, txt_ident_empleado, txt_nom_empleado, txt_id_consulta);
+                me.limpiarComboBox(combo_mascota);
+
+                // Mascotas del cliente
+                PreparedStatement psMascota = cn.prepareStatement("SELECT nombre FROM mascota WHERE id_cliente = ?");
+                psMascota.setInt(1, id_cliente);
+                ResultSet rsMascota = psMascota.executeQuery();
+
+                // Limpiar y llenar combo
+                combo_mascota.removeAllItems();
+                combo_mascota.addItem("Seleccionar Mascota");
+                while (rsMascota.next()) {
+                    combo_mascota.addItem(rsMascota.getString("nombre"));
+                }
+                rsMascota.close();
+                psMascota.close();
+
+            } else {
+                int resp = JOptionPane.showConfirmDialog(this, "Cliente no encontrado. ¿Deseas registrarlo?", "Aviso", JOptionPane.YES_NO_OPTION);
+                if (resp == JOptionPane.YES_OPTION) {
+                    new clientes_vista().setVisible(true);
+                    this.dispose();
+                }
+            }
+            rs.close();
+            ps.close();
+            cn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Ocurrió un problema al buscar el cliente:\n" + e.getMessage());
+        }
+    }//GEN-LAST:event_btnbuscar_clienteActionPerformed
+
+    private void txt_nom_empleadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nom_empleadoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_nom_empleadoFocusGained
+
+    private void txt_nom_empleadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nom_empleadoFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_nom_empleadoFocusLost
+
+    private void txt_nom_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nom_empleadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_nom_empleadoActionPerformed
+
+    private void btnbuscar_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscar_empleadoActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+        btn_registrar.setEnabled(true);
 
-    private void txt_nom_emplea1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nom_emplea1FocusGained
+        String identidad = txt_ident_empleado.getText();
+        try {
+            Connection cn = con.Conectar();
+
+            PreparedStatement ps = cn.prepareStatement("SELECT nombre FROM empleado WHERE identidad = ?");
+            ps.setString(1, identidad);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                txt_nom_empleado.setText(rs.getString("nombre"));
+                me.limpiarCampos(txt_precio, txt_diagnostico, txt_id_consulta);
+
+            } else {
+                int resp = JOptionPane.showConfirmDialog(this, "Empleado no encontrado. ¿Deseas registrarlo?", "Aviso", JOptionPane.YES_NO_OPTION);
+                if (resp == JOptionPane.YES_OPTION) {
+                    new empleado_vista().setVisible(true);
+                    this.dispose();
+                }
+            }
+            rs.close();
+            ps.close();
+            cn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Ocurrió un problema al buscar el empleado:\n" + e.getMessage());
+        }
+    }//GEN-LAST:event_btnbuscar_empleadoActionPerformed
+
+    private void txt_id_consultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_id_consultaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nom_emplea1FocusGained
-
-    private void txt_nom_emplea1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nom_emplea1FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nom_emplea1FocusLost
-
-    private void txt_nom_emplea1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nom_emplea1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nom_emplea1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_txt_id_consultaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -426,16 +659,24 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Historial_Consulta_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Historial_Consulta_Vista.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Historial_Consulta_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Historial_Consulta_Vista.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Historial_Consulta_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Historial_Consulta_Vista.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Historial_Consulta_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Historial_Consulta_Vista.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -452,66 +693,66 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_registrar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnbuscar_cliente;
+    private javax.swing.JButton btnbuscar_empleado;
+    private javax.swing.JComboBox<String> combo_mascota;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTable jtable_datos;
     private javax.swing.JTextField txt_buscar;
+    private javax.swing.JTextField txt_diagnostico;
     private javax.swing.JTextField txt_fecha;
-    private javax.swing.JTextField txt_ident_emplea;
-    private javax.swing.JTextField txt_ident_emplea1;
-    private javax.swing.JTextField txt_nom_emplea;
-    private javax.swing.JTextField txt_nom_emplea1;
+    private javax.swing.JTextField txt_id_consulta;
+    private javax.swing.JTextField txt_ident_cliente;
+    private javax.swing.JTextField txt_ident_empleado;
+    private javax.swing.JTextField txt_nom_empleado;
+    private javax.swing.JTextField txt_nombre_cliente;
+    private javax.swing.JTextField txt_precio;
     // End of variables declaration//GEN-END:variables
 
-private void mostrardatos() {
-    DefaultTableModel modelo = new DefaultTableModel();
-    modelo.addColumn("id");
-    modelo.addColumn("Fecha");
-    modelo.addColumn("Diagnostico");
-    modelo.addColumn("Precio");
-    modelo.addColumn("Mascota");
-    modelo.addColumn("Empleado");
-    jtable_datos.setModel(modelo);
+    private void mostrardatos() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("id");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Diagnostico");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Mascota");
+        modelo.addColumn("Empleado");
+        jtable_datos.setModel(modelo);
 
-    String query = "SELECT hc.id_consulta, hc.fecha_historial_consulta, hc.diagnostico, hc.precio_consulta, " +
-                   "m.nombre, e.nombre " +
-                   "FROM historial_consulta hc " +
-                   "JOIN mascota m ON hc.id_mascota = m.id_mascota " +
-                   "JOIN empleado e ON hc.id_empleado = e.id_empleado";
+        String query = "SELECT hc.id_consulta, hc.fecha_historial_consulta, hc.diagnostico, hc.precio_consulta, "
+                + "m.nombre, e.nombre "
+                + "FROM historial_consulta hc "
+                + "JOIN mascota m ON hc.id_mascota = m.id_mascota "
+                + "JOIN empleado e ON hc.id_empleado = e.id_empleado";
 
-    Connection cn = con.Conectar();
+        Connection cn = con.Conectar();
 
-    try {
-        Statement st = cn.createStatement();
-        ResultSet rs = st.executeQuery(query);
-        while (rs.next()) {
-            String[] fila = new String[6];
-            fila[0] = rs.getString("id_consulta");
-            fila[1] = rs.getString("fecha_historial_consulta");
-            fila[2] = rs.getString("diagnostico");
-            fila[3] = rs.getString("precio_consulta");
-            fila[4] = rs.getString("m.nombre");
-            fila[5] = rs.getString("e.nombre");
-            modelo.addRow(fila);
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                String[] fila = new String[6];
+                fila[0] = rs.getString("id_consulta");
+                fila[1] = rs.getString("fecha_historial_consulta");
+                fila[2] = rs.getString("diagnostico");
+                fila[3] = rs.getString("precio_consulta");
+                fila[4] = rs.getString("m.nombre");
+                fila[5] = rs.getString("e.nombre");
+                modelo.addRow(fila);
+            }
+            me.ajustarAnchoColumnas(jtable_datos, 150);
+            rs.close();
+            st.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al mostrar datos: ");
         }
-        me.ajustarAnchoColumnas(jtable_datos, 150);
-        rs.close();
-        st.close();
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Error al mostrar datos: ");
     }
-}
 
     private void mostrarFecha() {
         LocalDate fechaActual = LocalDate.now();

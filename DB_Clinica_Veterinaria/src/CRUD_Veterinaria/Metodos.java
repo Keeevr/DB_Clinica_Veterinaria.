@@ -9,19 +9,19 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 public class Metodos {
-    
+
     public void limpiarCampos(JTextField... campos) {
         for (JTextField campo : campos) {
             campo.setText("");
         }//uso: limpiarDateChooser(txt_nombre);
     }
-    
+
     public void limpiarDateChooser(JDateChooser... fechas) {
         for (JDateChooser fecha : fechas) {
             fecha.setDate(null);
         }//uso: limpiarDateChooser(jdcfecha_nom);
     }
-    
+
     //Seleciona al primero
     public void limpiarComboBox(JComboBox<?>... combos) {
         for (JComboBox<?> combo : combos) {
@@ -32,13 +32,14 @@ public class Metodos {
             }//uso: limpiarComboBox(combo_cliente);
         }
     }
+
     
-    private void vaciarComboBox(JComboBox<?>... combos) {
+    public void vaciarComboBox(JComboBox<?>... combos) {
         for (JComboBox<?> combo : combos) {
             combo.removeAllItems();
         }//uso: vaciarComboBox(combo_cliente);
     }
-    
+
     //metodo para redimencionar anchos de columnas
     public void ajustarAnchoColumnas(JTable tabla, int anchoMaxPermitido) {
         for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
@@ -67,5 +68,5 @@ public class Metodos {
             }
             tableColumn.setPreferredWidth(anchoMaximo);
         }//uso: ajustarAnchoColumnas(jtable, 150);
-    }   
+    }
 }

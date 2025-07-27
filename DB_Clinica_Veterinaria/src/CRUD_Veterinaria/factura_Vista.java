@@ -165,6 +165,11 @@ public class factura_Vista extends javax.swing.JFrame {
         txt_precio.setBorder(javax.swing.BorderFactory.createTitledBorder("Precio de la Consulta"));
 
         combo_mascota.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre Mascotas"));
+        combo_mascota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_mascotaActionPerformed(evt);
+            }
+        });
 
         combo_consulta.setBorder(javax.swing.BorderFactory.createTitledBorder("No. Consulta"));
 
@@ -700,6 +705,10 @@ public class factura_Vista extends javax.swing.JFrame {
     private void txt_fecha_diaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_fecha_diaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_fecha_diaActionPerformed
+
+    private void combo_mascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_mascotaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combo_mascotaActionPerformed
 
     /**
      * @param args the command line arguments
