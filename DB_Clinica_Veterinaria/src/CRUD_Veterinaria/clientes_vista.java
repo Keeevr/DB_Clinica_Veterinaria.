@@ -1,7 +1,6 @@
 package CRUD_Veterinaria;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -437,8 +436,11 @@ public class clientes_vista extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        new Menu_vista().setVisible(true);
-        this.dispose();
+        Menu_vista mm = new Menu_vista();
+        mm.limpearContenedor();
+//        Contenedor_Principal mv = new Contenedor_Principal(); // NO hagas mv.setVisible(true);
+//        JPanel PanelContenedor = mv.getPanelContenedor(); // obtenemos jPanel2
+//        mm.mostrarPanel(PanelContenedor); // lo insertamos en el contenedor
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

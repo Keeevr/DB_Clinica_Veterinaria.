@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 public class Menu_vista extends javax.swing.JFrame {
 
+    Contenedor_Principal cc = new Contenedor_Principal();
 
     public Menu_vista() {
         super("Menu Principal");
@@ -22,13 +23,15 @@ public class Menu_vista extends javax.swing.JFrame {
         btn_mascotas = new javax.swing.JButton();
         btn_factura = new javax.swing.JButton();
         btn_clientes = new javax.swing.JButton();
-        btn_salir = new javax.swing.JButton();
         btn_empleados = new javax.swing.JButton();
         btn_cargo = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        btn_salir = new javax.swing.JButton();
         panel_contenedor = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -61,14 +64,6 @@ public class Menu_vista extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 140, -1));
-
-        btn_salir.setText("Salir");
-        btn_salir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_salirActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 140, -1));
 
         btn_empleados.setText("Empleados");
         btn_empleados.addActionListener(new java.awt.event.ActionListener() {
@@ -110,12 +105,31 @@ public class Menu_vista extends javax.swing.JFrame {
         });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 140, -1));
 
+        btn_salir.setText("Salir");
+        btn_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, 140, 80));
+
         panel_contenedor.setBackground(new java.awt.Color(255, 51, 255));
         panel_contenedor.setPreferredSize(new java.awt.Dimension(1246, 597));
         panel_contenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Fondo_Veterinaria.png"))); // NOI18N
-        panel_contenedor.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Fondo_Veterinaria.png"))); // NOI18N
+        panel_contenedor.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel2.setBackground(new java.awt.Color(255, 204, 153));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Menu.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 10, -1, -1));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -123,9 +137,11 @@ public class Menu_vista extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(panel_contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panel_contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -133,16 +149,21 @@ public class Menu_vista extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 597, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(panel_contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,48 +175,32 @@ public class Menu_vista extends javax.swing.JFrame {
 
     private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
         // TODO add your handling code here:
-//      new clientes_vista().setVisible(true);
-//      this.dispose();
-    
-        clientes_vista mv = new clientes_vista(); // NO hagas mv.setVisible(true);
-        JPanel panelClientes = mv.getPanelClientes(); // obtenemos jPanel2
-        
-        mostrarPanel(panelClientes); // lo insertamos en el contenedor
-        
+        clientes_vista mv = new clientes_vista();
+        JPanel panelClientes = mv.getPanelClientes();
+        mostrarPanel(panelClientes);
     }//GEN-LAST:event_btn_clientesActionPerformed
 
     private void btn_mascotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mascotasActionPerformed
         // TODO add your handling code here:
-        //new mascota_vista().setVisible(true);
-        
-        mascota_vista mv = new mascota_vista(); // NO hagas mv.setVisible(true);
-        JPanel panelMascotas = mv.getPanelMascotas(); // obtenemos jPanel2
-
-        mostrarPanel(panelMascotas); // lo insertamos en el contenedor
-        
+        mascota_vista mv = new mascota_vista();
+        JPanel panelMascotas = mv.getPanelMascotas(); 
+        mostrarPanel(panelMascotas);
     }//GEN-LAST:event_btn_mascotasActionPerformed
 
     private void btn_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_facturaActionPerformed
         // TODO add your handling code here:
-//        new factura_Vista().setVisible(true);
-//        this.dispose();
-        
-        factura_Vista mv = new factura_Vista(); // NO hagas mv.setVisible(true);
-        JPanel panelFactura = mv.getPanelFactura(); // obtenemos jPanel2
-        
-        mostrarPanel(panelFactura); // lo insertamos en el contenedor
-        
+        factura_Vista mv = new factura_Vista();
+        JPanel panelFactura = mv.getPanelFactura();
+        mostrarPanel(panelFactura);
+
     }//GEN-LAST:event_btn_facturaActionPerformed
 
     private void btn_empleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_empleadosActionPerformed
         // TODO add your handling code here:
-//        new empleado_vista().setVisible(true);
-//        this.dispose();
+        empleado_vista mv = new empleado_vista();
+        JPanel panelEmpleado = mv.getPanelEmpleado();
 
-        empleado_vista mv = new empleado_vista(); // NO hagas mv.setVisible(true);
-        JPanel panelEmpleado = mv.getPanelEmpleado(); // obtenemos jPanel2
-        
-        mostrarPanel(panelEmpleado); // lo insertamos en el contenedor
+        mostrarPanel(panelEmpleado);
 
     }//GEN-LAST:event_btn_empleadosActionPerformed
 
@@ -206,36 +211,41 @@ public class Menu_vista extends javax.swing.JFrame {
 
     private void btn_cargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargoActionPerformed
         // TODO add your handling code here:
-        
-        cargo_vista mv = new cargo_vista(); // NO hagas mv.setVisible(true);
-        JPanel panelCargo = mv.getPanelCargo(); // obtenemos jPanel2
-        mostrarPanel(panelCargo); // lo insertamos en el contenedor
-        
+
+        cargo_vista mv = new cargo_vista();
+        JPanel panelCargo = mv.getPanelCargo();
+        mostrarPanel(panelCargo);
+
     }//GEN-LAST:event_btn_cargoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Medicamentos_vista mv = new Medicamentos_vista(); // NO hagas mv.setVisible(true);
-        JPanel panelMedicamentos = mv.getPanelMedicamentos(); // obtenemos jPanel2
-        
-        mostrarPanel(panelMedicamentos); // lo insertamos en el contenedor
+        Medicamentos_vista mv = new Medicamentos_vista();
+        JPanel panelMedicamentos = mv.getPanelMedicamentos();
+
+        mostrarPanel(panelMedicamentos);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Formulario_Hist_Vista mv = new Formulario_Hist_Vista(); // NO hagas mv.setVisible(true);
-        JPanel panelFactura_histo = mv.getPanelHistorial_Factura(); // obtenemos jPanel2
-        
-        mostrarPanel(panelFactura_histo); // lo insertamos en el contenedor
+        Formulario_Hist_Vista mv = new Formulario_Hist_Vista();
+        JPanel panelFactura_histo = mv.getPanelHistorial_Factura();
+        mostrarPanel(panelFactura_histo);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Historial_Consulta_Vista mv = new Historial_Consulta_Vista(); // NO hagas mv.setVisible(true);
-        JPanel panelHistorialConsulta = mv.getPanelHistorial(); // obtenemos jPanel2
-        
-        mostrarPanel(panelHistorialConsulta); // lo insertamos en el contenedor
+        Historial_Consulta_Vista mv = new Historial_Consulta_Vista();
+        JPanel panelHistorialConsulta = mv.getPanelHistorial();
+        mostrarPanel(panelHistorialConsulta);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        limpearContenedor();
+        JPanel panelContenedorMenu = cc.getPanelContenedor();
+        mostrarPanel(panelContenedorMenu);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -283,20 +293,28 @@ public class Menu_vista extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel panel_contenedor;
     // End of variables declaration//GEN-END:variables
-    
+
     private void configurarSegunRol(String rol) {
         if ((rol.equalsIgnoreCase("Veterinario"))) {
             btn_factura.setEnabled(false);
             btn_cargo.setEnabled(false);
-            // desactiva los botones que desees
         }
     }
     
     
+
+    public void limpearContenedor() {
+        panel_contenedor.removeAll();
+        panel_contenedor.revalidate();
+        panel_contenedor.repaint();
+    }
+
     public void mostrarPanel(JPanel panel) {
         panel.setSize(panel_contenedor.getSize());
         panel.setLocation(0, 0);
@@ -306,10 +324,8 @@ public class Menu_vista extends javax.swing.JFrame {
         panel_contenedor.revalidate();
         panel_contenedor.repaint();
     }
-    
+
     public JPanel getPanelMenuCon() {
         return panel_contenedor;
     }
-    
 }
-    
