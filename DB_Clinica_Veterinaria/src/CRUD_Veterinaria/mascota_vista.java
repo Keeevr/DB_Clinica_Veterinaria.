@@ -599,10 +599,10 @@ public class mascota_vista extends javax.swing.JFrame {
         }
 
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID Cliente");
-        modelo.addColumn("Dueño");
         modelo.addColumn("ID");
         modelo.addColumn("Mascota");
+        modelo.addColumn("ID Cliente");
+        modelo.addColumn("Dueño");
         modelo.addColumn("Especie");
         modelo.addColumn("Raza");
         modelo.addColumn("Fecha Nacimiento");
@@ -617,26 +617,29 @@ public class mascota_vista extends javax.swing.JFrame {
             ps.setString(1, "%" + busqueda + "%");
             ps.setString(2, "%" + busqueda + "%");
             ResultSet rs = ps.executeQuery();
-
+            boolean hayResultados = false;
             while (rs.next()) {
+                hayResultados = true;
                 Object[] fila = new Object[8];
-                fila[0] = rs.getInt("id_cliente");      // ID Cliente
-                fila[1] = rs.getString("c.nombre");     // Dueño de la Mascota
-                fila[2] = rs.getInt("id_mascota");      // ID Mascota
-                fila[3] = rs.getString("m.nombre");     // Nombre de Mascota
+
+                fila[0] = rs.getInt("id_mascota");      // ID Mascota
+                fila[1] = rs.getString("m.nombre");     // Nombre de Mascota
+                fila[2] = rs.getInt("id_cliente");      // ID Cliente
+                fila[3] = rs.getString("c.nombre");     // Dueño de la Mascota
                 fila[4] = rs.getString("especie");      // Especie
                 fila[5] = rs.getString("raza");         // Raza
                 fila[6] = rs.getString("fecha_nacimiento") != null ? rs.getString("fecha_nacimiento") : "No especificada"; // Fecha Nacimiento
                 fila[7] = rs.getString("sexo");         // Sexo
                 modelo.addRow(fila);
             }
-
-            jtabledatos.setModel(modelo);
-            me.ajustarAnchoColumnas(jtabledatos, 150);
-            if (modelo.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "No se encontraron mascotas con ese nombre o ID.");
+            jtabledatos.setModel(modelo);            
+            // Si no hubo resultados y no está vacío el campo de búsqueda, muestra todos los datos
+            if (!hayResultados && !busqueda.isEmpty()) {
                 mostrardatos();
+                JOptionPane.showMessageDialog(this, "No se encontraron resultados. Mostrando todas las Mascotas.");
+                me.limpiarCampos(txtbuscar_mascota);
             }
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al buscar: " + e.getMessage());
         }
@@ -709,10 +712,10 @@ public class mascota_vista extends javax.swing.JFrame {
 
     private void mostrardatos() {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID Cliete");
-        modelo.addColumn("Dueño");
         modelo.addColumn("ID");
         modelo.addColumn("Mascota");
+        modelo.addColumn("ID Cliete");
+        modelo.addColumn("Dueño");        
         modelo.addColumn("Especie");
         modelo.addColumn("Raza");
         modelo.addColumn("Fecha Nacimiento");
@@ -729,10 +732,10 @@ public class mascota_vista extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery(consultasql)) {
             while (rs.next()) {
                 String[] data = new String[8];
-                data[0] = rs.getString(7); // nombre del cliente
-                data[1] = rs.getString(8); // nombre del cliente
-                data[2] = rs.getString(1); // id_mascota
-                data[3] = rs.getString(2); // nombre
+                data[0] = rs.getString(1); // id_mascota
+                data[1] = rs.getString(2); // nombre
+                data[2] = rs.getString(7); // nombre del cliente
+                data[3] = rs.getString(8); // nombre del cliente                
                 data[4] = rs.getString(3); // especie
                 data[5] = rs.getString(4); // raza
                 data[6] = rs.getString(5) != null ? rs.getString(5) : "No especificada"; // fecha_nacimiento

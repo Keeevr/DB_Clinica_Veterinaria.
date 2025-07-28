@@ -111,8 +111,10 @@ public class personaDAO {
             return false;
         }
     }
+    
+    public boolean hayResultados = false;
 
-    public DefaultTableModel buscar(String texto, String nombre_tabla) {
+    public DefaultTableModel buscar(String busqueda, String nombre_tabla) {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Id");
         modelo.addColumn("Nombre y Apellido");
@@ -135,10 +137,11 @@ public class personaDAO {
         String query = "SELECT * FROM " + nombre_tabla + " WHERE nombre LIKE ? OR " + campo_id + " LIKE ?";
         try (PreparedStatement ps = cn.prepareStatement(query)) {
             //cualquier cantidad de caracteres (%)
-            ps.setString(1, "%" + texto + "%");
-            ps.setString(2, "%" + texto + "%");
+            ps.setString(1, "%" + busqueda + "%");
+            ps.setString(2, "%" + busqueda + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                hayResultados = true;
                 Object[] fila = new Object[6];
                 fila[0] = rs.getInt(1);
                 fila[1] = rs.getString(2);
@@ -148,6 +151,7 @@ public class personaDAO {
                 fila[5] = rs.getString(6);
                 modelo.addRow(fila);
             }
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al buscar: " + e.getMessage());
         }

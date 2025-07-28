@@ -14,14 +14,15 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 public class clientes_vista extends javax.swing.JFrame {
-    conexion con=new conexion();
+
+    conexion con = new conexion();
     Metodos me = new Metodos();
 
     public clientes_vista() {
         initComponents();
         mostrardatos();
         configurarSegunRol(Sesion.rolActual);
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -332,8 +333,8 @@ public class clientes_vista extends javax.swing.JFrame {
         p.setTelefono(txt_telefono.getText());
         p.setDireccion(txt_direccion.getText());
         p.setCorreo(txt_correo.getText());
-        
-        if (dao.insertar(p,"cliente")) {
+
+        if (dao.insertar(p, "cliente")) {
             JOptionPane.showMessageDialog(null, "Cliente registrado con éxito.");
             mostrardatos();
             me.limpiarCampos(txt_buscar, txt_correo, txt_direccion, txt_telefono, txt_identidad, txt_nombre_cliente, txt_id_cliente);
@@ -343,14 +344,14 @@ public class clientes_vista extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_registrarActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
-         // TODO add your handling code here:
+        // TODO add your handling code here:
         // Verifica si hay un ID seleccionado
         if (txt_id_cliente.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila.");
             return; // sale del método
         }
         personaDAO dao = new personaDAO();
-        persona p = new persona();        
+        persona p = new persona();
         p.setId_persona(Integer.parseInt(txt_id_cliente.getText()));
         p.setNombre(txt_nombre_cliente.getText());
         p.setIdentidad(txt_identidad.getText());
@@ -358,7 +359,7 @@ public class clientes_vista extends javax.swing.JFrame {
         p.setDireccion(txt_direccion.getText());
         p.setCorreo(txt_correo.getText());
 
-        if (dao.actualizar(p,"cliente")) {
+        if (dao.actualizar(p, "cliente")) {
             JOptionPane.showMessageDialog(null, "Cliente actualizado correctamente.");
             mostrardatos();
             me.limpiarCampos(txt_buscar, txt_correo, txt_direccion, txt_telefono, txt_identidad, txt_nombre_cliente, txt_id_cliente);
@@ -373,10 +374,10 @@ public class clientes_vista extends javax.swing.JFrame {
         // TODO add your handling code here:
         // Se desactiva el botón de registrar para evitar que el usuario duplique datos
         btn_registrar.setEnabled(false);
-        
+
         // Se obtiene el número (índice) de la fila seleccionada
-        int fila=this.jtable_datos.getSelectedRow();
-        
+        int fila = this.jtable_datos.getSelectedRow();
+
         //Se crea un arreglo
         String[] datos = new String[6];
         for (int i = 0; i < datos.length; i++) {
@@ -396,11 +397,11 @@ public class clientes_vista extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila.");
             return; // sale del método
         }
-        
+
         int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar este cliente?", "Confirmar", JOptionPane.YES_NO_OPTION);
         if (respuesta == JOptionPane.YES_OPTION) {
             personaDAO dao = new personaDAO();
-            persona p = new persona();  
+            persona p = new persona();
             p.setId_persona(Integer.parseInt(txt_id_cliente.getText()));
 
             if (dao.eliminar(p.getId_persona(), "cliente")) {
@@ -421,7 +422,14 @@ public class clientes_vista extends javax.swing.JFrame {
 
         personaDAO dao = new personaDAO();
         jtable_datos.setModel(dao.buscar(texto, "cliente"));
-        
+
+        // Si no hubo resultados y no está vacío el campo de búsqueda, muestra todos los datos
+        if (!dao.hayResultados) {
+            mostrardatos();
+            JOptionPane.showMessageDialog(this, "No se encontraron resultados. Mostrando todas los Clientes.");
+            me.limpiarCampos(txt_buscar);
+        }
+
         btn_registrar.setEnabled(true);
         me.limpiarCampos(txt_buscar, txt_correo, txt_direccion, txt_telefono, txt_identidad, txt_nombre_cliente, txt_id_cliente);
         ajustarAnchoColumnas(jtable_datos, 150);
@@ -488,9 +496,9 @@ public class clientes_vista extends javax.swing.JFrame {
     private javax.swing.JTextField txt_nombre_cliente;
     private javax.swing.JTextField txt_telefono;
     // End of variables declaration//GEN-END:variables
-    
-    private void mostrardatos() {
-        DefaultTableModel modelo=new DefaultTableModel();
+
+    public void mostrardatos() {
+        DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("id");
         modelo.addColumn("Nombre y Apellido");
         modelo.addColumn("Identidad");
@@ -498,14 +506,14 @@ public class clientes_vista extends javax.swing.JFrame {
         modelo.addColumn("Direccion");
         modelo.addColumn("Correo");
         jtable_datos.setModel(modelo);
-        String query="select * from cliente";
-        
-        Connection cn=con.Conectar();
-        
-        try{
+        String query = "select * from cliente";
+
+        Connection cn = con.Conectar();
+
+        try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(query);
-            while(rs.next()){
+            while (rs.next()) {
                 String[] fila = new String[6];
                 fila[0] = rs.getString(1);
                 fila[1] = rs.getString(2);
@@ -519,12 +527,12 @@ public class clientes_vista extends javax.swing.JFrame {
             ajustarAnchoColumnas(jtable_datos, 150);
             rs.close();
             st.close();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al mostrar datos: ");
         }
     }
-    
+
     //metodo para redimencionar anchos de columnas
     public void ajustarAnchoColumnas(JTable tabla, int anchoMaxPermitido) {
         for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
@@ -555,13 +563,14 @@ public class clientes_vista extends javax.swing.JFrame {
             tableColumn.setPreferredWidth(anchoMaximo);
         }
     }
+
     private void configurarSegunRol(String rol) {
-        if ((rol.equalsIgnoreCase("Veterinario"))||(rol.equalsIgnoreCase("Recepcionista"))) {
+        if ((rol.equalsIgnoreCase("Veterinario")) || (rol.equalsIgnoreCase("Recepcionista"))) {
             btn_eliminar.setEnabled(false);
             // desactiva los botones que desees
         }
     }
-    
+
     //envia el panel a mostrar
     public JPanel getPanelClientes() {
         return jPanel1;

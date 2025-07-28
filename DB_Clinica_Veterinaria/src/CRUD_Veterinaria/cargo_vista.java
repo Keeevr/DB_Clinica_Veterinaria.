@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 public class cargo_vista extends javax.swing.JFrame {
-    
+
     conexion con = new conexion();
     Metodos me = new Metodos();
 
@@ -18,7 +18,7 @@ public class cargo_vista extends javax.swing.JFrame {
         initComponents();
         mostrardatos();
         configurarSegunRol(Sesion.rolActual);
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -306,14 +306,15 @@ public class cargo_vista extends javax.swing.JFrame {
         modelo.addColumn("Sueldo");
         modelo.addColumn("Empleado");
         String query = "SELECT c.id_cargo, c.cargo, c.sueldo, c.id_empleado FROM cargo c WHERE c.cargo LIKE ? OR c.id_cargo LIKE ?";
+        boolean hayResultados = false;
 
-        try (Connection cn=con.Conectar();
-            PreparedStatement ps = cn.prepareStatement(query);){
+        try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement(query);) {
             ps.setString(1, "%" + busqueda + "%");
             ps.setString(2, "%" + busqueda + "%");
-            
-            try(ResultSet rs = ps.executeQuery();){
+
+            try ( ResultSet rs = ps.executeQuery();) {
                 while (rs.next()) {
+                    hayResultados = true;
                     Object[] fila = new Object[4];
                     fila[0] = rs.getInt("id_cargo");
                     fila[1] = rs.getString("cargo");
@@ -323,12 +324,14 @@ public class cargo_vista extends javax.swing.JFrame {
                 }
             }
             me.ajustarAnchoColumnas(jtable_cargo, 150);
-
             jtable_cargo.setModel(modelo);
-            if (modelo.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "No se encontraron cargo con ese nombre o ID.");
+
+            if (!hayResultados) {
                 mostrardatos();
+                JOptionPane.showMessageDialog(this, "No se encontraron resultados. Mostrando todas los Clientes.");
+                me.limpiarCampos(txt_buscar);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al buscar: ");
@@ -338,23 +341,22 @@ public class cargo_vista extends javax.swing.JFrame {
     private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
         // TODO add your handling code here:
         //Maynor mi niña
-        if (txt_ident_emplea.getText().trim().isEmpty()||txt_sueldo.getText().trim().isEmpty()||txt_nombre_cargo.getText().trim().isEmpty()) {
+        if (txt_ident_emplea.getText().trim().isEmpty() || txt_sueldo.getText().trim().isEmpty() || txt_nombre_cargo.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos requeridos.");
             return;
         }
         String query1 = ("SELECT id_empleado FROM empleado WHERE identidad = ?");
-        try (Connection cn = con.Conectar();
-            PreparedStatement ps1 = cn.prepareStatement(query1);){
+        try ( Connection cn = con.Conectar();  PreparedStatement ps1 = cn.prepareStatement(query1);) {
             ps1.setString(1, txt_ident_emplea.getText());
-            
-            try(ResultSet rs = ps1.executeQuery();){
+
+            try ( ResultSet rs = ps1.executeQuery();) {
                 if (rs.next()) {
                     int idEmpleado = rs.getInt("id_empleado");
 
                     // 2. Insertar el cargo con el id_empleado obtenido
                     String query2 = "INSERT INTO cargo (cargo, sueldo, id_empleado) VALUES (?, ?, ?)";
-                    
-                    try(PreparedStatement ps2 = cn.prepareStatement(query2);){
+
+                    try ( PreparedStatement ps2 = cn.prepareStatement(query2);) {
                         ps2.setString(1, txt_nombre_cargo.getText());
                         ps2.setString(2, txt_sueldo.getText());
                         ps2.setInt(3, idEmpleado);
@@ -381,14 +383,13 @@ public class cargo_vista extends javax.swing.JFrame {
         // TODO add your handling code here:
         String idebtEmple = txt_ident_emplea.getText();
         String query = "SELECT nombre FROM empleado WHERE identidad = ?";
-        try (Connection cn = con.Conectar();
-            PreparedStatement ps = cn.prepareStatement(query);){
+        try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement(query);) {
             ps.setString(1, idebtEmple);
-            
-            try (ResultSet rs = ps.executeQuery();){
+
+            try ( ResultSet rs = ps.executeQuery();) {
                 if (rs.next()) {
-                txt_nom_emplea.setText(rs.getString("nombre"));
-                me.limpiarCampos(txt_id, txt_nombre_cargo, txt_sueldo);
+                    txt_nom_emplea.setText(rs.getString("nombre"));
+                    me.limpiarCampos(txt_id, txt_nombre_cargo, txt_sueldo);
                 } else {
                     int resp = JOptionPane.showConfirmDialog(this, "Empleado no encontrado. ¿Deseas registrarlo?", "Aviso", JOptionPane.YES_NO_OPTION);
                     if (resp == JOptionPane.YES_OPTION) {
@@ -406,42 +407,41 @@ public class cargo_vista extends javax.swing.JFrame {
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         // TODO add your handling code here:
         btn_registrar.setEnabled(true);
-        
-        if (txt_id.getText().trim().isEmpty() || txt_ident_emplea.getText().trim().isEmpty()||txt_sueldo.getText().trim().isEmpty()||txt_nombre_cargo.getText().trim().isEmpty()) {
+
+        if (txt_id.getText().trim().isEmpty() || txt_ident_emplea.getText().trim().isEmpty() || txt_sueldo.getText().trim().isEmpty() || txt_nombre_cargo.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos requeridos.");
             return;
         }
         // 1. Buscar el ID del empleado por identidad
         String query1 = "SELECT id_empleado FROM empleado WHERE identidad = ?";
-        try (Connection cn = con.Conectar();
-            PreparedStatement ps1 = cn.prepareStatement(query1);){
+        try ( Connection cn = con.Conectar();  PreparedStatement ps1 = cn.prepareStatement(query1);) {
 
             ps1.setString(1, txt_ident_emplea.getText());
-            
-            try(ResultSet rs = ps1.executeQuery();){
+
+            try ( ResultSet rs = ps1.executeQuery();) {
                 if (rs.next()) {
-                int idEmpleado = rs.getInt("id_empleado");
-                // 2. Hacer el UPDATE del cargo
-                String query2 = "UPDATE cargo SET cargo = ?, sueldo = ?, id_empleado = ? WHERE id_cargo = ?";
-                try(PreparedStatement ps2 = cn.prepareStatement(query2);){
-                    ps2.setString(1, txt_nombre_cargo.getText());
-                    ps2.setString(2, txt_sueldo.getText());
-                    ps2.setInt(3, idEmpleado);
-                    ps2.setInt(4, Integer.parseInt(txt_id.getText()));
+                    int idEmpleado = rs.getInt("id_empleado");
+                    // 2. Hacer el UPDATE del cargo
+                    String query2 = "UPDATE cargo SET cargo = ?, sueldo = ?, id_empleado = ? WHERE id_cargo = ?";
+                    try ( PreparedStatement ps2 = cn.prepareStatement(query2);) {
+                        ps2.setString(1, txt_nombre_cargo.getText());
+                        ps2.setString(2, txt_sueldo.getText());
+                        ps2.setInt(3, idEmpleado);
+                        ps2.setInt(4, Integer.parseInt(txt_id.getText()));
 
-                    int filasAfectadas = ps2.executeUpdate();
+                        int filasAfectadas = ps2.executeUpdate();
 
-                    if (filasAfectadas > 0) {
-                        JOptionPane.showMessageDialog(this, "Cargo actualizado correctamente.");
-                        me.limpiarCampos(txt_nombre_cargo, txt_sueldo, txt_id, txt_ident_emplea, txt_nom_emplea);
-                        mostrardatos();
-                    } else {
-                        JOptionPane.showMessageDialog(this, "No se pudo actualizar el cargo.");
+                        if (filasAfectadas > 0) {
+                            JOptionPane.showMessageDialog(this, "Cargo actualizado correctamente.");
+                            me.limpiarCampos(txt_nombre_cargo, txt_sueldo, txt_id, txt_ident_emplea, txt_nom_emplea);
+                            mostrardatos();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "No se pudo actualizar el cargo.");
+                        }
                     }
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró el empleado con la identidad ingresada.");
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "No se encontró el empleado con la identidad ingresada.");
-            }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -451,8 +451,7 @@ public class cargo_vista extends javax.swing.JFrame {
 
     private void jtable_cargoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtable_cargoMouseClicked
         // TODO add your handling code here:
-        
-        
+
         btn_registrar.setEnabled(false);
 
         int fila = this.jtable_cargo.getSelectedRow();
@@ -469,12 +468,11 @@ public class cargo_vista extends javax.swing.JFrame {
 
             String query = "SELECT identidad, nombre FROM empleado WHERE id_empleado = ?";
 
-            try (Connection cn = con.Conectar();
-                 PreparedStatement ps = cn.prepareStatement(query)) {
+            try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement(query)) {
 
                 ps.setString(1, idEmpleado);
 
-                try (ResultSet rs = ps.executeQuery()) {
+                try ( ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
                         String identidad = rs.getString("identidad");
                         String nombreEmpleado = rs.getString("nombre");
@@ -488,7 +486,7 @@ public class cargo_vista extends javax.swing.JFrame {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error al buscar empleado.");
             }
-        } 
+        }
     }//GEN-LAST:event_jtable_cargoMouseClicked
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
@@ -505,8 +503,7 @@ public class cargo_vista extends javax.swing.JFrame {
         if (confirmacion == JOptionPane.YES_OPTION) {
             String query = "DELETE FROM cargo WHERE id_cargo = ?";
 
-            try (Connection cn = con.Conectar();
-                 PreparedStatement ps = cn.prepareStatement(query)) {
+            try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement(query)) {
 
                 ps.setInt(1, Integer.parseInt(idCargo));
 
@@ -583,21 +580,19 @@ public class cargo_vista extends javax.swing.JFrame {
     private javax.swing.JTextField txt_nombre_cargo;
     private javax.swing.JTextField txt_sueldo;
     // End of variables declaration//GEN-END:variables
-    
+
     private void mostrardatos() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID Cargo");
         modelo.addColumn("Cargo");
         modelo.addColumn("Sueldo");
         modelo.addColumn("Empleado");
-        
+
         jtable_cargo.setModel(modelo);
 
         String consultasql = "SELECT c.id_cargo, c.cargo, c.sueldo, p.id_empleado FROM cargo c JOIN empleado p ON c.id_empleado = p.id_empleado";
 
-        try (Connection cn=con.Conectar();
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(consultasql)) {
+        try ( Connection cn = con.Conectar();  Statement st = cn.createStatement();  ResultSet rs = st.executeQuery(consultasql)) {
             while (rs.next()) {
                 String[] data = new String[4];
                 data[0] = rs.getString(1); // nombre del cliente
@@ -611,14 +606,14 @@ public class cargo_vista extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al mostrar datos: " + e.getMessage());
         }
     }
-    
+
     private void configurarSegunRol(String rol) {
-        if ((rol.equalsIgnoreCase("Veterinario"))||(rol.equalsIgnoreCase("Recepcionista"))) {
+        if ((rol.equalsIgnoreCase("Veterinario")) || (rol.equalsIgnoreCase("Recepcionista"))) {
             btn_eliminar.setEnabled(false);
             // desactiva los botones que desees
         }
     }
-    
+
     public JPanel getPanelCargo() {
         return jPanel1;
     }

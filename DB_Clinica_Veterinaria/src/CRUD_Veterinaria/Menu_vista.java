@@ -7,10 +7,10 @@ public class Menu_vista extends javax.swing.JFrame {
 
 
     public Menu_vista() {
+        super("Menu Principal");
         initComponents();
         configurarSegunRol(Sesion.rolActual); // aquí usamos el rol guardado
         setLocationRelativeTo(null);
-        
     }
 
     @SuppressWarnings("unchecked")

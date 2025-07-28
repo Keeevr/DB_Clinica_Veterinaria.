@@ -365,6 +365,12 @@ public class empleado_vista extends javax.swing.JFrame {
 
         personaDAO dao = new personaDAO();
         jtable_datos.setModel(dao.buscar(texto, "empleado"));
+        
+        if (!dao.hayResultados) {
+            mostrardatos();
+            JOptionPane.showMessageDialog(this, "No se encontraron resultados. Mostrando todas los Empleados.");
+            me.limpiarCampos(txt_buscar);
+        }
 
         btn_registrar.setEnabled(true);
         me.limpiarCampos(txt_id_empleado, txt_nombre_empleado, txt_identidad, txt_telefono, txt_direccion, txt_correo, txt_buscar);

@@ -435,7 +435,8 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         modelo.addColumn("Fecha Caducidad");
         modelo.addColumn("Precio Uni");
         modelo.addColumn("Cantidad");
-
+        
+        boolean hayResultados = false;
         try {
             if (busqueda.matches("\\d+")) {
                 // Buscar por ID exacto
@@ -445,6 +446,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
                     ps.setInt(1, Integer.parseInt(busqueda));
                     try ( ResultSet rs = ps.executeQuery()) {
                         while (rs.next()) {
+                            hayResultados = true;
                             Object[] fila = new Object[5];
                             fila[0] = rs.getInt("id_medicamento");
                             fila[1] = rs.getString("nombre");
@@ -463,6 +465,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
                     ps.setString(1, "%" + busqueda + "%");
                     try ( ResultSet rs = ps.executeQuery()) {
                         while (rs.next()) {
+                            hayResultados = true;
                             Object[] fila = new Object[5];
                             fila[0] = rs.getInt("id_medicamento");
                             fila[1] = rs.getString("nombre");
@@ -474,12 +477,15 @@ public class Medicamentos_vista extends javax.swing.JFrame {
                     }
                 }
             }
+            // Si no hubo resultados y no está vacío el campo de búsqueda, muestra todos los datos
+
             jtable_datos.setModel(modelo);
             me.ajustarAnchoColumnas(jtable_datos, 150);
 
-            if (modelo.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "No se encontraron Medicamentos con ese Nombre o ID.");
+            if (!hayResultados) {
                 mostrardatos();
+                JOptionPane.showMessageDialog(this, "No se encontraron resultados. Mostrando todas los Medicamentos.");
+                me.limpiarCampos(txt_buscar_medicamento);
             }
 
         } catch (SQLException e) {

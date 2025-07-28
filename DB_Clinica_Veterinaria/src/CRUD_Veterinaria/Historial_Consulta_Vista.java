@@ -267,6 +267,11 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jtable_datos);
 
         txt_buscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresa nombre del Cargo  o ID"));
+        txt_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_buscarActionPerformed(evt);
+            }
+        });
 
         btn_buscar.setText("Buscar");
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -282,16 +287,14 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,8 +304,8 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -330,7 +333,7 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -430,7 +433,7 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                 ps.executeUpdate();
 
                 JOptionPane.showMessageDialog(this, "Consulta registrada correctamente.");
-                me.limpiarCampos(txt_precio, txt_diagnostico, txt_ident_empleado, txt_nom_empleado);
+                me.limpiarCampos(txt_precio, txt_diagnostico, txt_ident_empleado, txt_nom_empleado, txt_ident_cliente, txt_nombre_cliente);
                 combo_mascota.setSelectedIndex(0);
                 mostrardatos();
             }
@@ -444,11 +447,124 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         // TODO add your handling code here:
 
+        String idConsultaStr = txt_id_consulta.getText().trim();
+        if (idConsultaStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay consulta seleccionada para actualizar.");
+            return;
+        }
+
+        String fechaStr = txt_fecha.getText().trim();
+
+        if (txt_diagnostico.getText().trim().isEmpty()
+                || txt_precio.getText().trim().isEmpty()
+                || fechaStr.isEmpty()
+                || combo_mascota.getSelectedItem() == null
+                || combo_mascota.getSelectedItem().toString().equals("Seleccionar Mascota")
+                || txt_nom_empleado.getText().trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos requeridos.");
+            return;
+        }
+
+        // Validar que el precio es numérico
+        try {
+            Double.parseDouble(txt_precio.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El precio debe ser numérico.");
+            return;
+        }
+
+        java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
+
+        try ( Connection cn = con.Conectar();) {
+            // Obtener el id_mascota y el id_empleado por nombre
+            int id_mascota = -1;
+            try ( PreparedStatement psMascota = cn.prepareStatement("SELECT id_mascota FROM mascota WHERE nombre = ?")) {
+                psMascota.setString(1, combo_mascota.getSelectedItem().toString());
+                ResultSet rsMascota = psMascota.executeQuery();
+                if (rsMascota.next()) {
+                    id_mascota = rsMascota.getInt("id_mascota");
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró la mascota seleccionada.");
+                    return;
+                }
+            }
+
+            int id_empleado = -1;
+            try ( PreparedStatement psEmpleado = cn.prepareStatement("SELECT id_empleado FROM empleado WHERE nombre = ?")) {
+                psEmpleado.setString(1, txt_nom_empleado.getText().trim());
+                ResultSet rsEmpleado = psEmpleado.executeQuery();
+                if (rsEmpleado.next()) {
+                    id_empleado = rsEmpleado.getInt("id_empleado");
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró el empleado seleccionado.");
+                    return;
+                }
+            }
+
+            // Actualizar en la base de datos
+            String query = "UPDATE historial_consulta SET fecha_historial_consulta = ?, diagnostico = ?, precio_consulta = ?, id_mascota = ?, id_empleado = ? WHERE id_consulta = ?";
+            try ( PreparedStatement ps = cn.prepareStatement(query)) {
+                ps.setDate(1, fechaSQL);
+                ps.setString(2, txt_diagnostico.getText().trim());
+                ps.setDouble(3, Double.parseDouble(txt_precio.getText().trim()));
+                ps.setInt(4, id_mascota);
+                ps.setInt(5, id_empleado);
+                ps.setInt(6, Integer.parseInt(idConsultaStr));
+                int filas = ps.executeUpdate();
+
+                if (filas > 0) {
+                    JOptionPane.showMessageDialog(this, "Consulta actualizada correctamente.");
+                    me.limpiarCampos(txt_precio, txt_diagnostico, txt_ident_empleado, txt_nom_empleado, txt_id_consulta, txt_ident_cliente, txt_nombre_cliente);
+                    me.vaciarComboBox(combo_mascota);
+                    combo_mascota.addItem("Seleccionar Mascota");
+                    combo_mascota.setSelectedIndex(0);
+                    btn_registrar.setEnabled(true);
+                    mostrardatos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo actualizar la consulta.");
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar consulta: " + e.getMessage());
+        }
+
+
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // TODO add your handling code here:
+        String idConsultaStr = txt_id_consulta.getText().trim();
+        if (idConsultaStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay consulta seleccionada para eliminar.");
+            return;
+        }
 
+        int resp = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar esta consulta?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        if (resp != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try ( Connection cn = con.Conectar()) {
+            String query = "DELETE FROM historial_consulta WHERE id_consulta = ?";
+            try ( PreparedStatement ps = cn.prepareStatement(query)) {
+                ps.setInt(1, Integer.parseInt(idConsultaStr));
+                int filas = ps.executeUpdate();
+
+                if (filas > 0) {
+                    JOptionPane.showMessageDialog(this, "Consulta eliminada correctamente.");
+                    me.limpiarCampos(txt_precio, txt_diagnostico, txt_ident_empleado, txt_nom_empleado, txt_id_consulta, txt_ident_cliente, txt_nombre_cliente);
+                    me.vaciarComboBox(combo_mascota);
+                    combo_mascota.setSelectedIndex(0);
+                    btn_registrar.setEnabled(true);
+                    mostrardatos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar la consulta.");
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar consulta: " + e.getMessage());
+        }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -544,7 +660,81 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
+        me.limpiarCampos(txt_precio, txt_diagnostico, txt_ident_empleado, txt_nom_empleado, txt_id_consulta, txt_ident_cliente, txt_nombre_cliente);
+        me.vaciarComboBox(combo_mascota);
+        combo_mascota.addItem("Seleccionar Mascota");
 
+        String busqueda = txt_buscar.getText().trim();
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("id");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Diagnostico");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Mascota");
+        modelo.addColumn("Empleado");
+        jtable_datos.setModel(modelo);
+
+        String query;
+        Connection cn = con.Conectar();
+
+        if (busqueda.isEmpty()) {
+            // Si está vacío, mostrar todos los datos
+            query = "SELECT hc.id_consulta, hc.fecha_historial_consulta, hc.diagnostico, hc.precio_consulta, "
+                    + "m.nombre, e.nombre "
+                    + "FROM historial_consulta hc "
+                    + "JOIN mascota m ON hc.id_mascota = m.id_mascota "
+                    + "JOIN empleado e ON hc.id_empleado = e.id_empleado";
+        } else {
+            // Buscar por id_consulta (numérico) o nombre de mascota (texto)
+            query = "SELECT hc.id_consulta, hc.fecha_historial_consulta, hc.diagnostico, hc.precio_consulta, "
+                    + "m.nombre, e.nombre "
+                    + "FROM historial_consulta hc "
+                    + "JOIN mascota m ON hc.id_mascota = m.id_mascota "
+                    + "JOIN empleado e ON hc.id_empleado = e.id_empleado "
+                    + "WHERE hc.id_consulta = ? OR m.nombre LIKE ?";
+        }
+
+        try {
+            PreparedStatement ps = cn.prepareStatement(query);
+            if (!busqueda.isEmpty()) {
+                // Si es número busca por id_consulta, si no busca por nombre de mascota
+                try {
+                    int idConsulta = Integer.parseInt(busqueda);
+                    ps.setInt(1, idConsulta);
+                } catch (NumberFormatException e) {
+                    ps.setInt(1, -1); // id no válido, no mostrará resultados por id
+                }
+                ps.setString(2, "%" + busqueda + "%");
+            }
+            ResultSet rs = ps.executeQuery();
+            boolean hayResultados = false;
+            while (rs.next()) {
+                hayResultados = true;
+                String[] fila = new String[6];
+                fila[0] = rs.getString("id_consulta");
+                fila[1] = rs.getString("fecha_historial_consulta");
+                fila[2] = rs.getString("diagnostico");
+                fila[3] = rs.getString("precio_consulta");
+                fila[4] = rs.getString("m.nombre");
+                fila[5] = rs.getString("e.nombre");
+                modelo.addRow(fila);
+            }
+
+            me.ajustarAnchoColumnas(jtable_datos, 150);
+            rs.close();
+            ps.close();
+            cn.close();
+
+            // Si no hubo resultados y no está vacío el campo de búsqueda, muestra todos los datos
+            if (!hayResultados && !busqueda.isEmpty()) {
+                mostrardatos();
+                JOptionPane.showMessageDialog(this, "No se encontraron resultados. Mostrando todas las consultas.");
+                me.limpiarCampos(txt_buscar);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al buscar consulta: " + e.getMessage());
+        }
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btnbuscar_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscar_clienteActionPerformed
@@ -564,7 +754,7 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                 txt_nombre_cliente.setText(rs.getString("nombre"));
 
                 // Limpiar campos y ComboBox
-                me.limpiarCampos(txt_precio, txt_diagnostico, txt_ident_empleado, txt_nom_empleado, txt_id_consulta);
+                me.limpiarCampos(txt_precio, txt_diagnostico, txt_id_consulta);
                 me.limpiarComboBox(combo_mascota);
 
                 // Mascotas del cliente
@@ -644,6 +834,10 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
     private void txt_id_consultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_id_consultaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_id_consultaActionPerformed
+
+    private void txt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_buscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_buscarActionPerformed
 
     /**
      * @param args the command line arguments
