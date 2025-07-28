@@ -245,6 +245,7 @@ public class Menu_vista extends javax.swing.JFrame {
         limpearContenedor();
         JPanel panelContenedorMenu = cc.getPanelContenedor();
         mostrarPanel(panelContenedorMenu);
+        //Hola
     }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
