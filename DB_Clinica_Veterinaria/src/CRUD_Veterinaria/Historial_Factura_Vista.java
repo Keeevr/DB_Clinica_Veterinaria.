@@ -17,7 +17,7 @@ import java.sql.PreparedStatement;
  *
  * @author maynorlinux
  */
-public class Formulario_Hist_Vista extends javax.swing.JFrame {
+public class Historial_Factura_Vista extends javax.swing.JFrame {
 
     Metodos me = new Metodos();
     conexion con = new conexion();
@@ -25,7 +25,7 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
     /**
      * Creates new form Formulario_Hist_Vista
      */
-    public Formulario_Hist_Vista() {
+    public Historial_Factura_Vista() {
         initComponents();
         mostrardatos();
         mostrardatos(WIDTH);
@@ -155,7 +155,7 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(34, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,20 +252,21 @@ public class Formulario_Hist_Vista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Formulario_Hist_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Historial_Factura_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Formulario_Hist_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Historial_Factura_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Formulario_Hist_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Historial_Factura_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Formulario_Hist_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Historial_Factura_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Formulario_Hist_Vista().setVisible(true);
+                new Historial_Factura_Vista().setVisible(true);
             }
         });
     }

@@ -505,6 +505,7 @@ public class factura_Vista extends javax.swing.JFrame {
             }
             cn.close();
             JOptionPane.showMessageDialog(null, "Factura registrada correctamente.");
+            mostrarNumeroFactura();
 
         } catch (SQLException e) {
             e.printStackTrace();

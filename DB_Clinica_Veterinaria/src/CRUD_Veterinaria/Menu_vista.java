@@ -228,7 +228,7 @@ public class Menu_vista extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Formulario_Hist_Vista mv = new Formulario_Hist_Vista();
+        Historial_Factura_Vista mv = new Historial_Factura_Vista();
         JPanel panelFactura_histo = mv.getPanelHistorial_Factura();
         mostrarPanel(panelFactura_histo);
     }//GEN-LAST:event_jButton2ActionPerformed
