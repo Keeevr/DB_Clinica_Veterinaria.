@@ -36,7 +36,6 @@ public class empleado_vista extends javax.swing.JFrame {
         btn_actualizar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
         txt_buscar = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -165,14 +164,6 @@ public class empleado_vista extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(237, 232, 208));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Regreso Boton.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(639, 476, 100, 60));
-
         txt_buscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresa Nombre o ID"));
         jPanel3.add(txt_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 476, 260, 60));
 
@@ -256,12 +247,6 @@ public class empleado_vista extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here
-        new Menu_vista().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txt_nombre_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nombre_empleadoActionPerformed
         // TODO add your handling code here:
@@ -438,7 +423,6 @@ public class empleado_vista extends javax.swing.JFrame {
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_registrar;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

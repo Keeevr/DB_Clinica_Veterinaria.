@@ -84,7 +84,7 @@
                       <Component id="jPanel3" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jSeparator1" alignment="0" min="-2" pref="547" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="13" max="32767" attributes="0"/>
+                  <EmptySpace pref="17" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -275,9 +275,7 @@
                               <Component id="txt_buscar" min="-2" pref="260" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btn_buscar" min="-2" pref="100" max="-2" attributes="0"/>
-                              <EmptySpace pref="318" max="32767" attributes="0"/>
-                              <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                              <EmptySpace min="29" pref="415" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -290,10 +288,7 @@
                       <Component id="jScrollPane1" min="-2" pref="420" max="-2" attributes="0"/>
                       <EmptySpace pref="28" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txt_buscar" max="32767" attributes="0"/>
-                              <Component id="jButton5" pref="60" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="txt_buscar" min="-2" pref="60" max="-2" attributes="0"/>
                           <Component id="btn_buscar" min="-2" pref="60" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -302,16 +297,6 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButton5">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/recursos/Regreso Boton.png"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JTextField" name="txt_buscar">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

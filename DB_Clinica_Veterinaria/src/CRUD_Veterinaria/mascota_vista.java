@@ -37,7 +37,6 @@ public class mascota_vista extends javax.swing.JFrame {
         jtabledatos = new javax.swing.JTable();
         txtbuscar_mascota = new javax.swing.JTextField();
         btnbuscar_mascota = new javax.swing.JButton();
-        btnsalir = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -244,13 +243,6 @@ public class mascota_vista extends javax.swing.JFrame {
             }
         });
 
-        btnsalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Regreso Boton.png"))); // NOI18N
-        btnsalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnsalirActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -258,13 +250,12 @@ public class mascota_vista extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(txtbuscar_mascota, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnbuscar_mascota, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
-                        .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,8 +265,7 @@ public class mascota_vista extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnbuscar_mascota, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtbuscar_mascota, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtbuscar_mascota, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -645,11 +635,6 @@ public class mascota_vista extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnbuscar_mascotaActionPerformed
 
-    private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
-        new Menu_vista().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnsalirActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -691,7 +676,6 @@ public class mascota_vista extends javax.swing.JFrame {
     private javax.swing.JButton btnbuscar_mascota;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnregistrar;
-    private javax.swing.JButton btnsalir;
     private javax.swing.JComboBox<String> combosexo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

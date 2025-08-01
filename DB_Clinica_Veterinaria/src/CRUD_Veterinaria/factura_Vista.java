@@ -73,7 +73,6 @@ public class factura_Vista extends javax.swing.JFrame {
         combo_nom_empleado = new javax.swing.JComboBox<>();
         txt_nom_empleado = new javax.swing.JTextField();
         combo_nom_cliente = new javax.swing.JComboBox<>();
-        jButton6 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jSeparator1 = new javax.swing.JSeparator();
@@ -292,14 +291,6 @@ public class factura_Vista extends javax.swing.JFrame {
             }
         });
         jPanel1.add(combo_nom_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 240, 60));
-
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Regreso Boton.png"))); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 500, 290, 60));
 
         jCheckBox1.setText("¿Incluir Consulta?");
         jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -565,12 +556,6 @@ public class factura_Vista extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jCheckBox2ItemStateChanged
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        new Menu_vista().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     private void combo_nom_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_nom_clienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_combo_nom_clienteActionPerformed
@@ -756,7 +741,6 @@ public class factura_Vista extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo_producto;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JPanel jPanel1;

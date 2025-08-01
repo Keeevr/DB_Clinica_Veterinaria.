@@ -52,7 +52,6 @@ public class Historial_Factura_Vista extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable_cons = new javax.swing.JTable();
         jdcfiltro_fecha = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
         btnlistar = new javax.swing.JButton();
         btnimprimir = new javax.swing.JButton();
 
@@ -110,8 +109,6 @@ public class Historial_Factura_Vista extends javax.swing.JFrame {
 
         jdcfiltro_fecha.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleciona una Fecha"));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Regreso Boton.png"))); // NOI18N
-
         btnlistar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnlistar.setText("LISTAR DATOS");
         btnlistar.addActionListener(new java.awt.event.ActionListener() {
@@ -144,11 +141,8 @@ public class Historial_Factura_Vista extends javax.swing.JFrame {
                                 .addComponent(btnlistar))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnimprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnimprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
@@ -163,9 +157,7 @@ public class Historial_Factura_Vista extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jdcfiltro_fecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
+                    .addComponent(jdcfiltro_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnlistar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnimprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -274,7 +266,6 @@ public class Historial_Factura_Vista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnimprimir;
     private javax.swing.JButton btnlistar;
-    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JMonthChooser jMonthChooser1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
