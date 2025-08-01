@@ -385,7 +385,7 @@ public class factura_Vista extends javax.swing.JFrame {
         try {
             Connection cn = con.Conectar();
 
-            // Obtener ID de cliente
+            // Obtener ID del cliente
             String queryCliente = "SELECT id_cliente FROM cliente WHERE nombre = ?";
             PreparedStatement psCliente = cn.prepareStatement(queryCliente);
             psCliente.setString(1, nombreCliente);
