@@ -4,7 +4,7 @@ import java.sql.*;
 import java.text.ParseException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
+//
 public class Medicamentos_vista extends javax.swing.JFrame {
 
     conexion con = new conexion();

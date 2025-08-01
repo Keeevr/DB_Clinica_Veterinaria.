@@ -20,12 +20,9 @@ public class Menu_vista extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        btn_mascotas = new javax.swing.JButton();
         btn_factura = new javax.swing.JButton();
         btn_clientes = new javax.swing.JButton();
-        btn_empleados = new javax.swing.JButton();
         btn_cargo = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         btn_salir = new javax.swing.JButton();
@@ -33,6 +30,9 @@ public class Menu_vista extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btn_mascotas = new javax.swing.JButton();
+        btn_empleados = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,70 +41,52 @@ public class Menu_vista extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 204, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_mascotas.setText("Mascotas");
-        btn_mascotas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_mascotasActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_mascotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 140, -1));
-
+        btn_factura.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_factura.setText("Factura");
         btn_factura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_facturaActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 140, -1));
+        jPanel1.add(btn_factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 140, 80));
 
+        btn_clientes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_clientes.setText("Clientes");
         btn_clientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_clientesActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 140, -1));
+        jPanel1.add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 140, 80));
 
-        btn_empleados.setText("Empleados");
-        btn_empleados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_empleadosActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_empleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 140, -1));
-
+        btn_cargo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_cargo.setText("Cargo");
         btn_cargo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cargoActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_cargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 140, -1));
+        jPanel1.add(btn_cargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 140, 80));
 
-        jButton1.setText("Medicamentos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 140, -1));
-
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setText("Historial de Facturas");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 140, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 140, 80));
 
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton3.setText("Historial de Consultas");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 140, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 140, 80));
 
+        btn_salir.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_salir.setText("Salir");
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +112,33 @@ public class Menu_vista extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 10, -1, -1));
+
+        btn_mascotas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_mascotas.setText("Mascotas");
+        btn_mascotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_mascotasActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_mascotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 140, 80));
+
+        btn_empleados.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_empleados.setText("Empleados");
+        btn_empleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_empleadosActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_empleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 140, 80));
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setText("Medicamentos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 140, 80));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -211,11 +220,9 @@ public class Menu_vista extends javax.swing.JFrame {
 
     private void btn_cargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargoActionPerformed
         // TODO add your handling code here:
-
         cargo_vista mv = new cargo_vista();
         JPanel panelCargo = mv.getPanelCargo();
         mostrarPanel(panelCargo);
-
     }//GEN-LAST:event_btn_cargoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -9,7 +9,7 @@ import javax.swing.UIManager;
 
 
 public class Login_Vista extends javax.swing.JFrame {
-    
+    //
     conexion con=new conexion();
     
     public Login_Vista() {

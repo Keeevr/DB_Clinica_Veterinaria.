@@ -92,7 +92,6 @@ public class empleado_vista extends javax.swing.JFrame {
             }
         });
 
-        btn_registrar.setBackground(new java.awt.Color(204, 255, 204));
         btn_registrar.setText("Registrar");
         btn_registrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

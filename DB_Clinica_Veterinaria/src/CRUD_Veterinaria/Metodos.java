@@ -7,7 +7,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-
+//
 public class Metodos {
 
     public void limpiarCampos(JTextField... campos) {

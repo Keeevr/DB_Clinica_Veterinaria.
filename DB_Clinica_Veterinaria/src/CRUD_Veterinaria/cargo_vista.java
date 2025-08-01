@@ -76,6 +76,7 @@ public class cargo_vista extends javax.swing.JFrame {
             }
         });
 
+        btn_registrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_registrar.setText("Registrar");
         btn_registrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +84,7 @@ public class cargo_vista extends javax.swing.JFrame {
             }
         });
 
+        btn_actualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_actualizar.setText("Actualizar");
         btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +92,7 @@ public class cargo_vista extends javax.swing.JFrame {
             }
         });
 
+        btn_eliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_eliminar.setText("Eliminar");
         btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +100,7 @@ public class cargo_vista extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,7 +116,7 @@ public class cargo_vista extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -121,7 +125,7 @@ public class cargo_vista extends javax.swing.JFrame {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txt_ident_emplea, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txt_nom_emplea, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -130,12 +134,12 @@ public class cargo_vista extends javax.swing.JFrame {
                         .addComponent(btn_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
                         .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(65, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_nombre_cargo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -180,6 +184,7 @@ public class cargo_vista extends javax.swing.JFrame {
 
         txt_buscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresa nombre del Cargo  o ID"));
 
+        btn_buscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_buscar.setText("Buscar");
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,10 +227,10 @@ public class cargo_vista extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -350,11 +355,7 @@ public class cargo_vista extends javax.swing.JFrame {
                         mostrardatos();
                     }
                 } else {
-                    int resp = JOptionPane.showConfirmDialog(this, "No se encontró un empleado con esa identidad. ¿Deseas registrarlo?", "Aviso", JOptionPane.YES_NO_OPTION);
-                    if (resp == JOptionPane.YES_OPTION) {
-                        new empleado_vista().setVisible(true);
-                        this.dispose();
-                    }
+                    JOptionPane.showMessageDialog(this, "No se encontro el Empleado");
                 }
             }
         } catch (SQLException e) {
@@ -375,11 +376,7 @@ public class cargo_vista extends javax.swing.JFrame {
                     txt_nom_emplea.setText(rs.getString("nombre"));
                     me.limpiarCampos(txt_id, txt_nombre_cargo, txt_sueldo);
                 } else {
-                    int resp = JOptionPane.showConfirmDialog(this, "Empleado no encontrado. ¿Deseas registrarlo?", "Aviso", JOptionPane.YES_NO_OPTION);
-                    if (resp == JOptionPane.YES_OPTION) {
-                        new empleado_vista().setVisible(true);
-                        this.dispose();
-                    }
+                    JOptionPane.showMessageDialog(this, "Cliente no encontrado, tienes que Registrarlo");
                 }
             }
         } catch (SQLException e) {
