@@ -760,11 +760,7 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                 psMascota.close();
 
             } else {
-                int resp = JOptionPane.showConfirmDialog(this, "Cliente no encontrado. ¿Deseas registrarlo?", "Aviso", JOptionPane.YES_NO_OPTION);
-                if (resp == JOptionPane.YES_OPTION) {
-                    new clientes_vista().setVisible(true);
-                    this.dispose();
-                }
+                JOptionPane.showMessageDialog(this, "Cliente no enconrado, tienes que registrarlo");
             }
             rs.close();
             ps.close();
@@ -804,11 +800,7 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                 me.limpiarCampos(txt_precio, txt_diagnostico, txt_id_consulta);
 
             } else {
-                int resp = JOptionPane.showConfirmDialog(this, "Empleado no encontrado. ¿Deseas registrarlo?", "Aviso", JOptionPane.YES_NO_OPTION);
-                if (resp == JOptionPane.YES_OPTION) {
-                    new empleado_vista().setVisible(true);
-                    this.dispose();
-                }
+                JOptionPane.showMessageDialog(null, "Empleado no encontrato, tienes que registrarlo");
             }
             rs.close();
             ps.close();

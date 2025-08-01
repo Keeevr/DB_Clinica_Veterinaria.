@@ -376,7 +376,7 @@ public class cargo_vista extends javax.swing.JFrame {
                     txt_nom_emplea.setText(rs.getString("nombre"));
                     me.limpiarCampos(txt_id, txt_nombre_cargo, txt_sueldo);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Cliente no encontrado, tienes que Registrarlo");
+                    JOptionPane.showMessageDialog(this, "Cliente no encontrado, tienes que registrarlo");
                 }
             }
         } catch (SQLException e) {
