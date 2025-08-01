@@ -1,18 +1,23 @@
 package CRUD_Veterinaria;
+
 import java.sql.*;
 import java.text.ParseException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 //
+
 public class mascota_vista extends javax.swing.JFrame {
+
     conexion con = new conexion();
     Connection cn = con.Conectar();
     Metodos me = new Metodos();
+
     public mascota_vista() {
         initComponents();
         mostrardatos();
         configurarSegunRol(Sesion.rolActual);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -48,7 +53,7 @@ public class mascota_vista extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(237, 232, 208));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
-        btnbuscar_cliente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnbuscar_cliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnbuscar_cliente.setText("Buscar");
         btnbuscar_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,7 +94,7 @@ public class mascota_vista extends javax.swing.JFrame {
             }
         });
 
-        btnregistrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnregistrar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnregistrar.setText("REGISTRAR");
         btnregistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,7 +102,7 @@ public class mascota_vista extends javax.swing.JFrame {
             }
         });
 
-        btneliminar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btneliminar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btneliminar.setText("ELIMINAR");
         btneliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,7 +110,7 @@ public class mascota_vista extends javax.swing.JFrame {
             }
         });
 
-        btnactualizar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnactualizar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnactualizar.setText("ACTUALIZAR");
         btnactualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,9 +145,9 @@ public class mascota_vista extends javax.swing.JFrame {
                                 .addComponent(jdcfecha_nacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnregistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(12, 12, 12)
                                 .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnactualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addComponent(txtespecie, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -235,7 +240,7 @@ public class mascota_vista extends javax.swing.JFrame {
             }
         });
 
-        btnbuscar_mascota.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnbuscar_mascota.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnbuscar_mascota.setText("Buscar");
         btnbuscar_mascota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -316,12 +321,12 @@ public class mascota_vista extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void btnbuscar_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscar_clienteActionPerformed
         String identidad = txtidentidad_clientes.getText();
         try {
             Connection cn = con.Conectar();
-            
+
             PreparedStatement ps = cn.prepareStatement("SELECT nombre FROM cliente WHERE identidad = ?");
             ps.setString(1, identidad);
             ResultSet rs = ps.executeQuery();
@@ -331,11 +336,7 @@ public class mascota_vista extends javax.swing.JFrame {
                 me.limpiarComboBox(combosexo);
                 me.limpiarDateChooser(jdcfecha_nacimiento);
             } else {
-                int resp = JOptionPane.showConfirmDialog(this, "Cliente no encontrado. ¿Deseas registrarlo?", "Aviso", JOptionPane.YES_NO_OPTION);
-                if (resp == JOptionPane.YES_OPTION) {
-                    new clientes_vista().setVisible(true);
-                    this.dispose();
-                }
+                JOptionPane.showMessageDialog(null, "Cliente no encontrado, tienes que registrarlo");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -356,37 +357,36 @@ public class mascota_vista extends javax.swing.JFrame {
     }//GEN-LAST:event_txtrazaActionPerformed
 
     private void txtespecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtespecieActionPerformed
-       // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_txtespecieActionPerformed
-    
+
     private void btnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregistrarActionPerformed
-        
+
         // Obtener la fecha del JDateChooser
         java.util.Date fechaUtil = jdcfecha_nacimiento.getDate();
-        java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
         
-        if (txtespecie.getText().trim().isEmpty() ||
-            txtidentidad_clientes.getText().trim().isEmpty() ||
-            //txtnombre_cliente.getText().trim().isEmpty() ||
-            txtraza.getText().trim().isEmpty() ||
-            txtnombre_mascota.getText().trim().isEmpty() ||
-            combosexo.getSelectedItem().toString().equals("Seleccionar") ||
-            fechaUtil == null) 
-        {
+
+        if (fechaUtil == null
+                || txtespecie.getText().trim().isEmpty()
+                || txtidentidad_clientes.getText().trim().isEmpty()
+                || txtraza.getText().trim().isEmpty()
+                || txtnombre_mascota.getText().trim().isEmpty()
+                || combosexo.getSelectedItem().toString().equals("Seleccionar")) {
 
             JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos requeridos.");
             return;
         }
         
+        java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
         try {
             Connection cn = con.Conectar();
-            
+
             String query1 = ("SELECT id_cliente FROM cliente WHERE identidad = ?");
             PreparedStatement ps1 = cn.prepareStatement(query1);
             ps1.setString(1, txtidentidad_clientes.getText());
-            
+
             ResultSet rs = ps1.executeQuery();
-            
+
             if (rs.next()) {
                 int idCliente = rs.getInt("id_cliente");
 
@@ -405,7 +405,7 @@ public class mascota_vista extends javax.swing.JFrame {
                 me.limpiarDateChooser(jdcfecha_nacimiento);
                 me.limpiarComboBox(combosexo);
                 mostrardatos();
-                
+
             } else {
                 int resp = JOptionPane.showConfirmDialog(this, "No se encontró un empleado con esa identidad. ¿Deseas registrarlo?", "Aviso", JOptionPane.YES_NO_OPTION);
                 if (resp == JOptionPane.YES_OPTION) {
@@ -426,27 +426,24 @@ public class mascota_vista extends javax.swing.JFrame {
     private void btnactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnactualizarActionPerformed
         // TODO add your handling code here:
         btnregistrar.setEnabled(true);
-        
-        java.util.Date fechaUtil = jdcfecha_nacimiento.getDate();
-        java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
-        
-        if (txtespecie.getText().trim().isEmpty() ||
-            txtidentidad_clientes.getText().trim().isEmpty() ||
-            //txtnombre_cliente.getText().trim().isEmpty() ||
-            txtraza.getText().trim().isEmpty() ||
-            txtnombre_mascota.getText().trim().isEmpty() ||
-            combosexo.getSelectedItem().toString().equals("Seleccionar") ||
-            fechaUtil == null) 
-        {
 
+        if (jdcfecha_nacimiento.getDate() == null
+                || txtespecie.getText().trim().isEmpty()
+                || txtidentidad_clientes.getText().trim().isEmpty()
+                || txtraza.getText().trim().isEmpty()
+                || txtnombre_mascota.getText().trim().isEmpty()
+                || combosexo.getSelectedItem().toString().equals("Seleccionar")) {
             JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos requeridos.");
             return;
         }
-                
+
+        // Solo si pasa la validación, se obtiene la fecha y se convierte
+        java.util.Date fechaUtil = jdcfecha_nacimiento.getDate();
+        java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
+
         try {
             Connection cn = con.Conectar();
 
-            // 1. Buscar el ID del empleado por identidad
             String query1 = "SELECT id_cliente FROM cliente WHERE identidad = ?";
             PreparedStatement ps1 = cn.prepareStatement(query1);
             ps1.setString(1, txtidentidad_clientes.getText());
@@ -456,22 +453,20 @@ public class mascota_vista extends javax.swing.JFrame {
             if (rs.next()) {
                 int idCliente = rs.getInt("id_cliente");
 
-                // 2. Hacer el UPDATE de mascota
                 String query2 = "UPDATE mascota SET nombre = ?, especie = ?, raza = ?, fecha_nacimiento = ?, sexo = ?, id_cliente = ? WHERE id_mascota = ?";
                 PreparedStatement ps2 = cn.prepareStatement(query2);
-                // Asignar los valores del formulario
                 ps2.setString(1, txtnombre_mascota.getText());
                 ps2.setString(2, txtespecie.getText());
                 ps2.setString(3, txtraza.getText());
                 ps2.setDate(4, fechaSQL);
                 ps2.setString(5, combosexo.getSelectedItem().toString());
-                ps2.setInt(6, idCliente); 
+                ps2.setInt(6, idCliente);
                 ps2.setString(7, txtid_mascota.getText());
 
                 int filasAfectadas = ps2.executeUpdate();
 
                 if (filasAfectadas > 0) {
-                    JOptionPane.showMessageDialog(this, "Mascota actualizado correctamente.");
+                    JOptionPane.showMessageDialog(this, "Mascota actualizada correctamente.");
                     me.limpiarCampos(txtidentidad_clientes, txtnombre_cliente, txtnombre_mascota, txtespecie, txtraza, txtid_mascota);
                     me.limpiarDateChooser(jdcfecha_nacimiento);
                     me.limpiarComboBox(combosexo);
@@ -484,7 +479,7 @@ public class mascota_vista extends javax.swing.JFrame {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al actualizar el mascota.");
+            JOptionPane.showMessageDialog(this, "Error al actualizar la mascota.");
         }
     }//GEN-LAST:event_btnactualizarActionPerformed
 
@@ -493,34 +488,34 @@ public class mascota_vista extends javax.swing.JFrame {
         // Activar/desactivar botones
         btnregistrar.setEnabled(false);
         btnactualizar.setEnabled(true);
-        
+
         int fila = this.jtabledatos.getSelectedRow();
-    
+
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "Selecciona una fila.");
             return;
         }
-    
+
         // Obtener valores de la fila
         String[] datos = new String[8];
         for (int i = 0; i < datos.length; i++) {
             datos[i] = this.jtabledatos.getValueAt(fila, i).toString();
         }
-    
+
         // Asignar a los campos
-        this.txtidentidad_clientes.setText(datos[0]);
-        this.txtnombre_cliente.setText(datos[1]);
-        this.txtid_mascota.setText(datos[2]);
-        this.txtnombre_mascota.setText(datos[3]);
+        this.txtid_mascota.setText(datos[0]);
+        this.txtnombre_mascota.setText(datos[1]);
+        this.txtidentidad_clientes.setText(datos[2]);
+        this.txtnombre_cliente.setText(datos[3]);
         this.txtespecie.setText(datos[4]);
         this.txtraza.setText(datos[5]);
         this.combosexo.setSelectedItem(datos[7]);
-    
+
         // Convertir fecha si está presente
         if (!datos[6].equals("No especificada")) {
             try {
                 this.jdcfecha_nacimiento.setDate(new java.text.SimpleDateFormat("yyyy-MM-dd").parse(datos[6]));
-            }catch (ParseException e){
+            } catch (ParseException e) {
                 this.jdcfecha_nacimiento.setDate(null);
                 JOptionPane.showMessageDialog(this, "Error al cargar la fecha.");
             }
@@ -528,44 +523,44 @@ public class mascota_vista extends javax.swing.JFrame {
             this.jdcfecha_nacimiento.setDate(null);
         }
         try (
-         PreparedStatement ps = cn.prepareStatement("SELECT identidad FROM cliente WHERE id_cliente = ?")) {
+                 PreparedStatement ps = cn.prepareStatement("SELECT identidad FROM cliente WHERE id_cliente = ?")) {
 
-        ps.setString(1, datos[0]); // ← ID del cliente
-        ResultSet rs = ps.executeQuery();
+            ps.setString(1, datos[2]); // ← ID del cliente
+            ResultSet rs = ps.executeQuery();
 
-        if (rs.next()) {
-            this.txtidentidad_clientes.setText(rs.getString("identidad"));
-        } else {
-            this.txtidentidad_clientes.setText("");
-            JOptionPane.showMessageDialog(this, "Identidad del cliente no encontrada.");
+            if (rs.next()) {
+                this.txtidentidad_clientes.setText(rs.getString("identidad"));
+            } else {
+                this.txtidentidad_clientes.setText("");
+                JOptionPane.showMessageDialog(this, "Identidad del cliente no encontrada.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al buscar identidad del cliente.");
         }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error al buscar identidad del cliente.");
-    }
     }//GEN-LAST:event_jtabledatosMouseClicked
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-        if(JOptionPane.showConfirmDialog(null, "¿ESTAS SEGURO DE ELIMINAR LA MASCOTA?","SALIR", JOptionPane.YES_NO_CANCEL_OPTION)==0){
-            try{
-                PreparedStatement ps=cn.prepareStatement("delete from mascota where id_mascota=?");
+        if (JOptionPane.showConfirmDialog(null, "¿ESTAS SEGURO DE ELIMINAR LA MASCOTA?", "SALIR", JOptionPane.YES_NO_CANCEL_OPTION) == 0) {
+            try {
+                PreparedStatement ps = cn.prepareStatement("delete from mascota where id_mascota=?");
                 ps.setString(1, txtid_mascota.getText());
                 //ps devuelve 0 cuando se ejecuta correctamente y por eso se actualiza la tabla
                 int indice = ps.executeUpdate();
-                if(indice>0){
+                if (indice > 0) {
                     mostrardatos();
-                }else{//no elimino nada por ende
-                    JOptionPane.showMessageDialog(null,"No ha seleccionado la fila");
+                } else {//no elimino nada por ende
+                    JOptionPane.showMessageDialog(null, "No ha seleccionado la fila");
                 }
                 me.limpiarCampos(txtidentidad_clientes, txtid_mascota, txtnombre_cliente, txtid_mascota, txtnombre_mascota, txtespecie, txtraza);
                 me.limpiarDateChooser(jdcfecha_nacimiento);
                 me.limpiarComboBox(combosexo);
                 btnregistrar.setEnabled(true);
-                                               
-            }catch(SQLException e){
-                System.out.println("Error al eliminar datos"+e);
-                
+
+            } catch (SQLException e) {
+                System.out.println("Error al eliminar datos" + e);
+
             }
         }
     }//GEN-LAST:event_btneliminarActionPerformed
@@ -575,7 +570,7 @@ public class mascota_vista extends javax.swing.JFrame {
     }//GEN-LAST:event_txtbuscar_mascotaActionPerformed
 
     private void btnbuscar_mascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscar_mascotaActionPerformed
-        
+
         String busqueda = txtbuscar_mascota.getText().trim();
         me.limpiarCampos(txtidentidad_clientes, txtid_mascota, txtnombre_cliente, txtid_mascota, txtnombre_mascota, txtespecie, txtraza);
         me.limpiarDateChooser(jdcfecha_nacimiento);
@@ -598,9 +593,9 @@ public class mascota_vista extends javax.swing.JFrame {
         modelo.addColumn("Fecha Nacimiento");
         modelo.addColumn("Sexo");
 
-        String query = "SELECT m.id_mascota, m.nombre, m.especie, m.raza, m.fecha_nacimiento, m.sexo, c.id_cliente, c.nombre " +
-                       "FROM mascota m INNER JOIN cliente c ON c.id_cliente = m.id_cliente " +
-                       "WHERE c.nombre LIKE ? OR CAST(m.id_mascota AS CHAR) LIKE ?";
+        String query = "SELECT m.id_mascota, m.nombre, m.especie, m.raza, m.fecha_nacimiento, m.sexo, c.id_cliente, c.nombre "
+                + "FROM mascota m INNER JOIN cliente c ON c.id_cliente = m.id_cliente "
+                + "WHERE c.nombre LIKE ? OR CAST(m.id_mascota AS CHAR) LIKE ?";
 
         try {
             PreparedStatement ps = cn.prepareStatement(query);
@@ -622,14 +617,14 @@ public class mascota_vista extends javax.swing.JFrame {
                 fila[7] = rs.getString("sexo");         // Sexo
                 modelo.addRow(fila);
             }
-            jtabledatos.setModel(modelo);            
+            jtabledatos.setModel(modelo);
             // Si no hubo resultados y no está vacío el campo de búsqueda, muestra todos los datos
             if (!hayResultados && !busqueda.isEmpty()) {
                 mostrardatos();
                 JOptionPane.showMessageDialog(this, "No se encontraron resultados. Mostrando todas las Mascotas.");
                 me.limpiarCampos(txtbuscar_mascota);
             }
-            
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al buscar: " + e.getMessage());
         }
@@ -699,7 +694,7 @@ public class mascota_vista extends javax.swing.JFrame {
         modelo.addColumn("ID");
         modelo.addColumn("Mascota");
         modelo.addColumn("ID Cliete");
-        modelo.addColumn("Dueño");        
+        modelo.addColumn("Dueño");
         modelo.addColumn("Especie");
         modelo.addColumn("Raza");
         modelo.addColumn("Fecha Nacimiento");
@@ -708,12 +703,11 @@ public class mascota_vista extends javax.swing.JFrame {
         jtabledatos.setModel(modelo);
 
         String consultasql = "SELECT m.id_mascota, m.nombre, m.especie, m.raza, "
-                           + "m.fecha_nacimiento, m.sexo, c.id_cliente, c.nombre "
-                           + "FROM mascota m "
-                           + "INNER JOIN cliente c ON c.id_cliente = m.id_cliente";
+                + "m.fecha_nacimiento, m.sexo, c.id_cliente, c.nombre "
+                + "FROM mascota m "
+                + "INNER JOIN cliente c ON c.id_cliente = m.id_cliente";
 
-        try (Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(consultasql)) {
+        try ( Statement st = cn.createStatement();  ResultSet rs = st.executeQuery(consultasql)) {
             while (rs.next()) {
                 String[] data = new String[8];
                 data[0] = rs.getString(1); // id_mascota
@@ -725,7 +719,7 @@ public class mascota_vista extends javax.swing.JFrame {
                 data[6] = rs.getString(5) != null ? rs.getString(5) : "No especificada"; // fecha_nacimiento
                 data[7] = rs.getString(6); // sexo
                 modelo.addRow(data);
-                
+
                 me.ajustarAnchoColumnas(jtabledatos, 150);
             }
         } catch (SQLException e) {
@@ -734,14 +728,12 @@ public class mascota_vista extends javax.swing.JFrame {
     }
 
     private void configurarSegunRol(String rol) {
-        if ((rol.equalsIgnoreCase("Veterinario"))||(rol.equalsIgnoreCase("Recepcionista"))) {
+        if ((rol.equalsIgnoreCase("Veterinario")) || (rol.equalsIgnoreCase("Recepcionista"))) {
             btneliminar.setEnabled(false);
             // desactiva los botones que desees
         }
     }
-    
-    
-    
+
     public JPanel getPanelMascotas() {
         return jPanel2;
     }

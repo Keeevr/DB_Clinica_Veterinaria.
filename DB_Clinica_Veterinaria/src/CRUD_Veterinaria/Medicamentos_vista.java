@@ -312,18 +312,16 @@ public class Medicamentos_vista extends javax.swing.JFrame {
         btnregistrar.setEnabled(true);
 
         java.util.Date fechaUtil = jdcfecha_caducacion.getDate();
-        java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
 
-        if (txt_id_medicamentos.getText().trim().isEmpty()
+        if (fechaUtil == null
+                || txt_id_medicamentos.getText().trim().isEmpty()
                 || txtnombre_medicamento.getText().trim().isEmpty()
                 || txtcantidad.getText().trim().isEmpty()
-                || txtprecio_unitario.getText().trim().isEmpty()
-                || fechaUtil == null) {
-
+                || txtprecio_unitario.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos requeridos.");
             return;
         }
-
+        java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
         try {
             Connection cn = con.Conectar();
 

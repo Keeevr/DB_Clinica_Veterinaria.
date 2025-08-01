@@ -114,6 +114,7 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
             }
         });
 
+        btnbuscar_cliente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnbuscar_cliente.setText("Buscar");
         btnbuscar_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,6 +142,7 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
 
         txt_ident_empleado.setBorder(javax.swing.BorderFactory.createTitledBorder("Identidad del Empleado"));
 
+        btnbuscar_empleado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnbuscar_empleado.setText("Buscar");
         btnbuscar_empleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

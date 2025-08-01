@@ -55,6 +55,7 @@ public class clientes_vista extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(237, 232, 208));
 
+        btn_registrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_registrar.setText("Registrar");
         btn_registrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,6 +63,7 @@ public class clientes_vista extends javax.swing.JFrame {
             }
         });
 
+        btn_actualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_actualizar.setText("Actualizar");
         btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,6 +71,7 @@ public class clientes_vista extends javax.swing.JFrame {
             }
         });
 
+        btn_eliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_eliminar.setText("Eliminar");
         btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,6 +174,7 @@ public class clientes_vista extends javax.swing.JFrame {
 
         txt_buscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresa Nombre o ID"));
 
+        btn_buscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_buscar.setText("Buscar");
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

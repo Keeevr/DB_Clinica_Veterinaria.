@@ -105,9 +105,11 @@ public class factura_Vista extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 200, 330, 50));
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("Imprimir Factura");
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 410, 290, 50));
 
+        btn_registrar_factura.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_registrar_factura.setText("Guardar Factura");
         btn_registrar_factura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,6 +225,7 @@ public class factura_Vista extends javax.swing.JFrame {
 
         txt_cantidad.setBorder(javax.swing.BorderFactory.createTitledBorder("Cantidad"));
 
+        btn_agregar_producto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_agregar_producto.setText("Agregar Producto");
         btn_agregar_producto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
