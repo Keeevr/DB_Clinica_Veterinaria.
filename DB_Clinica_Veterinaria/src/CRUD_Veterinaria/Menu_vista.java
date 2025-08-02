@@ -209,7 +209,6 @@ public class Menu_vista extends javax.swing.JFrame {
         // TODO add your handling code here:
         empleado_vista mv = new empleado_vista();
         JPanel panelEmpleado = mv.getPanelEmpleado();
-
         mostrarPanel(panelEmpleado);
 
     }//GEN-LAST:event_btn_empleadosActionPerformed
@@ -230,7 +229,6 @@ public class Menu_vista extends javax.swing.JFrame {
         // TODO add your handling code here:
         Medicamentos_vista mv = new Medicamentos_vista();
         JPanel panelMedicamentos = mv.getPanelMedicamentos();
-
         mostrarPanel(panelMedicamentos);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -253,7 +251,6 @@ public class Menu_vista extends javax.swing.JFrame {
         limpearContenedor();
         JPanel panelContenedorMenu = cc.getPanelContenedor();
         mostrarPanel(panelContenedorMenu);
-        //Hola
     }//GEN-LAST:event_jLabel1MouseClicked
 
     /**

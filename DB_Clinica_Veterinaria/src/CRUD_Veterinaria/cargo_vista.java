@@ -329,7 +329,6 @@ public class cargo_vista extends javax.swing.JFrame {
 
     private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
         // TODO add your handling code here:
-        //Maynor mi niña
         if (txt_ident_emplea.getText().trim().isEmpty() || txt_sueldo.getText().trim().isEmpty() || txt_nombre_cargo.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos requeridos.");
             return;

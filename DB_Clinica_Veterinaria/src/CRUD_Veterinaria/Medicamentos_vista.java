@@ -245,18 +245,19 @@ public class Medicamentos_vista extends javax.swing.JFrame {
 
         // Obtener la fecha del JDateChooser
         java.util.Date fechaUtil = jdcfecha_caducacion.getDate();
-        java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
-
-        if (//txtidentidad_medicamentos.getText().trim().isEmpty() ||
-                txtnombre_medicamento.getText().trim().isEmpty()
+        
+        if (fechaUtil == null
+                || txtnombre_medicamento.getText().trim().isEmpty()
                 || txtprecio_unitario.getText().trim().isEmpty()
                 || txtcantidad.getText().trim().isEmpty()
-                || fechaUtil == null) {
+                ) {
 
             JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos requeridos.");
             return;
         }
-
+        
+        java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
+        
         try {
             Double.parseDouble(txtprecio_unitario.getText().trim());
             Integer.parseInt(txtcantidad.getText().trim());
@@ -279,7 +280,8 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             mostrardatos();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al registrar medicamento: " + e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al registrar medicamento: ");
         }
     }//GEN-LAST:event_btnregistrarActionPerformed
 
@@ -297,7 +299,6 @@ public class Medicamentos_vista extends javax.swing.JFrame {
                 }
                 me.limpiarCampos(txt_id_medicamentos, txtnombre_medicamento, txtcantidad, txtprecio_unitario);
                 me.limpiarDateChooser(jdcfecha_caducacion);
-                ;
                 btnregistrar.setEnabled(true);
 
             } catch (SQLException e) {
