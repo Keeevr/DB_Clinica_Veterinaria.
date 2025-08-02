@@ -548,12 +548,12 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                 int filas = ps.executeUpdate();
 
                 if (filas > 0) {
+                    mostrardatos();
                     JOptionPane.showMessageDialog(this, "Consulta eliminada correctamente.");
                     me.limpiarCampos(txt_precio, txt_diagnostico, txt_ident_empleado, txt_nom_empleado, txt_id_consulta, txt_ident_cliente, txt_nombre_cliente);
                     me.vaciarComboBox(combo_mascota);
                     combo_mascota.setSelectedIndex(0);
                     btn_registrar.setEnabled(true);
-                    mostrardatos();
                 } else {
                     JOptionPane.showMessageDialog(this, "No se pudo eliminar la consulta.");
                 }
