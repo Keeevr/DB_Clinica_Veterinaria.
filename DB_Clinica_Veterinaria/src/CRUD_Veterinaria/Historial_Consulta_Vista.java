@@ -593,7 +593,8 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
         try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement(
                 "SELECT c.identidad, c.nombre, c.id_cliente "
                 + "FROM cliente c "
-                + "JOIN mascota m ON c.id_cliente = m.id_cliente "
+                + "JOIN mascota m ON c.id_cliente = m.id_cliente " 
+                        //Limit para que
                 + "WHERE m.nombre = ? LIMIT 1")) {
             ps.setString(1, datos[4]); // nombre de la mascota
             ResultSet rs = ps.executeQuery();
