@@ -12,6 +12,8 @@ public class Menu_vista extends javax.swing.JFrame {
         initComponents();
         configurarSegunRol(Sesion.rolActual); // aquí usamos el rol guardado
         setLocationRelativeTo(null);
+        btn_factura_historial.setText("<html><center>Historial<br>de Facturas</center></html>");
+        btn_historial_consulta.setText("<html><center>Historial<br>de Consultas</center></html>");
     }
 
     @SuppressWarnings("unchecked")
@@ -23,8 +25,8 @@ public class Menu_vista extends javax.swing.JFrame {
         btn_factura = new javax.swing.JButton();
         btn_clientes = new javax.swing.JButton();
         btn_cargo = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btn_factura_historial = new javax.swing.JButton();
+        btn_historial_consulta = new javax.swing.JButton();
         btn_salir = new javax.swing.JButton();
         panel_contenedor = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -68,23 +70,22 @@ public class Menu_vista extends javax.swing.JFrame {
         });
         jPanel1.add(btn_cargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 140, 80));
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setText("Historial de Facturas");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_factura_historial.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_factura_historial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_factura_historial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_factura_historialActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 140, 80));
+        jPanel1.add(btn_factura_historial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 140, 80));
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setText("Historial de Consultas");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_historial_consulta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_historial_consulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_historial_consultaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 140, 80));
+        jPanel1.add(btn_historial_consulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 140, 80));
 
         btn_salir.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_salir.setText("Salir");
@@ -233,19 +234,19 @@ public class Menu_vista extends javax.swing.JFrame {
         mostrarPanel(panelMedicamentos);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_factura_historialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_factura_historialActionPerformed
         // TODO add your handling code here:
         Historial_Factura_Vista mv = new Historial_Factura_Vista();
         JPanel panelFactura_histo = mv.getPanelHistorial_Factura();
         mostrarPanel(panelFactura_histo);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btn_factura_historialActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btn_historial_consultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_historial_consultaActionPerformed
         // TODO add your handling code here:
         Historial_Consulta_Vista mv = new Historial_Consulta_Vista();
         JPanel panelHistorialConsulta = mv.getPanelHistorial();
         mostrarPanel(panelHistorialConsulta);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btn_historial_consultaActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
@@ -295,11 +296,11 @@ public class Menu_vista extends javax.swing.JFrame {
     private javax.swing.JButton btn_clientes;
     private javax.swing.JButton btn_empleados;
     private javax.swing.JButton btn_factura;
+    private javax.swing.JButton btn_factura_historial;
+    private javax.swing.JButton btn_historial_consulta;
     private javax.swing.JButton btn_mascotas;
     private javax.swing.JButton btn_salir;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
