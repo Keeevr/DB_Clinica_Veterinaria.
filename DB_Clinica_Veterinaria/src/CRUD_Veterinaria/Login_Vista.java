@@ -7,10 +7,9 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-
 public class Login_Vista extends javax.swing.JFrame {
-    //
-    conexion con=new conexion();
+    
+    conexion con = new conexion();
     
     public Login_Vista() {
         super("Login");
@@ -20,15 +19,15 @@ public class Login_Vista extends javax.swing.JFrame {
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                UIManager.setLookAndFeel(info.getClassName());
-                break;
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -177,7 +176,7 @@ public class Login_Vista extends javax.swing.JFrame {
         if (!usuario.equals("") && !pass.equals("")) {
             try {
                 PreparedStatement ps = cn.prepareStatement(
-                    "SELECT rol FROM usuario WHERE identidad= ? AND password = ?");
+                        "SELECT rol FROM usuario WHERE identidad= ? AND password = ?");
                 ps.setString(1, usuario);
                 ps.setString(2, pass);
 
@@ -189,31 +188,28 @@ public class Login_Vista extends javax.swing.JFrame {
                     new Menu_vista().setVisible(true);
                     this.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(null, 
-                        "Usuario o contraseña incorrectos", 
-                        "Error de inicio de sesión", 
-                        JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,
+                            "Usuario o contraseña incorrectos",
+                            "Error de inicio de sesión",
+                            JOptionPane.ERROR_MESSAGE);
                 }
-                ps.close();
-                rs.close();
-                cn.close();
+                ps.close(); rs.close(); cn.close();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, 
-                    "Error al iniciar sesión: " + e.getMessage(), 
-                    "Error", 
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Error al iniciar sesión: " + e.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(null, 
-                "Debe completar los datos", 
-                "Campos vacíos", 
-                JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                    "Debe completar los datos",
+                    "Campos vacíos",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btn_iniciar_sesionActionPerformed
 
-   
     public static void main(String args[]) {
-   
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login_Vista().setVisible(true);

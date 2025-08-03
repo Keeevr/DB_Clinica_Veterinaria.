@@ -263,7 +263,7 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtable_datos);
 
-        txt_buscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresa nombre del Cargo  o ID"));
+        txt_buscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresa nombre de la Mascota o Id Consulta"));
         txt_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_buscarActionPerformed(evt);
@@ -389,17 +389,17 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
             return;
         }
 
-        // Convertir fecha a java.sql.Date (si la tienes como texto yyyy-MM-dd)
+        // Convertir fecha a java.sql.Date
         java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaStr);
 
         try ( Connection cn = con.Conectar()) {
             // Obtener el id_mascota y el id_empleado por nombre
             int id_mascota = -1;
-            try ( PreparedStatement psMascota = cn.prepareStatement("SELECT id_mascota FROM mascota WHERE nombre = ?")) {
-                psMascota.setString(1, combo_mascota.getSelectedItem().toString());
-                ResultSet rsMascota = psMascota.executeQuery();
-                if (rsMascota.next()) {
-                    id_mascota = rsMascota.getInt("id_mascota");
+            try ( PreparedStatement ps = cn.prepareStatement("SELECT id_mascota FROM mascota WHERE nombre = ?")) {
+                ps.setString(1, combo_mascota.getSelectedItem().toString());
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    id_mascota = rs.getInt("id_mascota");
                 } else {
                     JOptionPane.showMessageDialog(this, "No se encontró la mascota seleccionada.");
                     return;
@@ -407,18 +407,18 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
             }
 
             int id_empleado = -1;
-            try ( PreparedStatement psEmpleado = cn.prepareStatement("SELECT id_empleado FROM empleado WHERE nombre = ?")) {
-                psEmpleado.setString(1, txt_nom_empleado.getText().trim());
-                ResultSet rsEmpleado = psEmpleado.executeQuery();
-                if (rsEmpleado.next()) {
-                    id_empleado = rsEmpleado.getInt("id_empleado");
+            try ( PreparedStatement ps2 = cn.prepareStatement("SELECT id_empleado FROM empleado WHERE nombre = ?")) {
+                ps2.setString(1, txt_nom_empleado.getText().trim());
+                ResultSet rs2 = ps2.executeQuery();
+                if (rs2.next()) {
+                    id_empleado = rs2.getInt("id_empleado");
                 } else {
                     JOptionPane.showMessageDialog(this, "No se encontró el empleado seleccionado.");
                     return;
                 }
             }
 
-            // Insertar en la base de datos SIN variables intermedias, como tu ejemplo
+            // Insertar en la base de datos SIN variables intermedias
             String query = "INSERT INTO historial_consulta (fecha_historial_consulta, diagnostico, precio_consulta, id_mascota, id_empleado) VALUES (?, ?, ?, ?, ?)";
             try ( PreparedStatement ps = cn.prepareStatement(query)) {
                 ps.setDate(1, fechaSQL);
@@ -433,7 +433,6 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                 combo_mascota.setSelectedIndex(0);
                 mostrardatos();
             }
-
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al registrar consulta: " + e.getMessage());
         }
@@ -590,31 +589,31 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
         this.txt_nom_empleado.setText(datos[5]);
 
         // Buscar identidad y nombre del cliente, y mascotas asociadas
-        try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement(
+        try ( Connection cn = con.Conectar();  PreparedStatement ps1 = cn.prepareStatement(
                 "SELECT c.identidad, c.nombre, c.id_cliente "
                 + "FROM cliente c "
-                + "JOIN mascota m ON c.id_cliente = m.id_cliente " 
+                + "JOIN mascota m ON c.id_cliente = m.id_cliente "
                 //Limit para que
                 + "WHERE m.nombre = ? LIMIT 1")) {
-            ps.setString(1, datos[4]); // nombre de la mascota
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                this.txt_ident_cliente.setText(rs.getString("identidad"));
-                this.txt_nombre_cliente.setText(rs.getString("nombre"));
-                int id_cliente = rs.getInt("id_cliente");
+            ps1.setString(1, datos[4]); // nombre de la mascota
+            ResultSet rs1 = ps1.executeQuery();
+            if (rs1.next()) {
+                this.txt_ident_cliente.setText(rs1.getString("identidad"));
+                this.txt_nombre_cliente.setText(rs1.getString("nombre"));
+                int id_cliente = rs1.getInt("id_cliente");
 
                 // Llenar combo_mascota con todas las mascotas de este cliente
                 me.vaciarComboBox(combo_mascota);
                 combo_mascota.addItem("Seleccionar Mascota");
-                try ( PreparedStatement psMascotas = cn.prepareStatement(
+                try ( PreparedStatement ps2 = cn.prepareStatement(
                         "SELECT nombre FROM mascota WHERE id_cliente = ?")) {
-                    psMascotas.setInt(1, id_cliente);
-                    ResultSet rsMascotas = psMascotas.executeQuery();
-                    while (rsMascotas.next()) {
-                        combo_mascota.addItem(rsMascotas.getString("nombre"));
+                    ps2.setInt(1, id_cliente);
+                    ResultSet rs2 = ps2.executeQuery();
+                    while (rs2.next()) {
+                        combo_mascota.addItem(rs2.getString("nombre"));
                     }
-                    rsMascotas.close();
-                    psMascotas.close();
+                    rs2.close();
+                    ps2.close();
                 }
                 // Seleccionar la mascota de la fila
                 combo_mascota.setSelectedItem(datos[4]);
@@ -624,7 +623,7 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                 me.limpiarComboBox(combo_mascota);
                 JOptionPane.showMessageDialog(this, "Cliente asociado a la mascota no encontrado.");
             }
-            rs.close();
+            rs1.close();
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al buscar cliente y mascotas.");
@@ -665,38 +664,26 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
         modelo.addColumn("Empleado");
         jtable_datos.setModel(modelo);
 
-        String query;
         Connection cn = con.Conectar();
 
         if (busqueda.isEmpty()) {
-            // Si está vacío, mostrar todos los datos
-            query = "SELECT hc.id_consulta, hc.fecha_historial_consulta, hc.diagnostico, hc.precio_consulta, "
-                    + "m.nombre, e.nombre "
-                    + "FROM historial_consulta hc "
-                    + "JOIN mascota m ON hc.id_mascota = m.id_mascota "
-                    + "JOIN empleado e ON hc.id_empleado = e.id_empleado";
-        } else {
-            // Buscar por id_consulta (numérico) o nombre de mascota (texto)
-            query = "SELECT hc.id_consulta, hc.fecha_historial_consulta, hc.diagnostico, hc.precio_consulta, "
-                    + "m.nombre, e.nombre "
-                    + "FROM historial_consulta hc "
-                    + "JOIN mascota m ON hc.id_mascota = m.id_mascota "
-                    + "JOIN empleado e ON hc.id_empleado = e.id_empleado "
-                    + "WHERE hc.id_consulta = ? OR m.nombre LIKE ?";
+            mostrardatos();
+            JOptionPane.showMessageDialog(null, "Ingresa un nombre o id consulta ");
+            return;
         }
-
+        // Buscar por id_consulta (numérico) o nombre de mascota (texto)
+        String query = "SELECT hc.id_consulta, hc.fecha_historial_consulta, hc.diagnostico, hc.precio_consulta, "
+                + "m.nombre, e.nombre "
+                + "FROM historial_consulta hc "
+                + "JOIN mascota m ON hc.id_mascota = m.id_mascota "
+                + "JOIN empleado e ON hc.id_empleado = e.id_empleado "
+                + "WHERE hc.id_consulta = ? OR m.nombre LIKE ?";
+        
         try {
             PreparedStatement ps = cn.prepareStatement(query);
-            if (!busqueda.isEmpty()) {
-                // Si es número busca por id_consulta, si no busca por nombre de mascota
-                try {
-                    int idConsulta = Integer.parseInt(busqueda);
-                    ps.setInt(1, idConsulta);
-                } catch (NumberFormatException e) {
-                    ps.setInt(1, -1); // id no válido, no mostrará resultados por id
-                }
-                ps.setString(2, "%" + busqueda + "%");
-            }
+            ps.setString(1, busqueda);
+            ps.setString(2, "%" + busqueda + "%");
+
             ResultSet rs = ps.executeQuery();
             boolean hayResultados = false;
             while (rs.next()) {
@@ -737,9 +724,9 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
         try {
             Connection cn = con.Conectar();
 
-            PreparedStatement ps = cn.prepareStatement("SELECT id_cliente, nombre FROM cliente WHERE identidad = ?");
-            ps.setString(1, identidad);
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement ps1 = cn.prepareStatement("SELECT id_cliente, nombre FROM cliente WHERE identidad = ?");
+            ps1.setString(1, identidad);
+            ResultSet rs = ps1.executeQuery();
             if (rs.next()) {
                 int id_cliente = rs.getInt("id_cliente");
                 txt_nombre_cliente.setText(rs.getString("nombre"));
@@ -749,9 +736,9 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                 me.limpiarComboBox(combo_mascota);
 
                 // Mascotas del cliente
-                PreparedStatement psMascota = cn.prepareStatement("SELECT nombre FROM mascota WHERE id_cliente = ?");
-                psMascota.setInt(1, id_cliente);
-                ResultSet rsMascota = psMascota.executeQuery();
+                PreparedStatement ps2 = cn.prepareStatement("SELECT nombre FROM mascota WHERE id_cliente = ?");
+                ps2.setInt(1, id_cliente);
+                ResultSet rsMascota = ps2.executeQuery();
 
                 // Limpiar y llenar combo
                 combo_mascota.removeAllItems();
@@ -760,13 +747,13 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                     combo_mascota.addItem(rsMascota.getString("nombre"));
                 }
                 rsMascota.close();
-                psMascota.close();
+                ps2.close();
 
             } else {
                 JOptionPane.showMessageDialog(this, "Cliente no enconrado, tienes que registrarlo");
             }
             rs.close();
-            ps.close();
+            ps1.close();
             cn.close();
         } catch (SQLException e) {
             e.printStackTrace();

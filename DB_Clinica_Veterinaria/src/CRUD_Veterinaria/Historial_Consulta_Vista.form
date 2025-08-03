@@ -426,7 +426,7 @@
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Ingresa nombre del Cargo  o ID"/>
+                    <TitledBorder title="Ingresa nombre de la Mascota o Id Consulta"/>
                   </Border>
                 </Property>
               </Properties>
