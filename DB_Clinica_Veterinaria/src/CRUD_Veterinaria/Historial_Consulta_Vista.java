@@ -698,8 +698,6 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                 fila[5] = rs.getString("e.nombre");
                 modelo.addRow(fila);
             }
-
-            me.ajustarAnchoColumnas(jtable_datos, 150);
             rs.close();
             ps.close();
             cn.close();
@@ -909,7 +907,6 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                 fila[5] = rs.getString("e.nombre");
                 modelo.addRow(fila);
             }
-            me.ajustarAnchoColumnas(jtable_datos, 150);
             rs.close();
             st.close();
         } catch (SQLException e) {

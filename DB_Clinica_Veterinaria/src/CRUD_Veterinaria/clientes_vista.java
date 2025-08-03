@@ -423,7 +423,6 @@ public class clientes_vista extends javax.swing.JFrame {
 
         btn_registrar.setEnabled(true);
         me.limpiarCampos(txt_buscar, txt_correo, txt_direccion, txt_telefono, txt_identidad, txt_nombre_cliente, txt_id_cliente);
-        ajustarAnchoColumnas(jtable_datos, 150);
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     /**
@@ -508,7 +507,6 @@ public class clientes_vista extends javax.swing.JFrame {
                 modelo.addRow(fila);
             }
             // Limita cada columna a 200 píxeles de ancho máximo
-            ajustarAnchoColumnas(jtable_datos, 150);
             rs.close();
             st.close();
         } catch (SQLException e) {
@@ -516,38 +514,7 @@ public class clientes_vista extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al mostrar datos: ");
         }
     }
-
-    //metodo para redimencionar anchos de columnas
-    public void ajustarAnchoColumnas(JTable tabla, int anchoMaxPermitido) {
-        for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
-            TableColumn tableColumn = tabla.getColumnModel().getColumn(columna);
-            int anchoMaximo = 0;
-
-            // Ancho del encabezado
-            TableCellRenderer headerRenderer = tabla.getTableHeader().getDefaultRenderer();
-            Component headerComp = headerRenderer.getTableCellRendererComponent(tabla, tableColumn.getHeaderValue(), false, false, 0, columna);
-            anchoMaximo = headerComp.getPreferredSize().width;
-
-            // Ancho de las celdas
-            for (int fila = 0; fila < tabla.getRowCount(); fila++) {
-                TableCellRenderer cellRenderer = tabla.getCellRenderer(fila, columna);
-                Component c = tabla.prepareRenderer(cellRenderer, fila, columna);
-                int ancho = c.getPreferredSize().width;
-                anchoMaximo = Math.max(ancho, anchoMaximo);
-            }
-
-            // Margen extra
-            anchoMaximo += 10;
-
-            // Aplicar el límite máximo
-            if (anchoMaximo > anchoMaxPermitido) {
-                anchoMaximo = anchoMaxPermitido;
-            }
-
-            tableColumn.setPreferredWidth(anchoMaximo);
-        }
-    }
-
+    
     private void configurarSegunRol(String rol) {
         if ((rol.equalsIgnoreCase("Veterinario")) || (rol.equalsIgnoreCase("Recepcionista"))) {
             btn_eliminar.setEnabled(false);

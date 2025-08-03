@@ -469,8 +469,6 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             // Si no hubo resultados y no está vacío el campo de búsqueda, muestra todos los datos
 
             jtable_datos.setModel(modelo);
-            me.ajustarAnchoColumnas(jtable_datos, 150);
-
             if (!hayResultados) {
                 mostrardatos();
                 JOptionPane.showMessageDialog(this, "No se encontraron resultados. Mostrando todas los Medicamentos.");
@@ -559,7 +557,6 @@ public class Medicamentos_vista extends javax.swing.JFrame {
                 data[4] = rs.getString(5);
                 modelo.addRow(data);
             }
-            me.ajustarAnchoColumnas(jtable_datos, 150);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al mostrar datos: " + e.getMessage());
         }

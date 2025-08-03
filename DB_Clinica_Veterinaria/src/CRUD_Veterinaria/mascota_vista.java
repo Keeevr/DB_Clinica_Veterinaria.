@@ -720,7 +720,6 @@ public class mascota_vista extends javax.swing.JFrame {
                 data[7] = rs.getString(6); // sexo
                 modelo.addRow(data);
 
-                me.ajustarAnchoColumnas(jtabledatos, 150);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al mostrar datos: " + e.getMessage());

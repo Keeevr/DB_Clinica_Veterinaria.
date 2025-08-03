@@ -362,7 +362,6 @@ public class empleado_vista extends javax.swing.JFrame {
 
         btn_registrar.setEnabled(true);
         me.limpiarCampos(txt_id_empleado, txt_nombre_empleado, txt_identidad, txt_telefono, txt_direccion, txt_correo, txt_buscar);
-        me.ajustarAnchoColumnas(jtable_datos, 150);
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void jtable_datosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtable_datosMouseClicked
@@ -468,7 +467,6 @@ public class empleado_vista extends javax.swing.JFrame {
                 modelo.addRow(fila);
             }
             // Limita cada columna a 200 píxeles de ancho máximo
-            me.ajustarAnchoColumnas(jtable_datos, 150);
             rs.close();
             st.close();
         } catch (SQLException e) {

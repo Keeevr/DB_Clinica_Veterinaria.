@@ -312,7 +312,6 @@ public class cargo_vista extends javax.swing.JFrame {
                     modelo.addRow(fila);
                 }
             }
-            me.ajustarAnchoColumnas(jtable_cargo, 150);
             jtable_cargo.setModel(modelo);
 
             if (!hayResultados) {
@@ -580,7 +579,6 @@ public class cargo_vista extends javax.swing.JFrame {
                 data[3] = rs.getString(4); // nombre
                 modelo.addRow(data);
             }
-            me.ajustarAnchoColumnas(jtable_cargo, 150);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al mostrar datos: " + e.getMessage());
         }

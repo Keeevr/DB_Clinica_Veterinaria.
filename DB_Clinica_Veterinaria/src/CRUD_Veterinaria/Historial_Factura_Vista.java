@@ -304,7 +304,6 @@ public class Historial_Factura_Vista extends javax.swing.JFrame {
                 data[6] = rs.getString(7);
                 modelo.addRow(data);
             }
-            me.ajustarAnchoColumnas(jTable_Factura, 150);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al mostrar datos: " + e.getMessage());
         }
@@ -336,7 +335,6 @@ public class Historial_Factura_Vista extends javax.swing.JFrame {
                     data[5] = rs.getString(6);
                     modelo.addRow(data);
                 }
-                me.ajustarAnchoColumnas(jTable_Medi, 150);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al mostrar datos: " + e.getMessage());
@@ -369,7 +367,6 @@ public class Historial_Factura_Vista extends javax.swing.JFrame {
                     data[5] = rs.getString(6);
                     modelo.addRow(data);
                 }
-                me.ajustarAnchoColumnas(jTable_cons, 150);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al mostrar datos: " + e.getMessage());
@@ -421,7 +418,6 @@ public class Historial_Factura_Vista extends javax.swing.JFrame {
                     }
                     modelo.addRow(data);
                 }
-                me.ajustarAnchoColumnas(jTable_Factura, 150);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al filtrar por fecha: " + e.getMessage());
