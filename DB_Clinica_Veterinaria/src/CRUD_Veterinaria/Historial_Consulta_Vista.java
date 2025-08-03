@@ -31,6 +31,7 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
         initComponents();
         mostrarFecha();
         mostrardatos();
+        configurarSegunRol(Sesion.rolActual);
     }
 
     /**
@@ -678,7 +679,7 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                 + "JOIN mascota m ON hc.id_mascota = m.id_mascota "
                 + "JOIN empleado e ON hc.id_empleado = e.id_empleado "
                 + "WHERE hc.id_consulta = ? OR m.nombre LIKE ?";
-        
+
         try {
             PreparedStatement ps = cn.prepareStatement(query);
             ps.setString(1, busqueda);
@@ -927,4 +928,10 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
         return jPanel1;
     }
 
+    private void configurarSegunRol(String rol) {
+        if ((rol.equalsIgnoreCase("Veterinario")) || (rol.equalsIgnoreCase("Recepcionista"))) {
+            btn_eliminar.setEnabled(false);
+            // desactiva los botones que desees
+        }
+    }
 }

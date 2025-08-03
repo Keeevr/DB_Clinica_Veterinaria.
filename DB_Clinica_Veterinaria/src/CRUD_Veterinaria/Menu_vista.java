@@ -193,7 +193,7 @@ public class Menu_vista extends javax.swing.JFrame {
     private void btn_mascotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mascotasActionPerformed
         // TODO add your handling code here:
         mascota_vista mv = new mascota_vista();
-        JPanel panelMascotas = mv.getPanelMascotas(); 
+        JPanel panelMascotas = mv.getPanelMascotas();
         mostrarPanel(panelMascotas);
     }//GEN-LAST:event_btn_mascotasActionPerformed
 
@@ -310,10 +310,14 @@ public class Menu_vista extends javax.swing.JFrame {
         if ((rol.equalsIgnoreCase("Veterinario"))) {
             btn_factura.setEnabled(false);
             btn_cargo.setEnabled(false);
+            btn_factura_historial.setEnabled(false);
+            btn_empleados.setEnabled(false);
+
+        }
+        if ((rol.equalsIgnoreCase("Recepcionista"))) {
+            btn_cargo.setEnabled(false);
         }
     }
-    
-    
 
     public void limpearContenedor() {
         panel_contenedor.removeAll();
