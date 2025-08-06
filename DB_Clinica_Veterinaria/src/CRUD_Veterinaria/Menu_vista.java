@@ -312,7 +312,6 @@ public class Menu_vista extends javax.swing.JFrame {
             btn_cargo.setEnabled(false);
             btn_factura_historial.setEnabled(false);
             btn_empleados.setEnabled(false);
-
         }
         if ((rol.equalsIgnoreCase("Recepcionista"))) {
             btn_cargo.setEnabled(false);

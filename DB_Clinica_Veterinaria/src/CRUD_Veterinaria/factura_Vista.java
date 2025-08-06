@@ -1,5 +1,5 @@
 package CRUD_Veterinaria;
-//
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -43,7 +43,7 @@ public class factura_Vista extends javax.swing.JFrame {
         cargarProductosEnCombo();
         configurarTablaProductos();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -396,25 +396,25 @@ public class factura_Vista extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Cliente no encontrado.");
                 return;
             }
-
+            
             // Obtener ID de empleado
             String queryEmpleado = "SELECT id_empleado FROM empleado WHERE nombre = ?";
             PreparedStatement psEmpleado = cn.prepareStatement(queryEmpleado);
             psEmpleado.setString(1, nombreEmpleado);
             ResultSet rsEmpleado = psEmpleado.executeQuery();
-
+            
             int idEmpleado = -1;
             if (rsEmpleado.next()) {
                 idEmpleado = rsEmpleado.getInt("id_empleado");
             }
             rsEmpleado.close();
             psEmpleado.close();
-
+            
             if (idEmpleado == -1) {
                 JOptionPane.showMessageDialog(null, "Empleado no encontrado.");
                 return;
             }
-
+            
             // Insertar en tabla factura
             String insertFactura = "INSERT INTO factura (id_factura, fecha_emision, id_cliente, id_empleado, subtotal, impuesto, total) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement psFactura = cn.prepareStatement(insertFactura);
@@ -1225,6 +1225,5 @@ public class factura_Vista extends javax.swing.JFrame {
     
     public JPanel getPanelFactura() {
         return jPanel1;
-    }
-    
+    }   
 }
