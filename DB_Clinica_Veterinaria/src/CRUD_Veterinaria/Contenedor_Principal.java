@@ -5,7 +5,7 @@
 package CRUD_Veterinaria;
 
 import javax.swing.JPanel;
-//
+
 /**
  *
  * @author maynorlinux
@@ -55,7 +55,6 @@ public class Contenedor_Principal extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
