@@ -1,5 +1,5 @@
 package CRUD_Veterinaria;
-//
+
 public class persona {
     private int id_persona;
     private String nombre;
