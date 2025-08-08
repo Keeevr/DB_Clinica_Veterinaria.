@@ -401,6 +401,7 @@ public class factura_Vista extends javax.swing.JFrame {
             return;
         }
 
+        
         DefaultTableModel modeloTotales = (DefaultTableModel) jtable_total.getModel();
         if (modeloTotales.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "No hay datos de total para registrar.");
