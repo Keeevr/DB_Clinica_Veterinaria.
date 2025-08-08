@@ -375,7 +375,7 @@ public class Historial_Factura_Vista extends javax.swing.JFrame {
 
     public JPanel getPanelHistorial_Factura() {
         return jPanel2;
-    }
+    }   
 
     private void agregarListenerFecha() {
         jdcfiltro_fecha.getDateEditor().addPropertyChangeListener(evt -> {

@@ -34,7 +34,8 @@ public class Menu_vista extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btn_mascotas = new javax.swing.JButton();
         btn_empleados = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btn_Citas = new javax.swing.JButton();
+        btn_Medicamentos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,14 +133,23 @@ public class Menu_vista extends javax.swing.JFrame {
         });
         jPanel2.add(btn_empleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 140, 80));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("Medicamentos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_Citas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_Citas.setText("Registro de Citas");
+        btn_Citas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_CitasActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 140, 80));
+        jPanel2.add(btn_Citas, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 140, 80));
+
+        btn_Medicamentos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_Medicamentos.setText("Medicamentos");
+        btn_Medicamentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_MedicamentosActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_Medicamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 140, 80));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -225,12 +235,12 @@ public class Menu_vista extends javax.swing.JFrame {
         mostrarPanel(panelCargo);
     }//GEN-LAST:event_btn_cargoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_CitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CitasActionPerformed
         // TODO add your handling code here:
-        Medicamentos_vista mv = new Medicamentos_vista();
-        JPanel panelMedicamentos = mv.getPanelMedicamentos();
-        mostrarPanel(panelMedicamentos);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        Cita_Mascota_Vista mv = new Cita_Mascota_Vista();
+        JPanel panelCitas = mv.getPanelCitas();
+        mostrarPanel(panelCitas);
+    }//GEN-LAST:event_btn_CitasActionPerformed
 
     private void btn_factura_historialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_factura_historialActionPerformed
         // TODO add your handling code here:
@@ -252,6 +262,13 @@ public class Menu_vista extends javax.swing.JFrame {
         JPanel panelContenedorMenu = cc.getPanelContenedor();
         mostrarPanel(panelContenedorMenu);
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void btn_MedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_MedicamentosActionPerformed
+        // TODO add your handling code here:
+        Medicamentos_vista mv = new Medicamentos_vista();
+        JPanel panelMedicamentos = mv.getPanelMedicamentos();
+        mostrarPanel(panelMedicamentos);
+    }//GEN-LAST:event_btn_MedicamentosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,6 +306,8 @@ public class Menu_vista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Citas;
+    private javax.swing.JButton btn_Medicamentos;
     private javax.swing.JButton btn_cargo;
     private javax.swing.JButton btn_clientes;
     private javax.swing.JButton btn_empleados;
@@ -297,7 +316,6 @@ public class Menu_vista extends javax.swing.JFrame {
     private javax.swing.JButton btn_historial_consulta;
     private javax.swing.JButton btn_mascotas;
     private javax.swing.JButton btn_salir;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

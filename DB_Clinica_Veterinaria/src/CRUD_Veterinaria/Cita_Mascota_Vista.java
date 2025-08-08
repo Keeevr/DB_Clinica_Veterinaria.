@@ -13,6 +13,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,6 +28,7 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
     public Cita_Mascota_Vista() {
         initComponents();
         mostrardatos();
+        agregarListenerFecha();
     }
 
     /**
@@ -58,6 +60,7 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
         jtable_datos = new javax.swing.JTable();
         txt_buscar = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
+        datepicker_buscar_fecha = new com.github.lgooddatepicker.components.DatePicker();
         jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -250,7 +253,7 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtable_datos);
 
-        txt_buscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresa nombre de la Mascota o Id Consulta"));
+        txt_buscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresa nombre de la Mascota o Id Cita"));
         txt_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_buscarActionPerformed(evt);
@@ -272,24 +275,31 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(datepicker_buscar_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(28, 28, 28)
                         .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(18, 18, 18))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(datepicker_buscar_fecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_buscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_buscar, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -392,6 +402,32 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
                 }
             }
 
+            // Verificar si ya existe una cita para esa mascota en esa fecha y hora
+            String checkMasQuery = "SELECT COUNT(*) FROM cita_mascotas WHERE id_mascota = ? AND fecha = ? AND hora = ?";
+            try ( PreparedStatement ps = cn.prepareStatement(checkMasQuery)) {
+                ps.setInt(1, id_mascota);
+                ps.setDate(2, java.sql.Date.valueOf(dtp_fecha_hora.getDatePicker().getDate()));
+                ps.setTime(3, java.sql.Time.valueOf(dtp_fecha_hora.getTimePicker().getTime()));
+                ResultSet rs = ps.executeQuery();
+                if (rs.next() && rs.getInt(1) > 0) {
+                    JOptionPane.showMessageDialog(this, "YA EXISTE UNA CITA PARA LA MASCOTA EN LA FECHA Y HORA SELECCIONADA.");
+                    return;
+                }
+            }
+
+            // Verificar si el veterinario ya tiene una cita en esa fecha y hora
+            String checkVetQuery = "SELECT COUNT(*) FROM cita_mascotas WHERE id_empleado = ? AND fecha = ? AND hora = ?";
+            try ( PreparedStatement ps = cn.prepareStatement(checkVetQuery)) {
+                ps.setInt(1, id_empleado);
+                ps.setDate(2, java.sql.Date.valueOf(dtp_fecha_hora.getDatePicker().getDate()));
+                ps.setTime(3, java.sql.Time.valueOf(dtp_fecha_hora.getTimePicker().getTime()));
+                ResultSet rs = ps.executeQuery();
+                if (rs.next() && rs.getInt(1) > 0) {
+                    JOptionPane.showMessageDialog(this, "YA EXISTE UNA CITA PARA EL VETERINARIO EN LA FECHA Y HORA SELECCIONADA.");
+                    return;
+                }
+            }
+
             // Insertar cita en cita_mascotas
             String query = "INSERT INTO cita_mascotas (fecha, hora, proposito, id_mascota, id_empleado) VALUES (?, ?, ?, ?, ?)";
             try ( PreparedStatement ps = cn.prepareStatement(query)) {
@@ -404,9 +440,9 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(this, "Cita registrada correctamente.");
                 me.limpiarCampos(txt_ident_cliente, txt_nombre_cliente, txt_ident_empleado, txt_nom_empleado, txt_proposito, txt_idcita);
-                me.limpiarComboBox(combo_mascota);
+                me.vaciarComboBox(combo_mascota);
                 me.limpiarDateTimePicker(dtp_fecha_hora);
-mostrardatos();
+                mostrardatos();
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al registrar cita: " + e.getMessage());
@@ -462,7 +498,33 @@ mostrardatos();
                     }
                 }
             }
+            // Verificar si ya existe otra cita para esa mascota en esa fecha y hora (excluyendo la actual)
+            String checkMascotaQuery = "SELECT COUNT(*) FROM cita_mascotas WHERE id_mascota = ? AND fecha = ? AND hora = ? AND id_cita_mascota <> ?";
+            try ( PreparedStatement ps = cn.prepareStatement(checkMascotaQuery)) {
+                ps.setInt(1, id_mascota);
+                ps.setDate(2, java.sql.Date.valueOf(dtp_fecha_hora.getDatePicker().getDate()));
+                ps.setTime(3, java.sql.Time.valueOf(dtp_fecha_hora.getTimePicker().getTime()));
+                ps.setInt(4, Integer.parseInt(idCitaStr));
+                ResultSet rs = ps.executeQuery();
+                if (rs.next() && rs.getInt(1) > 0) {
+                    JOptionPane.showMessageDialog(this, "Ya existe otra cita para esa mascota en la fecha y hora seleccionadas.");
+                    return;
+                }
+            }
 
+            // Verificar si el veterinario ya tiene otra cita en esa fecha y hora (excluyendo la actual)
+            String checkVetQuery = "SELECT COUNT(*) FROM cita_mascotas WHERE id_empleado = ? AND fecha = ? AND hora = ? AND id_cita_mascota <> ?";
+            try ( PreparedStatement ps = cn.prepareStatement(checkVetQuery)) {
+                ps.setInt(1, id_empleado);
+                ps.setDate(2, java.sql.Date.valueOf(dtp_fecha_hora.getDatePicker().getDate()));
+                ps.setTime(3, java.sql.Time.valueOf(dtp_fecha_hora.getTimePicker().getTime()));
+                ps.setInt(4, Integer.parseInt(idCitaStr));
+                ResultSet rs = ps.executeQuery();
+                if (rs.next() && rs.getInt(1) > 0) {
+                    JOptionPane.showMessageDialog(this, "El veterinario seleccionado ya tiene otra cita en esa fecha y hora.");
+                    return;
+                }
+            }
             // Actualizar cita en cita_mascotas
             String query = "UPDATE cita_mascotas SET fecha = ?, hora = ?, proposito = ?, id_mascota = ?, id_empleado = ? WHERE id_cita_mascota = ?";
             try ( PreparedStatement ps = cn.prepareStatement(query)) {
@@ -477,7 +539,7 @@ mostrardatos();
                 if (filas > 0) {
                     JOptionPane.showMessageDialog(this, "Cita actualizada correctamente.");
                     me.limpiarCampos(txt_ident_cliente, txt_nombre_cliente, txt_ident_empleado, txt_nom_empleado, txt_proposito, txt_idcita);
-                    me.limpiarComboBox(combo_mascota);
+                    me.vaciarComboBox(combo_mascota);
                     me.limpiarDateTimePicker(dtp_fecha_hora);
                     btn_registrar.setEnabled(true);
                     mostrardatos();
@@ -492,7 +554,40 @@ mostrardatos();
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        // TODO add your handling code here:
+        String idCitaStr = txt_idcita.getText().trim();
+        if (idCitaStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay cita seleccionada para eliminar.");
+            return;
+        }
 
+        int resp = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar esta cita?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        if (resp != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try ( Connection cn = con.Conectar()) {
+            String query = "DELETE FROM cita_mascotas WHERE id_cita_mascota = ?";
+            try ( PreparedStatement ps = cn.prepareStatement(query)) {
+                ps.setInt(1, Integer.parseInt(idCitaStr));
+                int filas = ps.executeUpdate();
+
+                if (filas > 0) {
+                    mostrardatos();
+                    JOptionPane.showMessageDialog(this, "Cita eliminada correctamente.");
+                    me.limpiarCampos(txt_ident_cliente, txt_nombre_cliente, txt_ident_empleado, txt_nom_empleado, txt_proposito, txt_idcita);
+                    me.limpiarComboBox(combo_mascota);
+                    me.limpiarDateTimePicker(dtp_fecha_hora);
+                    combo_mascota.setSelectedIndex(0);
+                    btn_registrar.setEnabled(true);
+                    btn_actualizar.setEnabled(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar la cita.");
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar cita: " + e.getMessage());
+        }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btnbuscar_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscar_clienteActionPerformed
@@ -630,7 +725,7 @@ mostrardatos();
                     int id_cliente = rs1.getInt("id_cliente");
 
                     // Llenar combo_mascota con todas las mascotas del cliente
-                    me.limpiarComboBox(combo_mascota);
+                    me.vaciarComboBox(combo_mascota);
                     combo_mascota.addItem("Seleccionar Mascota");
                     try ( PreparedStatement ps2 = cn.prepareStatement(
                             "SELECT nombre FROM mascota WHERE id_cliente = ?")) {
@@ -676,7 +771,67 @@ mostrardatos();
     }//GEN-LAST:event_txt_buscarActionPerformed
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        // Limpiar campos y combos
+        me.limpiarCampos(txt_ident_cliente, txt_nombre_cliente, txt_ident_empleado, txt_nom_empleado, txt_proposito, txt_idcita);
+        me.vaciarComboBox(combo_mascota);
+        me.limpiarDateTimePicker(dtp_fecha_hora);
+        combo_mascota.addItem("Seleccionar Mascota");
 
+        String busqueda = txt_buscar.getText().trim();
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID Cita");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Hora");
+        modelo.addColumn("Proposito");
+        modelo.addColumn("Mascota");
+        modelo.addColumn("Veterinario");
+        jtable_datos.setModel(modelo);
+
+        Connection cn = con.Conectar();
+
+        if (busqueda.isEmpty()) {
+            mostrardatos();
+            JOptionPane.showMessageDialog(this, "Ingresa un nombre de mascota o ID de cita.");
+            return;
+        }
+
+        // Buscar por id_cita_mascota (numérico) o nombre de mascota (texto)
+        String query = "SELECT c.id_cita_mascota, c.fecha, c.hora, c.proposito, m.nombre AS nombre_mascota, e.nombre AS nombre_veterinario "
+                + "FROM cita_mascotas c "
+                + "JOIN mascota m ON c.id_mascota = m.id_mascota "
+                + "JOIN empleado e ON c.id_empleado = e.id_empleado "
+                + "WHERE c.id_cita_mascota = ? OR m.nombre LIKE ?";
+
+        try {
+            PreparedStatement ps = cn.prepareStatement(query);
+            ps.setString(1, busqueda);
+            ps.setString(2, "%" + busqueda + "%");
+
+            ResultSet rs = ps.executeQuery();
+            boolean hayResultados = false;
+            while (rs.next()) {
+                hayResultados = true;
+                String[] fila = new String[6];
+                fila[0] = rs.getString("id_cita_mascota");
+                fila[1] = rs.getString("fecha");
+                fila[2] = rs.getString("hora");
+                fila[3] = rs.getString("proposito");
+                fila[4] = rs.getString("nombre_mascota");
+                fila[5] = rs.getString("nombre_veterinario");
+                modelo.addRow(fila);
+            }
+            rs.close();
+            ps.close();
+            cn.close();
+
+            if (!hayResultados && !busqueda.isEmpty()) {
+                mostrardatos();
+                JOptionPane.showMessageDialog(this, "No se encontraron resultados. Mostrando todas las citas.");
+                me.limpiarCampos(txt_buscar);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al buscar cita: " + e.getMessage());
+        }
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     /**
@@ -770,6 +925,7 @@ mostrardatos();
     private javax.swing.JButton btnbuscar_cliente;
     private javax.swing.JButton btnbuscar_empleado;
     private javax.swing.JComboBox<String> combo_mascota;
+    private com.github.lgooddatepicker.components.DatePicker datepicker_buscar_fecha;
     private com.github.lgooddatepicker.components.DateTimePicker dtp_fecha_hora;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -785,4 +941,60 @@ mostrardatos();
     private javax.swing.JTextField txt_nombre_cliente;
     private javax.swing.JTextField txt_proposito;
     // End of variables declaration//GEN-END:variables
+
+    private void agregarListenerFecha() {
+        datepicker_buscar_fecha.addDateChangeListener(event -> {
+            filtrarPorFechaCita();
+        });
+    }
+
+    private void filtrarPorFechaCita() {
+        java.time.LocalDate fechaSeleccionada = datepicker_buscar_fecha.getDate();
+        if (fechaSeleccionada == null) {
+            mostrardatos(); // Si no hay fecha, muestra todo
+            return;
+        }
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID Cita");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Hora");
+        modelo.addColumn("Proposito");
+        modelo.addColumn("Mascota");
+        modelo.addColumn("Veterinario");
+        jtable_datos.setModel(modelo);
+
+        String query = "SELECT c.id_cita_mascota, c.fecha, c.hora, c.proposito, m.nombre AS nombre_mascota, e.nombre AS nombre_veterinario "
+                + "FROM cita_mascotas c "
+                + "JOIN mascota m ON c.id_mascota = m.id_mascota "
+                + "JOIN empleado e ON c.id_empleado = e.id_empleado "
+                + "WHERE c.fecha = ?";
+
+        try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement(query)) {
+            ps.setDate(1, java.sql.Date.valueOf(fechaSeleccionada));
+            try ( ResultSet rs = ps.executeQuery()) {
+                boolean hayResultados = false;
+                while (rs.next()) {
+                    hayResultados = true;
+                    String[] fila = new String[6];
+                    fila[0] = rs.getString("id_cita_mascota");
+                    fila[1] = rs.getString("fecha");
+                    fila[2] = rs.getString("hora");
+                    fila[3] = rs.getString("proposito");
+                    fila[4] = rs.getString("nombre_mascota");
+                    fila[5] = rs.getString("nombre_veterinario");
+                    modelo.addRow(fila);
+                }
+                if (!hayResultados) {
+                    JOptionPane.showMessageDialog(this, "No hay citas para la fecha seleccionada.");
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al filtrar por fecha: " + e.getMessage());
+        }
+    }
+
+    public JPanel getPanelCitas() {
+        return jPanel2;
+    }
 }

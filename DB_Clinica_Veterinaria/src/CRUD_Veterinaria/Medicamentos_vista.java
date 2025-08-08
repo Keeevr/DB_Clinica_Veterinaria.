@@ -343,7 +343,7 @@ public class Medicamentos_vista extends javax.swing.JFrame {
                 // Limpiar campos si deseas
                 me.limpiarCampos(txt_id_medicamentos, txtnombre_medicamento, txtprecio_unitario, txtcantidad);
                 me.limpiarDateChooser(jdcfecha_caducacion);
-                mostrardatos(); //← si tienes método para refrescar tabla
+                mostrardatos(); //método para limpiar tablas
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo actualizar el medicamento. Verifica el ID.");
             }
