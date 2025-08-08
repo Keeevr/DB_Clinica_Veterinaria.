@@ -8,7 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,6 +26,7 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
 
     public Cita_Mascota_Vista() {
         initComponents();
+        mostrardatos();
     }
 
     /**
@@ -233,7 +239,7 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Id del cargo", "Cargo", "Sueldo", "Empleado"
+                "", "", "", ""
             }
         ));
         jtable_datos.setToolTipText("");
@@ -400,7 +406,7 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
                 me.limpiarCampos(txt_ident_cliente, txt_nombre_cliente, txt_ident_empleado, txt_nom_empleado, txt_proposito, txt_idcita);
                 me.limpiarComboBox(combo_mascota);
                 me.limpiarDateTimePicker(dtp_fecha_hora);
-                // TODO: Llamar a un método mostrardatos() si lo implementas para actualizar la tabla
+mostrardatos();
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al registrar cita: " + e.getMessage());
@@ -408,6 +414,80 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_registrarActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
+        // Validar que haya una cita seleccionada
+        String idCitaStr = txt_idcita.getText().trim();
+        if (idCitaStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay cita seleccionada para actualizar.");
+            return;
+        }
+
+        // Validación de campos vacíos
+        if (txt_nombre_cliente.getText().trim().isEmpty()
+                || txt_nom_empleado.getText().trim().isEmpty()
+                || txt_proposito.getText().trim().isEmpty()
+                || combo_mascota.getSelectedItem() == null
+                || combo_mascota.getSelectedItem().toString().equals("Seleccionar Mascota")
+                || dtp_fecha_hora.getDatePicker().getDate() == null
+                || dtp_fecha_hora.getTimePicker().getTime() == null) {
+
+            JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos requeridos.");
+            return;
+        }
+
+        try ( Connection cn = con.Conectar()) {
+            // Obtener id_mascota por nombre
+            int id_mascota = -1;
+            try ( PreparedStatement ps = cn.prepareStatement("SELECT id_mascota FROM mascota WHERE nombre = ?")) {
+                ps.setString(1, combo_mascota.getSelectedItem().toString());
+                try ( ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        id_mascota = rs.getInt("id_mascota");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se encontró la mascota seleccionada.");
+                        return;
+                    }
+                }
+            }
+
+            // Obtener id_empleado por identidad
+            int id_empleado = -1;
+            try ( PreparedStatement ps = cn.prepareStatement("SELECT id_empleado FROM empleado WHERE identidad = ?")) {
+                ps.setString(1, txt_ident_empleado.getText().trim());
+                try ( ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        id_empleado = rs.getInt("id_empleado");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No se encontró el empleado.");
+                        return;
+                    }
+                }
+            }
+
+            // Actualizar cita en cita_mascotas
+            String query = "UPDATE cita_mascotas SET fecha = ?, hora = ?, proposito = ?, id_mascota = ?, id_empleado = ? WHERE id_cita_mascota = ?";
+            try ( PreparedStatement ps = cn.prepareStatement(query)) {
+                ps.setDate(1, java.sql.Date.valueOf(dtp_fecha_hora.getDatePicker().getDate()));
+                ps.setTime(2, java.sql.Time.valueOf(dtp_fecha_hora.getTimePicker().getTime()));
+                ps.setString(3, txt_proposito.getText().trim());
+                ps.setInt(4, id_mascota);
+                ps.setInt(5, id_empleado);
+                ps.setInt(6, Integer.parseInt(idCitaStr));
+                int filas = ps.executeUpdate();
+
+                if (filas > 0) {
+                    JOptionPane.showMessageDialog(this, "Cita actualizada correctamente.");
+                    me.limpiarCampos(txt_ident_cliente, txt_nombre_cliente, txt_ident_empleado, txt_nom_empleado, txt_proposito, txt_idcita);
+                    me.limpiarComboBox(combo_mascota);
+                    me.limpiarDateTimePicker(dtp_fecha_hora);
+                    btn_registrar.setEnabled(true);
+                    mostrardatos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo actualizar la cita.");
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar cita: " + e.getMessage());
+        }
 
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
@@ -506,7 +586,89 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_idcitaActionPerformed
 
     private void jtable_datosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtable_datosMouseClicked
+        btn_registrar.setEnabled(false);
+        btn_actualizar.setEnabled(true);
 
+        int fila = jtable_datos.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona una fila.");
+            return;
+        }
+
+        // Obtener valores de la fila
+        String[] datos = new String[6];
+        for (int i = 0; i < datos.length; i++) {
+            datos[i] = jtable_datos.getValueAt(fila, i).toString();
+        }
+
+        // Asignar a los campos visibles
+        txt_idcita.setText(datos[0]);
+        txt_proposito.setText(datos[3]);
+        txt_nom_empleado.setText(datos[5]);
+
+        // Establecer fecha y hora en DateTimePicker
+        try {
+            LocalDate fecha = LocalDate.parse(datos[1]); // Formato esperado: YYYY-MM-DD
+            LocalTime hora = LocalTime.parse(datos[2]);  // Formato esperado: HH:MM:SS
+            dtp_fecha_hora.getDatePicker().setDate(fecha);
+            dtp_fecha_hora.getTimePicker().setTime(hora);
+        } catch (DateTimeException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar fecha u hora: " + e.getMessage());
+            return;
+        }
+
+        // Buscar identidad y nombre del cliente, y mascotas asociadas
+        try ( Connection cn = con.Conectar();  PreparedStatement ps1 = cn.prepareStatement(
+                "SELECT c.identidad, c.nombre, c.id_cliente "
+                + "FROM cliente c JOIN mascota m ON c.id_cliente = m.id_cliente "
+                + "WHERE m.nombre = ? LIMIT 1")) {
+            ps1.setString(1, datos[4]); // nombre de la mascota
+            try ( ResultSet rs1 = ps1.executeQuery()) {
+                if (rs1.next()) {
+                    txt_ident_cliente.setText(rs1.getString("identidad"));
+                    txt_nombre_cliente.setText(rs1.getString("nombre"));
+                    int id_cliente = rs1.getInt("id_cliente");
+
+                    // Llenar combo_mascota con todas las mascotas del cliente
+                    me.limpiarComboBox(combo_mascota);
+                    combo_mascota.addItem("Seleccionar Mascota");
+                    try ( PreparedStatement ps2 = cn.prepareStatement(
+                            "SELECT nombre FROM mascota WHERE id_cliente = ?")) {
+                        ps2.setInt(1, id_cliente);
+                        try ( ResultSet rs2 = ps2.executeQuery()) {
+                            while (rs2.next()) {
+                                combo_mascota.addItem(rs2.getString("nombre"));
+                            }
+                        }
+                    }
+                    combo_mascota.setSelectedItem(datos[4]);
+                } else {
+                    txt_ident_cliente.setText("");
+                    txt_nombre_cliente.setText("");
+                    me.limpiarComboBox(combo_mascota);
+                    combo_mascota.addItem("Seleccionar Mascota");
+                    JOptionPane.showMessageDialog(this, "Cliente asociado a la mascota no encontrado.");
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al buscar cliente y mascotas: " + e.getMessage());
+        }
+
+        // Buscar identidad del empleado
+        try ( Connection cn = con.Conectar();  PreparedStatement psEmp = cn.prepareStatement(
+                "SELECT identidad FROM empleado WHERE nombre = ? LIMIT 1")) {
+            psEmp.setString(1, datos[5]);
+            try ( ResultSet rsEmp = psEmp.executeQuery()) {
+                if (rsEmp.next()) {
+                    txt_ident_empleado.setText(rsEmp.getString("identidad"));
+                } else {
+                    txt_ident_empleado.setText("");
+                    JOptionPane.showMessageDialog(this, "Identidad del empleado no encontrada.");
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al buscar identidad del empleado: " + e.getMessage());
+        }
     }//GEN-LAST:event_jtable_datosMouseClicked
 
     private void txt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_buscarActionPerformed
@@ -531,16 +693,24 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Cita_Mascota_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cita_Mascota_Vista.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Cita_Mascota_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cita_Mascota_Vista.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Cita_Mascota_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cita_Mascota_Vista.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Cita_Mascota_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cita_Mascota_Vista.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -555,6 +725,43 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
         });
     }
 
+    private void mostrardatos() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID Cita");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Hora");
+        modelo.addColumn("Proposito");
+        modelo.addColumn("Mascota");
+        modelo.addColumn("Veterinario");
+        jtable_datos.setModel(modelo);
+
+        String query = "SELECT cm.id_cita_mascota, cm.fecha, cm.hora, cm.proposito, m.nombre AS nombre_mascota, e.nombre AS nombre_empleado "
+                + "FROM cita_mascotas cm "
+                + "JOIN mascota m ON cm.id_mascota = m.id_mascota "
+                + "JOIN empleado e ON cm.id_empleado = e.id_empleado";
+
+        try {
+            Connection cn = con.Conectar();
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()) {
+                String[] fila = new String[6];
+                fila[0] = rs.getString("id_cita_mascota");
+                fila[1] = rs.getString("fecha");
+                fila[2] = rs.getString("hora");
+                fila[3] = rs.getString("proposito");
+                fila[4] = rs.getString("nombre_mascota");
+                fila[5] = rs.getString("nombre_empleado");
+                modelo.addRow(fila);
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al mostrar datos: ");
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_actualizar;
     private javax.swing.JButton btn_buscar;
