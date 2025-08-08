@@ -454,7 +454,8 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
 
         String fechaStr = txt_fecha.getText().trim();
 
-        if (txt_diagnostico.getText().trim().isEmpty()
+        if (txt_nombre_cliente.getText().trim().isEmpty()
+                || txt_diagnostico.getText().trim().isEmpty()
                 || txt_precio.getText().trim().isEmpty()
                 || fechaStr.isEmpty()
                 || combo_mascota.getSelectedItem() == null
