@@ -371,12 +371,14 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
         String fechaStr = txt_fecha.getText().trim();
 
         // Validación de campos vacíos
-        if (txt_diagnostico.getText().trim().isEmpty()
+        if (txt_nombre_cliente.getText().trim().isEmpty()
+                || txt_diagnostico.getText().trim().isEmpty()
                 || txt_precio.getText().trim().isEmpty()
                 || fechaStr.isEmpty()
                 || combo_mascota.getSelectedItem() == null
                 || combo_mascota.getSelectedItem().toString().equals("Seleccionar Mascota")
-                || txt_nom_empleado.getText().trim().isEmpty()) {
+                || txt_nom_empleado.getText().trim().isEmpty())
+        {
 
             JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos requeridos.");
             return;
@@ -432,6 +434,7 @@ public class Historial_Consulta_Vista extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Consulta registrada correctamente.");
                 me.limpiarCampos(txt_precio, txt_diagnostico, txt_ident_empleado, txt_nom_empleado, txt_ident_cliente, txt_nombre_cliente);
                 combo_mascota.setSelectedIndex(0);
+               
                 mostrardatos();
             }
         } catch (SQLException e) {

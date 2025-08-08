@@ -2,8 +2,6 @@ package CRUD_Veterinaria;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.Connection;
@@ -15,35 +13,30 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 public class factura_Vista extends javax.swing.JFrame {
+
     //nombre del cliente y txt buscar cliente
-    DefaultComboBoxModel<String> modeloClientes = new DefaultComboBoxModel<>();    
+    DefaultComboBoxModel<String> modeloClientes = new DefaultComboBoxModel<>();
     //nombre del empleado y txt buscar empleado
     DefaultComboBoxModel<String> modeloEmpleados = new DefaultComboBoxModel<>();
     //conexion
-    conexion con=new conexion();
-    
+    conexion con = new conexion();
+    Metodos me = new Metodos();
+
     public factura_Vista() {
         initComponents();
         deshabilitarPanel(jPanelM);
         deshabilitarPanel(jPanelP);
         mostrarNumeroFactura();
         mostrarFecha();
-        agregarFiltroDinamicoRecepcionistas();
-        agregarFiltroDinamicoCliente();
-        agregarEventoSeleccionCliente();
-        agregarEventoSeleccionMascota();
-        agregarEventoSeleccionConsulta();
         placeholder();
         configurarTablaTotales();
-        cargarProductosEnCombo();
         configurarTablaProductos();
+        actualizarTablaTotales();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -54,15 +47,16 @@ public class factura_Vista extends javax.swing.JFrame {
         jtable_total = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         btn_registrar_factura = new javax.swing.JButton();
-        txt_num_factura = new javax.swing.JTextField();
         txt_nom_cliente = new javax.swing.JTextField();
-        txt_fecha_dia = new javax.swing.JTextField();
         jPanelM = new javax.swing.JPanel();
         txt_diagnostico = new javax.swing.JTextField();
         txt_fecha = new javax.swing.JTextField();
         txt_precio = new javax.swing.JTextField();
         combo_mascota = new javax.swing.JComboBox<>();
         combo_consulta = new javax.swing.JComboBox<>();
+        jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jPanelP = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtable_producto = new javax.swing.JTable();
@@ -78,6 +72,10 @@ public class factura_Vista extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jbl_fecha = new javax.swing.JLabel();
+        jbl_num_factu = new javax.swing.JLabel();
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Regreso Boton.png"))); // NOI18N
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -118,16 +116,6 @@ public class factura_Vista extends javax.swing.JFrame {
         });
         jPanel1.add(btn_registrar_factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 290, 50));
 
-        txt_num_factura.setEditable(false);
-        txt_num_factura.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_num_factura.setBorder(javax.swing.BorderFactory.createTitledBorder("No. Fcatura"));
-        txt_num_factura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_num_facturaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txt_num_factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 105, 60));
-
         txt_nom_cliente.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         txt_nom_cliente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -142,16 +130,7 @@ public class factura_Vista extends javax.swing.JFrame {
                 txt_nom_clienteActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_nom_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 200, 60));
-
-        txt_fecha_dia.setEditable(false);
-        txt_fecha_dia.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
-        txt_fecha_dia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_fecha_diaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txt_fecha_dia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 50, 105, 60));
+        jPanel1.add(txt_nom_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 200, 60));
 
         jPanelM.setBackground(new java.awt.Color(237, 232, 208));
         jPanelM.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
@@ -174,6 +153,27 @@ public class factura_Vista extends javax.swing.JFrame {
 
         combo_consulta.setBorder(javax.swing.BorderFactory.createTitledBorder("No. Consulta"));
 
+        jButton4.setText("Buscar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Buscar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setText("Buscar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelMLayout = new javax.swing.GroupLayout(jPanelM);
         jPanelM.setLayout(jPanelMLayout);
         jPanelMLayout.setHorizontalGroup(
@@ -182,26 +182,40 @@ public class factura_Vista extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_fecha)
-                    .addComponent(combo_mascota, javax.swing.GroupLayout.Alignment.TRAILING, 0, 326, Short.MAX_VALUE)
-                    .addComponent(combo_consulta, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txt_diagnostico)
-                    .addComponent(txt_precio))
+                    .addComponent(txt_precio)
+                    .addGroup(jPanelMLayout.createSequentialGroup()
+                        .addGroup(jPanelMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txt_diagnostico, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(combo_consulta, javax.swing.GroupLayout.Alignment.LEADING, 0, 239, Short.MAX_VALUE)
+                            .addComponent(combo_mascota, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton4)
+                            .addComponent(jButton6)
+                            .addComponent(jButton7))
+                        .addGap(0, 4, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelMLayout.setVerticalGroup(
             jPanelMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMLayout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addComponent(combo_mascota, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(combo_mascota, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(combo_consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(combo_consulta, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_diagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt_diagnostico, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanelM, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, 360));
@@ -257,8 +271,8 @@ public class factura_Vista extends javax.swing.JFrame {
                 .addComponent(combo_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_agregar_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_agregar_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -269,7 +283,7 @@ public class factura_Vista extends javax.swing.JFrame {
         jPanel1.add(jPanelP, new org.netbeans.lib.awtextra.AbsoluteConstraints(744, 200, -1, -1));
 
         combo_nom_empleado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Nombre del Recepcionista")));
-        jPanel1.add(combo_nom_empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(636, 50, 250, 60));
+        jPanel1.add(combo_nom_empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 250, 60));
 
         txt_nom_empleado.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         txt_nom_empleado.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -285,7 +299,7 @@ public class factura_Vista extends javax.swing.JFrame {
                 txt_nom_empleadoActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_nom_empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(886, 50, 200, 60));
+        jPanel1.add(txt_nom_empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 70, 200, 60));
 
         combo_nom_cliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre del Cliente"));
         combo_nom_cliente.addActionListener(new java.awt.event.ActionListener() {
@@ -293,7 +307,7 @@ public class factura_Vista extends javax.swing.JFrame {
                 combo_nom_clienteActionPerformed(evt);
             }
         });
-        jPanel1.add(combo_nom_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 240, 60));
+        jPanel1.add(combo_nom_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 240, 60));
 
         jCheckBox1.setText("¿Incluir Consulta?");
         jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -328,6 +342,28 @@ public class factura_Vista extends javax.swing.JFrame {
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 150, 20, 423));
 
+        jButton2.setText("Buscar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, -1, 60));
+
+        jButton3.setText("Buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 70, -1, 60));
+
+        jbl_fecha.setText("Fecha:");
+        jPanel1.add(jbl_fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 30, -1, -1));
+
+        jbl_num_factu.setText("No. Factura");
+        jPanel1.add(jbl_num_factu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -354,18 +390,17 @@ public class factura_Vista extends javax.swing.JFrame {
 
     private void btn_registrar_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrar_facturaActionPerformed
         // TODO add your handling code here:
-        String idFactura = txt_num_factura.getText().trim();
-        String fechaEmisionStr = txt_fecha_dia.getText().trim(); // formato yyyy-MM-dd
+
+        String idFactura = jbl_num_factu.getText().replace("No. Factura: ", "").trim();
+        String fechaEmisionStr = jbl_fecha.getText().replace("Fecha: ", "").trim();
         String nombreCliente = (String) combo_nom_cliente.getSelectedItem();
         String nombreEmpleado = (String) combo_nom_empleado.getSelectedItem();
 
-        // Validaciones básicas
         if (idFactura.isEmpty() || fechaEmisionStr.isEmpty() || nombreCliente == null || nombreEmpleado == null) {
             JOptionPane.showMessageDialog(null, "Por favor complete todos los campos obligatorios.");
             return;
         }
 
-        // Obtener subtotal, impuesto y total desde la jtable_total
         DefaultTableModel modeloTotales = (DefaultTableModel) jtable_total.getModel();
         if (modeloTotales.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "No hay datos de total para registrar.");
@@ -373,66 +408,63 @@ public class factura_Vista extends javax.swing.JFrame {
         }
 
         double subtotal = Double.parseDouble(modeloTotales.getValueAt(0, 0).toString());
-        double impuesto = 0.05; // fijo como porcentaje (5%)
+        double impuesto = 0.05;
         double total = Double.parseDouble(modeloTotales.getValueAt(0, 2).toString());
 
-        try {
-            Connection cn = con.Conectar();
+        try ( Connection cn = con.Conectar()) {
 
             // Obtener ID del cliente
-            String queryCliente = "SELECT id_cliente FROM cliente WHERE nombre = ?";
-            PreparedStatement psCliente = cn.prepareStatement(queryCliente);
-            psCliente.setString(1, nombreCliente);
-            ResultSet rsCliente = psCliente.executeQuery();
-
             int idCliente = -1;
-            if (rsCliente.next()) {
-                idCliente = rsCliente.getInt("id_cliente");
+            String queryCliente = "SELECT id_cliente FROM cliente WHERE nombre = ?";
+            try ( PreparedStatement ps = cn.prepareStatement(queryCliente)) {
+                ps.setString(1, nombreCliente);
+                try ( ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        idCliente = rs.getInt("id_cliente");
+                    }
+                }
             }
-            rsCliente.close();
-            psCliente.close();
 
             if (idCliente == -1) {
                 JOptionPane.showMessageDialog(null, "Cliente no encontrado.");
                 return;
             }
-            
-            // Obtener ID de empleado
-            String queryEmpleado = "SELECT id_empleado FROM empleado WHERE nombre = ?";
-            PreparedStatement psEmpleado = cn.prepareStatement(queryEmpleado);
-            psEmpleado.setString(1, nombreEmpleado);
-            ResultSet rsEmpleado = psEmpleado.executeQuery();
-            
+
+            // Obtener ID del empleado
             int idEmpleado = -1;
-            if (rsEmpleado.next()) {
-                idEmpleado = rsEmpleado.getInt("id_empleado");
+            String queryEmpleado = "SELECT id_empleado FROM empleado WHERE nombre = ?";
+            try ( PreparedStatement ps = cn.prepareStatement(queryEmpleado)) {
+                ps.setString(1, nombreEmpleado);
+                try ( ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        idEmpleado = rs.getInt("id_empleado");
+                    }
+                }
             }
-            rsEmpleado.close();
-            psEmpleado.close();
-            
+
             if (idEmpleado == -1) {
                 JOptionPane.showMessageDialog(null, "Empleado no encontrado.");
                 return;
             }
-            
-            // Insertar en tabla factura
-            String insertFactura = "INSERT INTO factura (id_factura, fecha_emision, id_cliente, id_empleado, subtotal, impuesto, total) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement psFactura = cn.prepareStatement(insertFactura);
-            psFactura.setString(1, idFactura);
-            psFactura.setDate(2, java.sql.Date.valueOf(fechaEmisionStr)); // formato yyyy-MM-dd
-            psFactura.setInt(3, idCliente);
-            psFactura.setInt(4, idEmpleado);
-            psFactura.setDouble(5, subtotal);
-            psFactura.setDouble(6, impuesto);
-            psFactura.setDouble(7, total);
-            psFactura.executeUpdate();
-            psFactura.close();
 
-            // Si está activo el checkbox de consulta, registrar en detalle_factura_consulta
+            // Insertar en factura
+            String insertFactura = "INSERT INTO factura (id_factura, fecha_emision, id_cliente, id_empleado, subtotal, impuesto, total) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            try ( PreparedStatement ps = cn.prepareStatement(insertFactura)) {
+                ps.setString(1, idFactura);
+                ps.setDate(2, java.sql.Date.valueOf(fechaEmisionStr));
+                ps.setInt(3, idCliente);
+                ps.setInt(4, idEmpleado);
+                ps.setDouble(5, subtotal);
+                ps.setDouble(6, impuesto);
+                ps.setDouble(7, total);
+                ps.executeUpdate();
+            }
+
+            // Detalle de consulta
             if (jCheckBox1.isSelected()) {
                 String mascota = (String) combo_mascota.getSelectedItem();
                 String diagnostico = txt_diagnostico.getText().trim();
-                String fechaConsultaStr = txt_fecha.getText().trim(); // formato yyyy-MM-dd
+                String fechaConsultaStr = txt_fecha.getText().trim();
                 double precioConsulta = Double.parseDouble(txt_precio.getText().trim());
 
                 if (mascota == null || mascota.isEmpty() || diagnostico.isEmpty() || fechaConsultaStr.isEmpty()) {
@@ -440,18 +472,18 @@ public class factura_Vista extends javax.swing.JFrame {
                     return;
                 }
 
-                String insertDetalle = "INSERT INTO detalle_factura_consulta (id_factura, nombre_mascota, precio_consulta, diagnostico, fecha_consulta) VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement psDetalle = cn.prepareStatement(insertDetalle);
-                psDetalle.setString(1, idFactura);
-                psDetalle.setString(2, mascota);
-                psDetalle.setDouble(3, precioConsulta);
-                psDetalle.setString(4, diagnostico);
-                psDetalle.setDate(5, java.sql.Date.valueOf(fechaConsultaStr)); // formato yyyy-MM-dd
-                psDetalle.executeUpdate();
-                psDetalle.close();
+                String insertConsulta = "INSERT INTO detalle_factura_consulta (id_factura, nombre_mascota, precio_consulta, diagnostico, fecha_consulta) VALUES (?, ?, ?, ?, ?)";
+                try ( PreparedStatement ps = cn.prepareStatement(insertConsulta)) {
+                    ps.setString(1, idFactura);
+                    ps.setString(2, mascota);
+                    ps.setDouble(3, precioConsulta);
+                    ps.setString(4, diagnostico);
+                    ps.setDate(5, java.sql.Date.valueOf(fechaConsultaStr));
+                    ps.executeUpdate();
+                }
             }
-            
-            // Si está activo el checkbox de productos, guardar en detalle_factura_medicamento
+
+            // Detalle de productos/medicamentos
             if (jCheckBox2.isSelected()) {
                 DefaultTableModel modeloProductos = (DefaultTableModel) jtable_producto.getModel();
 
@@ -466,19 +498,17 @@ public class factura_Vista extends javax.swing.JFrame {
                     double precioUnitario = Double.parseDouble(modeloProductos.getValueAt(i, 2).toString());
                     double subtotalProducto = Double.parseDouble(modeloProductos.getValueAt(i, 3).toString());
 
-                    // Buscar id_medicamento por nombre
-                    String queryMedicamento = "SELECT id_medicamento FROM medicamentos WHERE nombre = ?";
-                    PreparedStatement psMedicamento = cn.prepareStatement(queryMedicamento);
-                    psMedicamento.setString(1, nombreProducto);
-                    ResultSet rsMedicamento = psMedicamento.executeQuery();
-
+                    // Obtener id del medicamento
                     int idMedicamento = -1;
-                    if (rsMedicamento.next()) {
-                        idMedicamento = rsMedicamento.getInt("id_medicamento");
+                    String queryMedicamento = "SELECT id_medicamento FROM medicamentos WHERE nombre = ?";
+                    try ( PreparedStatement ps = cn.prepareStatement(queryMedicamento)) {
+                        ps.setString(1, nombreProducto);
+                        try ( ResultSet rs = ps.executeQuery()) {
+                            if (rs.next()) {
+                                idMedicamento = rs.getInt("id_medicamento");
+                            }
+                        }
                     }
-
-                    rsMedicamento.close();
-                    psMedicamento.close();
 
                     if (idMedicamento == -1) {
                         JOptionPane.showMessageDialog(null, "Producto no encontrado: " + nombreProducto);
@@ -487,19 +517,19 @@ public class factura_Vista extends javax.swing.JFrame {
 
                     // Insertar en detalle_factura_medicamento
                     String insertDetalleMedicamento = "INSERT INTO detalle_factura_medicamento (id_factura, id_medicamento, cantidad, precio_unitario, subtotal) VALUES (?, ?, ?, ?, ?)";
-                    PreparedStatement psDetalle = cn.prepareStatement(insertDetalleMedicamento);
-                    psDetalle.setString(1, idFactura);
-                    psDetalle.setInt(2, idMedicamento);
-                    psDetalle.setInt(3, cantidad);
-                    psDetalle.setDouble(4, precioUnitario);
-                    psDetalle.setDouble(5, subtotalProducto);
-                    psDetalle.executeUpdate();
-                    psDetalle.close();
+                    try ( PreparedStatement ps = cn.prepareStatement(insertDetalleMedicamento)) {
+                        ps.setString(1, idFactura);
+                        ps.setInt(2, idMedicamento);
+                        ps.setInt(3, cantidad);
+                        ps.setDouble(4, precioUnitario);
+                        ps.setDouble(5, subtotalProducto);
+                        ps.executeUpdate();
+                    }
                 }
             }
-            cn.close();
+
             JOptionPane.showMessageDialog(null, "Factura registrada correctamente.");
-            mostrarNumeroFactura();
+            mostrarNumeroFactura(); // Actualiza para la próxima factura
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -520,13 +550,13 @@ public class factura_Vista extends javax.swing.JFrame {
             habilitarPanel(jPanelM);
         } else {
             deshabilitarPanel(jPanelM);
-            combo_mascota.setSelectedIndex(0); // Limpia el combo
+            me.vaciarComboBox(combo_mascota, combo_consulta);
+            me.limpiarCampos(txt_diagnostico, txt_precio, txt_fecha);
             actualizarTablaTotales(); // Actualiza totales si aún hay productos
 
             // Solo limpiar tabla total si productos también están desactivados
             if (!jCheckBox2.isSelected()) {
-                DefaultTableModel modeloTotales = (DefaultTableModel) jtable_total.getModel();
-                modeloTotales.setRowCount(0);
+                actualizarTablaTotales();
             }
         }
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
@@ -536,27 +566,25 @@ public class factura_Vista extends javax.swing.JFrame {
         //Bloque para Habilitar Panel de Productos y sus Componetes
         if (jCheckBox2.isSelected()) {
             habilitarPanel(jPanelP);
+            cargarProductosEnCombo();
         } else {
             deshabilitarPanel(jPanelP);
-            combo_producto.setSelectedIndex(0);
-            cargarProductosEnCombo();
+            me.vaciarComboBox(combo_producto);
+            me.limpiarCampos(txt_cantidad);
 
             // Limpiar tabla de productos
-            DefaultTableModel modeloProductos = (DefaultTableModel) jtable_producto.getModel();
-            modeloProductos.setRowCount(0);
+            configurarTablaProductos();
 
-            // Limpiar subtotal productos
             txt_precio_producto.setText("");
-            
+
             actualizarTablaTotales();
 
             // Solo limpiar tabla total si consultas también están desactivadas
             if (!jCheckBox1.isSelected()) {
-                DefaultTableModel modeloTotales = (DefaultTableModel) jtable_total.getModel();
-                modeloTotales.setRowCount(0);
+                actualizarTablaTotales();
             }
         }
-        
+
     }//GEN-LAST:event_jCheckBox2ItemStateChanged
 
     private void combo_nom_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_nom_clienteActionPerformed
@@ -570,10 +598,6 @@ public class factura_Vista extends javax.swing.JFrame {
     private void txt_nom_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nom_empleadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_nom_empleadoActionPerformed
-
-    private void txt_num_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_num_facturaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_num_facturaActionPerformed
 
     private void txt_nom_clienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nom_clienteFocusGained
         // TODO add your handling code here:
@@ -619,10 +643,10 @@ public class factura_Vista extends javax.swing.JFrame {
 
     private void btn_agregar_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregar_productoActionPerformed
         // TODO add your handling code here:
+
         String producto = (String) combo_producto.getSelectedItem();
         String cantidadTexto = txt_cantidad.getText().trim();
 
-        // Validar entrada
         if (producto == null || producto.isEmpty() || producto.equals("No hay productos disponibles")) {
             JOptionPane.showMessageDialog(null, "Seleccione un producto válido.");
             return;
@@ -633,7 +657,7 @@ public class factura_Vista extends javax.swing.JFrame {
             return;
         }
 
-        int cantidad = 0;
+        int cantidad;
         try {
             cantidad = Integer.parseInt(cantidadTexto);
             if (cantidad <= 0) {
@@ -646,25 +670,21 @@ public class factura_Vista extends javax.swing.JFrame {
         }
 
         double precioUnitario = 0.0;
+        String query = "SELECT precio_unitario FROM medicamentos WHERE nombre = ?";
 
-        // Buscar precio del producto desde la BD
-        try {
-            Connection cn = con.Conectar();
-            String query = "SELECT precio_unitario FROM medicamentos WHERE nombre = ?";
-            PreparedStatement ps = cn.prepareStatement(query);
+        try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement(query)) {
+
             ps.setString(1, producto);
-            ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                precioUnitario = rs.getDouble("precio_unitario");
-            } else {
-                JOptionPane.showMessageDialog(null, "Producto no encontrado en la base de datos.");
-                return;
+            try ( ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    precioUnitario = rs.getDouble("precio_unitario");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Producto no encontrado en la base de datos.");
+                    return;
+                }
             }
 
-            rs.close();
-            ps.close();
-            cn.close();
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al obtener el precio del producto.");
@@ -673,31 +693,233 @@ public class factura_Vista extends javax.swing.JFrame {
 
         double subtotal = precioUnitario * cantidad;
 
-        // Agregar fila a la tabla
         DefaultTableModel modelo = (DefaultTableModel) jtable_producto.getModel();
-        Object[] fila = {
+        modelo.addRow(new Object[]{
             producto,
             cantidad,
             String.format("%.2f", precioUnitario),
             String.format("%.2f", subtotal)
-        };
-        modelo.addRow(fila);
+        });
 
-        // (Opcional) Limpiar campos
         combo_producto.setSelectedIndex(0);
         txt_cantidad.setText("");
 
-        // (Opcional) Actualizar subtotal general productos en txt_precio_producto
         actualizarSubtotalProductos();
     }//GEN-LAST:event_btn_agregar_productoActionPerformed
-
-    private void txt_fecha_diaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_fecha_diaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_fecha_diaActionPerformed
 
     private void combo_mascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_mascotaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_combo_mascotaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+
+        String texto = txt_nom_cliente.getText().trim();
+        if (texto.isEmpty()) {
+            return;
+        }
+
+        combo_nom_cliente.removeAllItems();
+
+        String query = "SELECT nombre FROM cliente WHERE nombre LIKE ?";
+
+        try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement(query)) {
+
+            ps.setString(1, texto + "%");
+
+            try ( ResultSet rs = ps.executeQuery()) {
+                boolean hayResultados = false;
+
+                while (rs.next()) {
+                    combo_nom_cliente.addItem(rs.getString("nombre"));
+                    hayResultados = true;
+                }
+
+                if (!hayResultados) {
+                    combo_nom_cliente.addItem("No encontrado");
+                }
+            }
+            me.vaciarComboBox(combo_consulta, combo_mascota);
+            me.limpiarCampos(txt_fecha, txt_precio, txt_diagnostico);
+            actualizarTablaTotales();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al buscar clientes.");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+
+        combo_mascota.removeAllItems(); // Limpia antes de cargar nuevas mascotas
+
+        String nombreCliente = (String) combo_nom_cliente.getSelectedItem();
+        if (nombreCliente == null || nombreCliente.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Seleccione un cliente válido.");
+            return;
+        }
+
+        try ( Connection cn = con.Conectar()) {
+
+            // Obtener el ID del cliente
+            String sqlCliente = "SELECT id_cliente FROM cliente WHERE nombre = ?";
+            try ( PreparedStatement psCliente = cn.prepareStatement(sqlCliente)) {
+                psCliente.setString(1, nombreCliente);
+                try ( ResultSet rsCliente = psCliente.executeQuery()) {
+                    if (!rsCliente.next()) {
+                        JOptionPane.showMessageDialog(null, "Cliente no encontrado.");
+                        return;
+                    }
+
+                    int idCliente = rsCliente.getInt("id_cliente");
+
+                    // Buscar mascotas asociadas al cliente
+                    String sqlMascotas = "SELECT nombre FROM mascota WHERE id_cliente = ?";
+                    try ( PreparedStatement psMascotas = cn.prepareStatement(sqlMascotas)) {
+                        psMascotas.setInt(1, idCliente);
+                        try ( ResultSet rsMascotas = psMascotas.executeQuery()) {
+
+                            boolean tieneMascotas = false;
+                            while (rsMascotas.next()) {
+                                if (!tieneMascotas) {
+                                    tieneMascotas = true;
+                                }
+                                combo_mascota.addItem(rsMascotas.getString("nombre"));
+                            }
+
+                            if (!tieneMascotas) {
+                                JOptionPane.showMessageDialog(null, "No hay mascotas registradas");
+                                me.vaciarComboBox(combo_consulta);
+                                me.limpiarCampos(txt_fecha, txt_precio, txt_diagnostico);
+                                actualizarTablaTotales();
+                            } else {
+                                combo_mascota.setSelectedIndex(0); // Seleccionar opción vacía
+                            }
+                        }
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al cargar mascotas del cliente.");
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:\
+        combo_consulta.removeAllItems();
+
+        String nombreMascota = (String) combo_mascota.getSelectedItem();
+        String queryMascota = "SELECT id_mascota FROM mascota WHERE nombre = ?";
+        String queryHistorial = "SELECT id_consulta FROM historial_consulta WHERE id_mascota = ?";
+
+        try ( Connection cn = con.Conectar();  PreparedStatement psMascota = cn.prepareStatement(queryMascota)) {
+
+            psMascota.setString(1, nombreMascota);
+
+            try ( ResultSet rsMascota = psMascota.executeQuery()) {
+                if (!rsMascota.next()) {
+                    JOptionPane.showMessageDialog(null, "Mascota no encontrada.");
+                    return;
+                }
+
+                int idMascota = rsMascota.getInt("id_mascota");
+
+                try ( PreparedStatement psHistorial = cn.prepareStatement(queryHistorial)) {
+                    psHistorial.setInt(1, idMascota);
+
+                    try ( ResultSet rsHistorial = psHistorial.executeQuery()) {
+                        List<String> consultas = new ArrayList<>();
+
+                        while (rsHistorial.next()) {
+                            consultas.add(rsHistorial.getString("id_consulta"));
+                        }
+
+                        if (consultas.isEmpty()) {
+                            combo_consulta.addItem("No hay consultas registradas");
+                        } else {
+                            for (String id : consultas) {
+                                combo_consulta.addItem(id);
+                            }
+                            combo_consulta.setSelectedIndex(0);
+                        }
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al cargar historial de consultas.");
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+
+        Object seleccion = combo_consulta.getSelectedItem();
+
+        // Validación: si no hay selección o es cadena vacía, limpiar y salir
+        if (seleccion == null || seleccion.toString().trim().isEmpty()) {
+            combo_consulta.removeAllItems();
+            me.limpiarCampos(txt_fecha, txt_diagnostico, txt_precio);
+            actualizarTablaTotales();
+            return;
+        }
+
+        String query = "SELECT fecha_historial_consulta, diagnostico, precio_consulta FROM historial_consulta WHERE id_consulta = ?";
+
+        try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement(query)) {
+
+            ps.setString(1, seleccion.toString());
+
+            try ( ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    txt_fecha.setText(rs.getString("fecha_historial_consulta"));
+                    txt_diagnostico.setText(rs.getString("diagnostico"));
+                    txt_precio.setText(rs.getString("precio_consulta"));
+                    actualizarTablaTotales();
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener detalles de la consulta.");
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        String texto = txt_nom_empleado.getText().trim();
+        if (texto.isEmpty()) {
+            return;
+        }
+        combo_nom_empleado.removeAllItems();
+        try {
+            Connection cn = con.Conectar();
+            String query = "SELECT e.nombre FROM cargo c "
+                    + "JOIN empleado e ON c.id_empleado = e.id_empleado "
+                    + "WHERE c.cargo = 'Recepcionista' AND e.nombre LIKE ?";
+            PreparedStatement ps = cn.prepareStatement(query);
+            ps.setString(1, texto + "%");
+            ResultSet rs = ps.executeQuery();
+
+            boolean hayResultados = false;
+            while (rs.next()) {
+                combo_nom_empleado.addItem(rs.getString("nombre"));
+                hayResultados = true;
+            }
+            if (!hayResultados) {
+                combo_nom_empleado.addItem("No encontrado");
+            }
+            rs.close();
+            ps.close();
+            cn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al buscar recepcionistas: ");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -713,16 +935,24 @@ public class factura_Vista extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(factura_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(factura_Vista.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(factura_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(factura_Vista.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(factura_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(factura_Vista.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(factura_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(factura_Vista.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -743,7 +973,12 @@ public class factura_Vista extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo_nom_empleado;
     private javax.swing.JComboBox<String> combo_producto;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JPanel jPanel1;
@@ -754,19 +989,19 @@ public class factura_Vista extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel jbl_fecha;
+    private javax.swing.JLabel jbl_num_factu;
     private javax.swing.JTable jtable_producto;
     private javax.swing.JTable jtable_total;
     private javax.swing.JTextField txt_cantidad;
     private javax.swing.JTextField txt_diagnostico;
     private javax.swing.JTextField txt_fecha;
-    private javax.swing.JTextField txt_fecha_dia;
     private javax.swing.JTextField txt_nom_cliente;
     private javax.swing.JTextField txt_nom_empleado;
-    private javax.swing.JTextField txt_num_factura;
     private javax.swing.JTextField txt_precio;
     private javax.swing.JTextField txt_precio_producto;
     // End of variables declaration//GEN-END:variables
-    
+
     //Metodo para deshabilitar un panel y suscomponentes
     public void deshabilitarPanel(JPanel panel) {
         //este for recorre el panel que le des en el parametro
@@ -775,7 +1010,7 @@ public class factura_Vista extends javax.swing.JFrame {
             c.setEnabled(false);
         }
     }
-    
+
     //Metodo para habilitar un panel y suscomponentes
     public void habilitarPanel(JPanel panel) {
         //este for recorre el panel que le des en el parametro
@@ -784,340 +1019,35 @@ public class factura_Vista extends javax.swing.JFrame {
             c.setEnabled(true);
         }
     }
-    
-    private void agregarFiltroDinamicoCliente(){
-        //buscar lo que pongo en txt
-        txt_nom_cliente.getDocument().addDocumentListener(new DocumentListener() {
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-            //Se dispara cuando se inserta texto
-            filtrarClientes(); }
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-            //Se dispara cuando se elimina texto
-            filtrarClientes(); }
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-            //Se dispara para cambios de atributos
-            filtrarClientes(); }
-        });
-    }
-    
-    //metodo para filtrar los cliente en el como box
-    private void filtrarClientes() {
-        //guarda la informacion en (texto) y elimina los espacios del principio y final con .trim()
-        String texto = txt_nom_cliente.getText().trim();
-        if (texto.isEmpty()) {//se asegura que (texto) no este vacio
-            return;
-        }
-        combo_nom_cliente.removeAllItems();//Elimina todo lo que había antes en la lista desplegable.
-        try {
-            // Conexion
-            Connection cn = con.Conectar();
-            //consulta
-            String query = "SELECT nombre FROM cliente WHERE nombre LIKE ?";
-            PreparedStatement ps = cn.prepareStatement(query);
-            ps.setString(1, texto + "%"); // Busca nombres que comiencen con el texto
-            ResultSet rs = ps.executeQuery();
-            //crea una variable y la define como (false)
-            boolean hayResultados = false;
-            //entra en el while si encontro algo, si no pasa del while
-            while (rs.next()) {
-                //añade los nombres encontrados en el combo box
-                combo_nom_cliente.addItem(rs.getString("nombre"));
-                //comvierte la variable a true
-                hayResultados = true;
-            }
-            //si antes entro en el while, la variable se comvierte a verdadera y la negaciondentro del if la comvierte a false y no se ejecuta
-            if (!hayResultados) {
-                combo_nom_cliente.addItem("No encontrado");
-            }
-            //cierra las conexiones
-            rs.close();
-            ps.close();
-            cn.close();
-        } catch (SQLException e) {
-            //muestra el erro en la consola
-            e.printStackTrace();
-            //muestra el erro en una ventana
-            JOptionPane.showMessageDialog(null, "Error al buscar clientes: ");
-        }
-    }
-    
-    private void agregarFiltroDinamicoRecepcionistas(){
-        txt_nom_empleado.getDocument().addDocumentListener(new DocumentListener() {
-        @Override
-        public void insertUpdate(DocumentEvent e) { 
-            filtrarRecepcionistas(); }
-        @Override
-        public void removeUpdate(DocumentEvent e) { 
-            filtrarRecepcionistas(); }
-        @Override
-        public void changedUpdate(DocumentEvent e) { 
-            filtrarRecepcionistas(); }
-        });
-    }
-    
-    private void filtrarRecepcionistas() {
-        String texto = txt_nom_empleado.getText().trim();
-        if (texto.isEmpty()) {
-            return;
-        }
-        combo_nom_empleado.removeAllItems();
-        try {
-            Connection cn = con.Conectar();
-            String query = "SELECT e.nombre FROM cargo c " +
-                     "JOIN empleado e ON c.id_empleado = e.id_empleado " +
-                     "WHERE c.cargo = 'Recepcionista' AND e.nombre LIKE ?";
-            PreparedStatement ps = cn.prepareStatement(query);
-            ps.setString(1, texto + "%");
-            ResultSet rs = ps.executeQuery();
-            
-            boolean hayResultados = false;
-            while (rs.next()) {
-                combo_nom_empleado.addItem(rs.getString("nombre"));
-                hayResultados = true;
-            }
-            if (!hayResultados) {
-                combo_nom_empleado.addItem("No encontrado");
-            }
-            rs.close();
-            ps.close();
-            cn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al buscar recepcionistas: ");
-        }
-    }
-    
+
     private void mostrarNumeroFactura() {
-        try {
-            Connection cn = con.Conectar();
-            PreparedStatement ps = cn.prepareStatement("SELECT MAX(id_factura) AS ultima_factura FROM factura");
-            ResultSet rs = ps.executeQuery();
-            
+        String numeroFactura = "No. Factura: ";
+        try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement("SELECT MAX(id_factura) AS ultima_factura FROM factura");  ResultSet rs = ps.executeQuery()) {
+            int siguienteFactura = 1; // valor por defecto si no hay facturas
             if (rs.next()) {
-                //muestra la ultima factura mas 1
-                int ultimaFactura = rs.getInt("ultima_factura");
-                int siguienteFactura = ultimaFactura + 1;
-                txt_num_factura.setText(String.valueOf(siguienteFactura));
-            } else {
-                txt_num_factura.setText("1"); // si no hay ninguna factura
+                siguienteFactura = rs.getInt("ultima_factura") + 1;
             }
-            rs.close();
-            ps.close();
-            cn.close();
+            jbl_num_factu.setText(numeroFactura + siguienteFactura);
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al obtener número de factura");
         }
     }
-    
+
     private void mostrarFecha() {
-        LocalDate fechaActual = LocalDate.now();
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        txt_fecha_dia.setText(fechaActual.format(formato));
+        String fechaTexto = "Fecha: ";
+        String fechaFormateada = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        jbl_fecha.setText(fechaTexto + fechaFormateada);
     }
-    
+
     //Metodo para mostrar en (txt_nom_cliente y txt_nom_empleado) (Buscar cliente... y Buscar Recepcionista...)por primera vez
-    private void placeholder(){
-        /* este codigo es por si uso un get para agarrar el texto del txt_nom_cliente
-        String texto = txt_nom_cliente.getText();
-        if (texto.equals("Buscar cliente...")) {
-            texto = ""; // no buscar nada
-        }*/
+    private void placeholder() {
         txt_nom_cliente.setForeground(Color.GRAY);
         txt_nom_cliente.setText("Buscar cliente...");
         txt_nom_empleado.setForeground(Color.GRAY);
         txt_nom_empleado.setText("Buscar Recepcionista...");
     }
 
-    private void agregarEventoSeleccionCliente() {
-        combo_nom_cliente.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String nombreCliente = (String) combo_nom_cliente.getSelectedItem();
-                if (nombreCliente != null && !nombreCliente.equals("No encontrado")) {
-                    cargarMascotasDeCliente(nombreCliente);
-                } else {
-                    combo_mascota.removeAllItems(); // limpia si no hay cliente válido
-                }
-            }
-        });
-    }
-
-    private void cargarMascotasDeCliente(String nombreCliente) {
-        combo_mascota.removeAllItems(); // Limpia antes de cargar nuevas mascotas
-
-        try {
-            Connection cn = con.Conectar();
-
-            // Primero obtenemos el ID del cliente por su nombre
-            String queryCliente = "SELECT id_cliente FROM cliente WHERE nombre = ?";
-            PreparedStatement psCliente = cn.prepareStatement(queryCliente);
-            psCliente.setString(1, nombreCliente);
-            ResultSet rsCliente = psCliente.executeQuery();
-
-            int idCliente = -1;
-            if (rsCliente.next()) {
-                idCliente = rsCliente.getInt("id_cliente");
-            }
-            rsCliente.close();
-            psCliente.close();
-
-            // Si no se encontró el cliente, salir
-            if (idCliente == -1) {
-                JOptionPane.showMessageDialog(null, "Cliente no encontrado.");
-                return;
-            }
-
-            // Ahora buscamos las mascotas asociadas al cliente
-            String queryMascotas = "SELECT nombre FROM mascota WHERE id_cliente = ?";
-            PreparedStatement psMascotas = cn.prepareStatement(queryMascotas);
-            psMascotas.setInt(1, idCliente);
-            ResultSet rsMascotas = psMascotas.executeQuery();
-            
-            boolean hayMascotas = false;
-            List<String> mascotas = new ArrayList<>();
-
-            while (rsMascotas.next()) {
-                mascotas.add(rsMascotas.getString("nombre"));
-                hayMascotas = true;
-            }
-
-            rsMascotas.close();
-            psMascotas.close();
-            cn.close();
-
-            if (hayMascotas) {
-                combo_mascota.addItem(""); // <-- Ítem vacío como primera opción
-                for (String m : mascotas) {
-                    combo_mascota.addItem(m);
-                }
-                combo_mascota.setSelectedIndex(0); // <-- Selecciona el ítem vacío
-            } else {
-                combo_mascota.addItem("No hay mascotas registradas");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al cargar mascotas del cliente.");
-        }
-    }
-    
-    private void agregarEventoSeleccionMascota() {
-        combo_mascota.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String nombreMascota = (String) combo_mascota.getSelectedItem();
-                if (nombreMascota != null && !nombreMascota.isEmpty() && !nombreMascota.equals("No hay mascotas registradas")) {
-                    cargarConsultasDeMascota(nombreMascota);
-                } else {
-                    combo_consulta.removeAllItems(); // limpia si no hay mascota válida
-                }
-            }
-        });
-    }
-    
-    private void cargarConsultasDeMascota(String nombreMascota) {
-        combo_consulta.removeAllItems(); // Limpia antes de cargar nuevas consultas
-
-        try {
-            Connection cn = con.Conectar();
-
-            // Obtener id_mascota por nombre
-            String queryMascota = "SELECT id_mascota FROM mascota WHERE nombre = ?";
-            PreparedStatement psMascota = cn.prepareStatement(queryMascota);
-            psMascota.setString(1, nombreMascota);
-            ResultSet rsMascota = psMascota.executeQuery();
-
-            int idMascota = -1;
-            if (rsMascota.next()) {
-                idMascota = rsMascota.getInt("id_mascota");
-            }
-            rsMascota.close();
-            psMascota.close();
-
-            if (idMascota == -1) {
-                JOptionPane.showMessageDialog(null, "Mascota no encontrada.");
-                return;
-            }
-
-            // Buscar historial de consulta por id_mascota
-            String queryHistorial = "SELECT id_consulta FROM historial_consulta WHERE id_mascota = ?";
-            PreparedStatement psHistorial = cn.prepareStatement(queryHistorial);
-            psHistorial.setInt(1, idMascota);
-            ResultSet rsHistorial = psHistorial.executeQuery();
-
-            List<String> consultas = new ArrayList<>();
-            boolean hayConsultas = false;
-
-            while (rsHistorial.next()) {
-                consultas.add(rsHistorial.getString("id_consulta"));
-                hayConsultas = true;
-            }
-
-            rsHistorial.close();
-            psHistorial.close();
-            cn.close();
-
-            if (hayConsultas) {
-                combo_consulta.addItem(""); // ítem vacío
-                for (String idConsulta : consultas) {
-                    combo_consulta.addItem(idConsulta);
-                }
-                combo_consulta.setSelectedIndex(0);
-            } else {
-                combo_consulta.addItem("No hay consultas registradas");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al cargar historial de consultas.");
-        }
-    }
-    
-    private void agregarEventoSeleccionConsulta() {
-        combo_consulta.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String idConsulta = (String) combo_consulta.getSelectedItem();
-                if (idConsulta != null && !idConsulta.isEmpty() && !idConsulta.equals("No hay consultas registradas")) {
-                    cargarDatosDeConsulta(idConsulta);
-                } else {
-                    txt_fecha.setText("");
-                    txt_diagnostico.setText("");
-                    txt_precio.setText("");
-                }
-            }
-        });
-    }
-
-    private void cargarDatosDeConsulta(String idConsulta) {
-        try {
-            Connection cn = con.Conectar();
-
-            String query = "SELECT fecha_historial_consulta, diagnostico, precio_consulta FROM historial_consulta WHERE id_consulta = ?";
-            PreparedStatement ps = cn.prepareStatement(query);
-            ps.setString(1, idConsulta);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                txt_fecha.setText(rs.getString("fecha_historial_consulta"));
-                txt_diagnostico.setText(rs.getString("diagnostico"));
-                txt_precio.setText(rs.getString("precio_consulta"));
-                actualizarTablaTotales();
-            }
-
-            rs.close();
-            ps.close();
-            cn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al obtener detalles de la consulta.");
-        }
-    }
-    
     private void configurarTablaTotales() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Subtotal");
@@ -1126,12 +1056,12 @@ public class factura_Vista extends javax.swing.JFrame {
         jtable_total.setModel(modelo);
     }
 
-    
     private void actualizarTablaTotales() {
         double precioConsulta = 0.0;
         double subtotalProductos = 0.0;
 
         try {
+            // Validar y convertir los textos a números, si no están vacíos
             if (!txt_precio.getText().trim().isEmpty()) {
                 precioConsulta = Double.parseDouble(txt_precio.getText().trim());
             }
@@ -1148,25 +1078,29 @@ public class factura_Vista extends javax.swing.JFrame {
         double total = subtotal + impuesto;
 
         DefaultTableModel modelo = (DefaultTableModel) jtable_total.getModel();
-        modelo.setRowCount(0);
+        modelo.setRowCount(0); // Limpiar la tabla
 
-        Object[] fila = new Object[3];
-        fila[0] = String.format("%.2f", subtotal);
-        fila[1] = "5%"; // Muestra el porcentaje
-        fila[2] = String.format("%.2f", total);
-        modelo.addRow(fila);
+        // Agregar fila con formato de 2 decimales
+        modelo.addRow(new Object[]{
+            String.format("%.2f", subtotal),
+            "5%", // Porcentaje fijo
+            String.format("%.2f", total)
+        });
+
+//        Object[] fila = new Object[3];
+//        fila[0] = String.format("%.2f", subtotal);
+//        fila[1] = "5%"; // Muestra el porcentaje
+//        fila[2] = String.format("%.2f", total);
+//        modelo.addRow(fila);
     }
-    
+
     private void cargarProductosEnCombo() {
+
         combo_producto.removeAllItems(); // Limpia antes de llenar
 
-        try {
-            Connection cn = con.Conectar(); // Tu método para conectar
-            String query = "SELECT nombre FROM medicamentos";
-            PreparedStatement ps = cn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            
-            combo_producto.addItem("");
+        String query = "SELECT nombre FROM medicamentos";
+
+        try ( Connection cn = con.Conectar();  PreparedStatement ps = cn.prepareStatement(query);  ResultSet rs = ps.executeQuery()) {
 
             boolean hayProductos = false;
             while (rs.next()) {
@@ -1178,9 +1112,6 @@ public class factura_Vista extends javax.swing.JFrame {
                 combo_producto.addItem("No hay productos disponibles");
             }
 
-            rs.close();
-            ps.close();
-            cn.close();
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al cargar productos.");
@@ -1195,7 +1126,7 @@ public class factura_Vista extends javax.swing.JFrame {
         modelo.addColumn("Subtotal");
         jtable_producto.setModel(modelo);
     }
-    
+
     private void actualizarSubtotalProductos() {
         DefaultTableModel modelo = (DefaultTableModel) jtable_producto.getModel();
         double total = 0.0;
@@ -1208,22 +1139,8 @@ public class factura_Vista extends javax.swing.JFrame {
         txt_precio_producto.setText(String.format("%.2f", total));
         actualizarTablaTotales(); // Si quieres actualizar la tabla de totales también
     }
-    
-    private int obtenerIdDesdeNombre(String tabla, String campoId, String nombre, Connection cn) throws SQLException {
-        String query = "SELECT " + campoId + " FROM " + tabla + " WHERE nombre = ?";
-        PreparedStatement ps = cn.prepareStatement(query);
-        ps.setString(1, nombre);
-        ResultSet rs = ps.executeQuery();
-        int id = -1;
-        if (rs.next()) {
-            id = rs.getInt(campoId);
-        }
-        rs.close();
-        ps.close();
-        return id;
-    }
-    
+
     public JPanel getPanelFactura() {
         return jPanel1;
-    }   
+    }
 }

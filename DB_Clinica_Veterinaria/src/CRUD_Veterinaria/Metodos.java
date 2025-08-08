@@ -1,12 +1,9 @@
 package CRUD_Veterinaria;
 
+import com.github.lgooddatepicker.components.DateTimePicker;
 import com.toedter.calendar.JDateChooser;
-import java.awt.Component;
 import javax.swing.JComboBox;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
 
 public class Metodos {
 
@@ -20,6 +17,13 @@ public class Metodos {
         for (JDateChooser fecha : fechas) {
             fecha.setDate(null);
         }
+    }
+    
+    public void limpiarDateTimePicker(DateTimePicker... fechas_hora) {
+        for (DateTimePicker dtp : fechas_hora) {
+            dtp.getDatePicker().setDate(null);
+            dtp.getTimePicker().setTime(null);
+        } 
     }
 
     //Seleciona al primero

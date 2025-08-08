@@ -149,8 +149,8 @@ public class Medicamentos_vista extends javax.swing.JFrame {
             }
         });
 
-        btn_buscar_medicamento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btn_buscar_medicamento.setText("Buscar");
+        btn_buscar_medicamento.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btn_buscar_medicamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscar_medicamentoActionPerformed(evt);

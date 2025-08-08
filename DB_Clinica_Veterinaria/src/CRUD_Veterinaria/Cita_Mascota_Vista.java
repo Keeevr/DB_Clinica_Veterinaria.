@@ -4,15 +4,21 @@
  */
 package CRUD_Veterinaria;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author HP
  */
 public class Cita_Mascota_Vista extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Cita_Mascota_Vista
-     */
+    Metodos me = new Metodos();
+    conexion con = new conexion();
+
     public Cita_Mascota_Vista() {
         initComponents();
     }
@@ -37,11 +43,10 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
         txt_nom_empleado = new javax.swing.JTextField();
         txt_ident_empleado = new javax.swing.JTextField();
         btnbuscar_empleado = new javax.swing.JButton();
-        txt_diagnostico = new javax.swing.JTextField();
-        txt_precio = new javax.swing.JTextField();
-        txt_id_consulta = new javax.swing.JTextField();
+        txt_proposito = new javax.swing.JTextField();
+        txt_idcita = new javax.swing.JTextField();
         combo_mascota = new javax.swing.JComboBox<>();
-        txt_fecha = new javax.swing.JTextField();
+        dtp_fecha_hora = new com.github.lgooddatepicker.components.DateTimePicker();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtable_datos = new javax.swing.JTable();
@@ -52,7 +57,7 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(207, 185, 151));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Historial de Consultas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registro e Historial de Citas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(1246, 597));
 
         jPanel2.setBackground(new java.awt.Color(237, 232, 208));
@@ -74,32 +79,32 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
             }
         });
 
-        btn_registrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_registrar.setText("Registrar");
+        btn_registrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_registrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registrarActionPerformed(evt);
             }
         });
 
-        btn_actualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_actualizar.setText("Actualizar");
+        btn_actualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_actualizarActionPerformed(evt);
             }
         });
 
-        btn_eliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_eliminar.setText("Eliminar");
+        btn_eliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_eliminarActionPerformed(evt);
             }
         });
 
-        btnbuscar_cliente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnbuscar_cliente.setText("Buscar");
+        btnbuscar_cliente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnbuscar_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnbuscar_clienteActionPerformed(evt);
@@ -126,30 +131,27 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
 
         txt_ident_empleado.setBorder(javax.swing.BorderFactory.createTitledBorder("Identidad del Empleado"));
 
-        btnbuscar_empleado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnbuscar_empleado.setText("Buscar");
+        btnbuscar_empleado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnbuscar_empleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnbuscar_empleadoActionPerformed(evt);
             }
         });
 
-        txt_diagnostico.setBorder(javax.swing.BorderFactory.createTitledBorder("Diagnostico"));
+        txt_proposito.setBorder(javax.swing.BorderFactory.createTitledBorder("Proposito\n\n"));
 
-        txt_precio.setBorder(javax.swing.BorderFactory.createTitledBorder("Precio"));
-
-        txt_id_consulta.setEditable(false);
-        txt_id_consulta.setBorder(javax.swing.BorderFactory.createTitledBorder("Id Consulta"));
-        txt_id_consulta.addActionListener(new java.awt.event.ActionListener() {
+        txt_idcita.setEditable(false);
+        txt_idcita.setBorder(javax.swing.BorderFactory.createTitledBorder("Id Cita"));
+        txt_idcita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_id_consultaActionPerformed(evt);
+                txt_idcitaActionPerformed(evt);
             }
         });
 
         combo_mascota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Mascota" }));
 
-        txt_fecha.setEditable(false);
-        txt_fecha.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
+        dtp_fecha_hora.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha y Hora de Cita"));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -158,6 +160,7 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dtp_fecha_hora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btn_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53)
@@ -165,25 +168,21 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(txt_nombre_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(combo_mascota, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txt_diagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(txt_proposito)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(txt_nom_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_id_consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txt_idcita, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(txt_ident_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnbuscar_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(txt_ident_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnbuscar_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -206,16 +205,14 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
                     .addComponent(txt_ident_empleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnbuscar_empleado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txt_nom_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_id_consulta))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_idcita, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_nom_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_diagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dtp_fecha_hora, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(txt_proposito, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -254,8 +251,8 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
             }
         });
 
-        btn_buscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_buscar.setText("Buscar");
+        btn_buscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarActionPerformed(evt);
@@ -313,7 +310,7 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -349,19 +346,119 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_nombre_clienteActionPerformed
 
     private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
+        // Validación de campos vacíos
+        if (txt_nombre_cliente.getText().trim().isEmpty()
+                || txt_nom_empleado.getText().trim().isEmpty()
+                || txt_proposito.getText().trim().isEmpty()
+                || combo_mascota.getSelectedItem() == null
+                || combo_mascota.getSelectedItem().toString().equals("Seleccionar Mascota")
+                || dtp_fecha_hora.getDatePicker().getDate() == null
+                || dtp_fecha_hora.getTimePicker().getTime() == null) {
 
+            JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos requeridos.");
+            return;
+        }
+
+        try ( Connection cn = con.Conectar()) {
+            // Obtener id_mascota por nombre
+            int id_mascota = -1;
+            try ( PreparedStatement ps = cn.prepareStatement("SELECT id_mascota FROM mascota WHERE nombre = ?")) {
+                ps.setString(1, combo_mascota.getSelectedItem().toString());
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    id_mascota = rs.getInt("id_mascota");
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró la mascota seleccionada.");
+                    return;
+                }
+            }
+
+            // Obtener id_empleado por identidad
+            int id_empleado = -1;
+            try ( PreparedStatement ps = cn.prepareStatement("SELECT id_empleado FROM empleado WHERE identidad = ?")) {
+                ps.setString(1, txt_ident_empleado.getText().trim());
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    id_empleado = rs.getInt("id_empleado");
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró el empleado.");
+                    return;
+                }
+            }
+
+            // Insertar cita en cita_mascotas
+            String query = "INSERT INTO cita_mascotas (fecha, hora, proposito, id_mascota, id_empleado) VALUES (?, ?, ?, ?, ?)";
+            try ( PreparedStatement ps = cn.prepareStatement(query)) {
+                ps.setDate(1, java.sql.Date.valueOf(dtp_fecha_hora.getDatePicker().getDate()));
+                ps.setTime(2, java.sql.Time.valueOf(dtp_fecha_hora.getTimePicker().getTime()));
+                ps.setString(3, txt_proposito.getText().trim());
+                ps.setInt(4, id_mascota);
+                ps.setInt(5, id_empleado);
+                ps.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "Cita registrada correctamente.");
+                me.limpiarCampos(txt_ident_cliente, txt_nombre_cliente, txt_ident_empleado, txt_nom_empleado, txt_proposito, txt_idcita);
+                me.limpiarComboBox(combo_mascota);
+                me.limpiarDateTimePicker(dtp_fecha_hora);
+                // TODO: Llamar a un método mostrardatos() si lo implementas para actualizar la tabla
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al registrar cita: " + e.getMessage());
+        }
     }//GEN-LAST:event_btn_registrarActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
-        
+
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-        
+
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btnbuscar_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscar_clienteActionPerformed
-        
+        // TODO add your handling code here:}
+
+        btn_registrar.setEnabled(true);
+
+        String identidad = txt_ident_cliente.getText();
+        try {
+            Connection cn = con.Conectar();
+
+            PreparedStatement ps1 = cn.prepareStatement("SELECT id_cliente, nombre FROM cliente WHERE identidad = ?");
+            ps1.setString(1, identidad);
+            ResultSet rs = ps1.executeQuery();
+            if (rs.next()) {
+                int id_cliente = rs.getInt("id_cliente");
+                txt_nombre_cliente.setText(rs.getString("nombre"));
+
+                // Limpiar campos y ComboBox
+                me.limpiarCampos(txt_proposito, txt_idcita);
+                me.limpiarComboBox(combo_mascota);
+
+                // Mascotas del cliente
+                PreparedStatement ps2 = cn.prepareStatement("SELECT nombre FROM mascota WHERE id_cliente = ?");
+                ps2.setInt(1, id_cliente);
+                ResultSet rsMascota = ps2.executeQuery();
+
+                // Limpiar y llenar combo
+                combo_mascota.removeAllItems();
+                combo_mascota.addItem("Seleccionar Mascota");
+                while (rsMascota.next()) {
+                    combo_mascota.addItem(rsMascota.getString("nombre"));
+                }
+                rsMascota.close();
+                ps2.close();
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Cliente no enconrado, tienes que registrarlo");
+            }
+            rs.close();
+            ps1.close();
+            cn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Ocurrió un problema al buscar el cliente:\n" + e.getMessage());
+        }
     }//GEN-LAST:event_btnbuscar_clienteActionPerformed
 
     private void txt_nom_empleadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nom_empleadoFocusGained
@@ -377,15 +474,39 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_nom_empleadoActionPerformed
 
     private void btnbuscar_empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscar_empleadoActionPerformed
-        
+        // TODO add your handling code here:
+
+        btn_registrar.setEnabled(true);
+
+        String identidad = txt_ident_empleado.getText();
+        try {
+            Connection cn = con.Conectar();
+
+            PreparedStatement ps = cn.prepareStatement("SELECT nombre FROM empleado WHERE identidad = ?");
+            ps.setString(1, identidad);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                txt_nom_empleado.setText(rs.getString("nombre"));
+                me.limpiarCampos(txt_proposito, txt_idcita);
+                me.limpiarDateTimePicker(dtp_fecha_hora);
+            } else {
+                JOptionPane.showMessageDialog(null, "Empleado no encontrato, tienes que registrarlo");
+            }
+            rs.close();
+            ps.close();
+            cn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Ocurrió un problema al buscar el empleado:\n" + e.getMessage());
+        }
     }//GEN-LAST:event_btnbuscar_empleadoActionPerformed
 
-    private void txt_id_consultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_id_consultaActionPerformed
+    private void txt_idcitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idcitaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_id_consultaActionPerformed
+    }//GEN-LAST:event_txt_idcitaActionPerformed
 
     private void jtable_datosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtable_datosMouseClicked
-        
+
     }//GEN-LAST:event_jtable_datosMouseClicked
 
     private void txt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_buscarActionPerformed
@@ -393,7 +514,7 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_buscarActionPerformed
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        
+
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     /**
@@ -442,6 +563,7 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
     private javax.swing.JButton btnbuscar_cliente;
     private javax.swing.JButton btnbuscar_empleado;
     private javax.swing.JComboBox<String> combo_mascota;
+    private com.github.lgooddatepicker.components.DateTimePicker dtp_fecha_hora;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -449,13 +571,11 @@ public class Cita_Mascota_Vista extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jtable_datos;
     private javax.swing.JTextField txt_buscar;
-    private javax.swing.JTextField txt_diagnostico;
-    private javax.swing.JTextField txt_fecha;
-    private javax.swing.JTextField txt_id_consulta;
+    private javax.swing.JTextField txt_idcita;
     private javax.swing.JTextField txt_ident_cliente;
     private javax.swing.JTextField txt_ident_empleado;
     private javax.swing.JTextField txt_nom_empleado;
     private javax.swing.JTextField txt_nombre_cliente;
-    private javax.swing.JTextField txt_precio;
+    private javax.swing.JTextField txt_proposito;
     // End of variables declaration//GEN-END:variables
 }
